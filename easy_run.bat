@@ -9,6 +9,18 @@ echo ========================================
 echo.
 echo Server akan berjalan di: http://localhost:8000
 echo.
+
+REM Kill any existing PHP server on port 8000
+echo [CLEANUP] Membersihkan proses lama...
+for /f "tokens=5" %%a in ('netstat -aon ^| find ":8000" ^| find "LISTENING"') do (
+    taskkill /F /PID %%a >nul 2>&1
+)
+
+REM Setup database using PHP script
+echo [SETUP] Menyiapkan database...
+php setup_database.php
+
+echo.
 echo INSTRUKSI:
 echo - Tekan ENTER untuk menjalankan server
 echo - Browser akan terbuka otomatis

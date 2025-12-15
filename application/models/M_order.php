@@ -106,6 +106,23 @@ class M_order extends CI_Model {
 		return $this->db->update('tindakan', array('tdkn_subtot' => $subtot));
 	}
 
+	function insert_order_part_marking($data)
+	{
+		return $this->db->insert('order_part_marking', $data);
+	}
+
+	function update_order_part_marking($trans_kode, $data)
+	{
+		$this->db->where('trans_kode', $trans_kode);
+		return $this->db->update('order_part_marking', $data);
+	}
+
+	function get_order_part_marking($trans_kode)
+	{
+		$this->db->where('trans_kode', $trans_kode);
+		return $this->db->get('order_part_marking')->row();
+	}
+
 }
 
 /* End of file M_order.php */

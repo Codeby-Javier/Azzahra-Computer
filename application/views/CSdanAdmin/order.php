@@ -5,6 +5,10 @@
   $isPending = isset($filter) && $filter === 'pending';
   $isWaiting = isset($filter) && ($filter === 'waiting' || $filter === 'waitingApproval');
   $isConfirm = isset($filter) && $filter === 'confirm';
+  $isRepairing = isset($filter) && $filter === 'repairing';
+  $isCompleted = isset($filter) && $filter === 'completed';
+  $isFailed = isset($filter) && $filter === 'failed';
+  $isOrderPart = isset($filter) && $filter === 'orderpart';
 
   // Get flashdata and immediately clear it to prevent re-showing on refresh
   $suksesMsg = $this->session->flashdata('sukses');
@@ -15,7 +19,7 @@
 <script>
 window.todayOrderCount = <?php echo count($today_orders); ?>;
 window.currentUser = '<?php echo addslashes($this->session->userdata('nama')); ?>'; 
-</script>
+</script>  
 
   <!-- Header -->
         <header class="page-header">
@@ -103,16 +107,69 @@ window.currentUser = '<?php echo addslashes($this->session->userdata('nama')); ?
           </a>
 
           <a href="<?= site_url('Order/index/confirm') ?>"
-             class="filter-link flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-200 <?php echo ($isConfirm) ? 'bg-green-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'; ?>">
+             class="filter-link flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-200 <?php echo ($isConfirm) ? 'bg-purple-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'; ?>">
             <div class="flex items-center">
               <i data-feather="check-circle" class="w-5 h-5 mr-3"></i>
               <span class="font-medium">Confirm</span>
             </div>
             <?php if ($isConfirm): ?>
+              <span class="bg-white text-purple-500 text-xs font-bold px-2 py-1 rounded-full">
+                <?= $orders->num_rows() ?>
+              </span>
+            <?php endif; ?>
+          </a>
+
+          <!-- Service Section Separator -->
+          <div class="mt-4 mb-2 px-4">
+            <h4 class="text-sm font-semibold text-gray-600 uppercase tracking-wide">Service</h4>
+            <hr class="border-gray-300 mt-2">
+          </div>
+
+          <a href="<?= site_url('Order/index/repairing') ?>"
+             class="filter-link flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-200 <?php echo ($isRepairing) ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'; ?>">
+            <div class="flex items-center">
+              <i data-feather="settings" class="w-5 h-5 mr-3"></i>
+              <span class="font-medium">Repairing</span>
+            </div>
+            <?php if ($isRepairing): ?>
+              <span class="bg-white text-orange-500 text-xs font-bold px-2 py-1 rounded-full">
+                <?= isset($total_repairing) ? $total_repairing : $orders->num_rows() ?>
+              </span>
+            <?php endif; ?>
+          </a>
+
+          <a href="<?= site_url('Order/index/completed') ?>"
+             class="filter-link flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-200 <?php echo ($isCompleted) ? 'bg-green-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'; ?>">
+            <div class="flex items-center">
+              <i data-feather="check-square" class="w-5 h-5 mr-3"></i>
+              <span class="font-medium">Completed</span>
+            </div>
+            <?php if ($isCompleted): ?>
               <span class="bg-white text-green-500 text-xs font-bold px-2 py-1 rounded-full">
                 <?= $orders->num_rows() ?>
               </span>
             <?php endif; ?>
+          </a>
+
+          <a href="<?= site_url('Order/index/failed') ?>"
+             class="filter-link flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-200 <?php echo (isset($filter) && $filter === 'failed') ? 'bg-red-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'; ?>">
+            <div class="flex items-center">
+              <i data-feather="x-circle" class="w-5 h-5 mr-3"></i>
+              <span class="font-medium">Failed</span>
+            </div>
+            <?php if (isset($filter) && $filter === 'failed'): ?>
+              <span class="bg-white text-red-500 text-xs font-bold px-2 py-1 rounded-full">
+                <?= $orders->num_rows() ?>
+              </span>
+            <?php endif; ?>
+          </a>
+
+          <a href="<?= site_url('Order/index/orderpart') ?>"
+             class="filter-link flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-200 <?php echo (isset($filter) && $filter === 'orderpart') ? 'bg-indigo-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'; ?>">
+            <div class="flex items-center">
+              <i data-feather="package" class="w-5 h-5 mr-3"></i>
+              <span class="font-medium">Order Part</span>
+            </div>
           </a>
         </div>
       </div>
@@ -129,9 +186,21 @@ window.currentUser = '<?php echo addslashes($this->session->userdata('nama')); ?
               <?php
                 if ($isPending) echo 'bg-yellow-100 text-yellow-800';
                 elseif ($isWaiting) echo 'bg-blue-100 text-blue-800';
-                else echo 'bg-green-100 text-green-800';
+                elseif ($isConfirm) echo 'bg-purple-100 text-purple-800';
+                elseif ($isRepairing) echo 'bg-orange-100 text-orange-800';
+                elseif ($isCompleted) echo 'bg-green-100 text-green-800';
+                elseif ($isFailed) echo 'bg-red-100 text-red-800';
+                else echo 'bg-gray-100 text-gray-800';
               ?>">
-              <?= $orders->num_rows() ?> Orders
+              <?php
+                if ($isRepairing && isset($total_repairing)) {
+                  echo $total_repairing;
+                } elseif ($isOrderPart) {
+                  echo isset($orders) && is_object($orders) ? $orders->num_rows() : 0;
+                } else {
+                  echo $orders->num_rows();
+                }
+              ?> Orders
             </span>
           </div>
         </div>
@@ -295,6 +364,483 @@ window.currentUser = '<?php echo addslashes($this->session->userdata('nama')); ?
               <i data-feather="inbox" class="w-16 h-16 mx-auto text-gray-300 mb-4"></i>
               <p class="text-gray-500">Tidak ada order pending</p>
             </div>
+          <?php endif; ?>
+
+        <!-- Repairing Orders -->
+        <?php elseif ($isRepairing): ?>
+          <!-- Search Form -->
+          <div class="mb-6">
+            <form method="get" action="<?= site_url('Order/index/repairing') ?>" class="flex gap-2" onsubmit="showLoading()">
+              <input type="text" name="search" value="<?= htmlspecialchars($search ?? '') ?>" placeholder="Cari cos_kode, nama customer, device, merek..." class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+              <button type="submit" class="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors flex items-center">
+                <i data-feather="search" class="w-4 h-4 mr-2"></i>Cari
+              </button>
+            </form>
+          </div>
+
+          <?php if ($orders->num_rows() > 0): ?>
+            <div class="grid grid-cols-1 gap-4">
+              <?php foreach ($orders->result_array() as $row) : ?>
+                <?php
+                  $safeTrans = preg_replace('/[^A-Za-z0-9_-]/', '-', $row['trans_kode']);
+                  $repairingModalId = "repairingModal-{$safeTrans}";
+                  $isLegacy = isset($row['source_table']) && $row['source_table'] == 'transaksi';
+                ?>
+                <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow duration-200 bg-white">
+                  <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                    <div class="flex-1">
+                      <div class="flex items-center mb-3">
+                        <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-bold mr-3">
+                          REPAIRING
+                        </span>
+                        <span class="font-mono text-sm font-bold text-gray-700">
+                          <?= $row['cos_kode']?>
+                        </span>
+                      </div>
+
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <p class="text-xs text-gray-500 mb-1">Customer</p>
+                          <p class="font-semibold text-gray-800 flex items-center">
+                            <i data-feather="user" class="w-4 h-4 mr-2 text-gray-400"></i>
+                            <?= $row['cos_nama']?>
+                          </p>
+                        </div>
+                        <div>
+                          <p class="text-xs text-gray-500 mb-1">Status Pembayaran</p>
+                          <p class="text-sm text-gray-700 flex items-center">
+                            <i data-feather="credit-card" class="w-4 h-4 mr-2 text-gray-400"></i>
+                            <?php
+                              $paymentStatus = isset($row['payment_status']) && $row['payment_status'] == 'Lunas' ? 'LUNAS' : 'DP';
+                              $statusColor = $paymentStatus == 'LUNAS' ? 'text-green-600' : 'text-blue-600';
+                            ?>
+                            <span class="font-semibold <?= $statusColor ?>"><?= $paymentStatus ?></span>
+                          </p>
+                        </div>
+                        <div>
+                          <p class="text-xs text-gray-500 mb-1">Device</p>
+                          <p class="text-sm text-gray-700 flex items-center">
+                            <i data-feather="smartphone" class="w-4 h-4 mr-2 text-gray-400"></i>
+                            <?= $row['device'] ?? 'N/A' ?>
+                          </p>
+                        </div>
+                        <div>
+                          <p class="text-xs text-gray-500 mb-1">Merek</p>
+                          <p class="text-sm text-gray-700 flex items-center">
+                            <i data-feather="tag" class="w-4 h-4 mr-2 text-gray-400"></i>
+                            <?= $row['merek'] ?? 'N/A' ?>
+                          </p>
+                        </div>
+                        <div>
+                          <p class="text-xs text-gray-500 mb-1">Keluhan</p>
+                          <p class="text-sm text-gray-700 flex items-center">
+                            <i data-feather="message-square" class="w-4 h-4 mr-2 text-gray-400"></i>
+                            <?= $row['ket_keluhan'] ?? 'N/A' ?>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 mt-4 lg:mt-0 lg:ml-6">
+                      <button onclick="openModal('<?= $repairingModalId ?>')"
+                        class="flex items-center px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors duration-200 font-medium text-sm">
+                        <i data-feather="check-circle" class="w-4 h-4 mr-2"></i>
+                        Service 
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              <?php endforeach; ?>
+            </div>
+
+            <!-- Pagination -->
+            <?php if (isset($pagination)): ?>
+              <div class="mt-6 flex justify-center">
+                <?= $pagination ?>
+              </div>
+            <?php endif; ?>
+          <?php else: ?>
+            <div class="text-center py-12">
+              <i data-feather="settings" class="w-16 h-16 mx-auto text-gray-300 mb-4"></i>
+              <p class="text-gray-500">Tidak ada order yang sedang diperbaiki</p>
+            </div>
+          <?php endif; ?>
+
+        <!-- Completed Orders -->
+        <?php elseif ($isCompleted): ?>
+          <!-- Search Form -->
+          <div class="mb-6">
+            <form method="get" action="<?= site_url('Order/index/completed') ?>" class="flex gap-2" onsubmit="showLoading()">
+              <input type="text" name="search" value="<?= htmlspecialchars($search ?? '') ?>" placeholder="Cari trans_kode, cos_kode, nama customer, device, merek..." class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+              <button type="submit" class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors flex items-center">
+                <i data-feather="search" class="w-4 h-4 mr-2"></i>Cari
+              </button>
+            </form>
+          </div>
+
+          <?php if ($orders->num_rows() > 0): ?>
+            <div class="grid grid-cols-1 gap-4">
+              <?php foreach ($orders->result_array() as $row) : ?>
+                <?php
+                  $safeTrans = preg_replace('/[^A-Za-z0-9_-]/', '-', $row['trans_kode']);
+                  $completedModalId = "completedModal-{$safeTrans}";
+                ?>
+                <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow duration-200 bg-white">
+                  <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                    <div class="flex-1">
+                      <div class="flex items-center mb-3">
+                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-bold mr-3">
+                          COMPLETED
+                        </span>
+                        <span class="font-mono text-sm font-bold text-gray-700">
+                          <?= $row['cos_kode']?>
+                        </span>
+                      </div>
+
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <p class="text-xs text-gray-500 mb-1">Customer</p>
+                          <p class="font-semibold text-gray-800 flex items-center">
+                            <i data-feather="user" class="w-4 h-4 mr-2 text-gray-400"></i>
+                            <?= $row['cos_nama']?>
+                          </p>
+                        </div>
+                        <div>
+                          <p class="text-xs text-gray-500 mb-1">No. HP</p>
+                          <p class="text-sm text-gray-700 flex items-center">
+                            <i data-feather="phone" class="w-4 h-4 mr-2 text-gray-400"></i>
+                            <?php
+                              $hp = $row['cos_hp'];
+                              $masked_hp = substr($hp, 0, -4) . 'XXXX';
+                              echo $masked_hp;
+                            ?>
+                          </p>
+                        </div>
+                        <div>
+                          <p class="text-xs text-gray-500 mb-1">Alamat</p>
+                          <p class="text-sm text-gray-700 flex items-start">
+                            <i data-feather="map-pin" class="w-4 h-4 mr-2 mt-1 text-gray-400 flex-shrink-0"></i>
+                            <span class="line-clamp-2"><?= $row['alamat'] ?? 'N/A'; ?></span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 mt-4 lg:mt-0 lg:ml-6">
+                      <button onclick="sendFollowUp('<?= $row['cos_hp'] ?>', '<?= $row['cos_nama'] ?>', '<?= $row['cos_kode'] ?>', '<?= $row['merek'] ?>', '<?= $row['device'] ?>')"
+                        class="flex items-center px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors duration-200 font-medium text-sm">
+                        <i data-feather="send" class="w-4 h-4 mr-2"></i>
+                        Kirim Follow Up
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              <?php endforeach; ?>
+            </div>
+
+            <!-- Pagination -->
+            <?php if (isset($pagination)): ?>
+              <div class="mt-6 flex justify-center">
+                <?= $pagination ?>
+              </div>
+            <?php endif; ?>
+          <?php else: ?>
+            <div class="text-center py-12">
+              <i data-feather="check-square" class="w-16 h-16 mx-auto text-gray-300 mb-4"></i>
+              <p class="text-gray-500">Tidak ada order yang sudah selesai</p>
+            </div>
+          <?php endif; ?>
+
+        <!-- Failed Orders -->
+        <?php elseif ($isFailed): ?>
+          <!-- Search Form -->
+          <div class="mb-6">
+            <form method="get" action="<?= site_url('Order/index/failed') ?>" class="flex gap-2" onsubmit="showLoading()">
+              <input type="text" name="search" value="<?= htmlspecialchars($search ?? '') ?>" placeholder="Cari trans_kode, cos_kode, nama customer, device, merek..." class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
+              <button type="submit" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors flex items-center">
+                <i data-feather="search" class="w-4 h-4 mr-2"></i>Cari
+              </button>
+            </form>
+          </div>
+
+          <?php if ($orders->num_rows() > 0): ?>
+            <div class="grid grid-cols-1 gap-4">
+              <?php foreach ($orders->result_array() as $row) : ?>
+                <?php
+                  $safeTrans = preg_replace('/[^A-Za-z0-9_-]/', '-', $row['trans_kode']);
+                  $failedModalId = "failedModal-{$safeTrans}";
+                ?>
+                <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow duration-200 bg-white">
+                  <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                    <div class="flex-1">
+                      <div class="flex items-center mb-3">
+                        <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-bold mr-3">
+                          FAILED
+                        </span>
+                        <span class="font-mono text-sm font-bold text-gray-700">
+                          <?= $row['cos_kode']?>
+                        </span>
+                      </div>
+
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <p class="text-xs text-gray-500 mb-1">Customer</p>
+                          <p class="font-semibold text-gray-800 flex items-center">
+                            <i data-feather="user" class="w-4 h-4 mr-2 text-gray-400"></i>
+                            <?= $row['cos_nama']?>
+                          </p>
+                        </div>
+                        <div>
+                          <p class="text-xs text-gray-500 mb-1">No. HP</p>
+                          <p class="text-sm text-gray-700 flex items-center">
+                            <i data-feather="phone" class="w-4 h-4 mr-2 text-gray-400"></i>
+                            <?php
+                              $hp = $row['cos_hp'];
+                              $masked_hp = substr($hp, 0, -4) . 'XXXX';
+                              echo $masked_hp;
+                            ?>
+                          </p>
+                        </div>
+                        <div>
+                          <p class="text-xs text-gray-500 mb-1">Alamat</p>
+                          <p class="text-sm text-gray-700 flex items-start">
+                            <i data-feather="map-pin" class="w-4 h-4 mr-2 mt-1 text-gray-400 flex-shrink-0"></i>
+                            <span class="line-clamp-2"><?= $row['alamat'] ?? 'N/A'; ?></span>
+                          </p>
+                        </div>
+                        <div>
+                          <p class="text-xs text-gray-500 mb-1">Keluhan</p>
+                          <p class="text-sm text-gray-700 flex items-start">
+                            <i data-feather="message-square" class="w-4 h-4 mr-2 mt-1 text-gray-400 flex-shrink-0"></i>
+                            <span class="line-clamp-2"><?= $row['ket_keluhan'] ?? 'N/A'; ?></span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 mt-4 lg:mt-0 lg:ml-6">
+                      <button onclick="sendFollowUpFailed('<?= $row['cos_hp'] ?>', '<?= $row['cos_nama'] ?>', '<?= $row['cos_kode'] ?>', '<?= $row['merek'] ?>', '<?= $row['device'] ?>')"
+                        class="flex items-center px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors duration-200 font-medium text-sm">
+                        <i data-feather="send" class="w-4 h-4 mr-2"></i>
+                        Kirim Follow Up
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              <?php endforeach; ?>
+            </div>
+
+            <!-- Pagination -->
+            <?php if (isset($pagination)): ?>
+              <div class="mt-6 flex justify-center">
+                <?= $pagination ?>
+              </div>
+            <?php endif; ?>
+          <?php else: ?>
+            <div class="text-center py-12">
+              <i data-feather="x-circle" class="w-16 h-16 mx-auto text-gray-300 mb-4"></i>
+              <p class="text-gray-500">Tidak ada order yang gagal</p>
+            </div>
+          <?php endif; ?>
+
+        <!-- Order Part Status -->
+        <?php elseif ($isOrderPart): ?>
+          <!-- Search Form -->
+          <div class="mb-6">
+            <form method="get" action="<?= site_url('Order/index/orderpart') ?>" class="flex gap-2">
+              <input type="text" name="search" value="<?= htmlspecialchars($search ?? '') ?>" placeholder="Cari by cos_kode, trans_kode, atau nama customer..." class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+              <button type="submit" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg transition-colors flex items-center">
+                <i data-feather="search" class="w-4 h-4 mr-2"></i>Cari
+              </button>
+            </form>
+          </div>
+
+          <?php if ($orders && is_object($orders) && $orders->num_rows() > 0): ?>
+            <div class="grid grid-cols-1 gap-4">
+              <?php foreach ($orders->result_array() as $row) : ?>
+                <?php
+                  $safeTrans = preg_replace('/[^A-Za-z0-9_-]/', '-', $row['trans_kode']);
+                  $modalId = "partModal-{$safeTrans}";
+                ?>
+                <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow duration-200 bg-white cursor-pointer" onclick="openModal('<?= $modalId ?>')">
+                  <div class="flex items-center mb-3">
+                    <span class="px-3 py-1 rounded-full text-xs font-bold mr-3
+                      <?php echo ($row['is_ordered'] == 'yes') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'; ?>">
+                      <?php echo ($row['is_ordered'] == 'yes') ? 'PART ORDERED' : 'NOT ORDERED'; ?>
+                    </span>
+                    <span class="font-mono text-sm font-bold text-gray-700">
+                      <?= $row['trans_kode']?>
+                    </span>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <p class="text-xs text-gray-500 mb-1">Customer</p>
+                      <p class="font-semibold text-gray-800 flex items-center">
+                        <i data-feather="user" class="w-4 h-4 mr-2 text-gray-400"></i>
+                        <?= $row['cos_nama'] ?? 'N/A'; ?>
+                      </p>
+                    </div>
+                    <div>
+                      <p class="text-xs text-gray-500 mb-1">Cos Kode</p>
+                      <p class="text-sm text-gray-700 flex items-center">
+                        <i data-feather="hash" class="w-4 h-4 mr-2 text-gray-400"></i>
+                        <?= $row['cos_kode'] ?? 'N/A'; ?>
+                      </p>
+                    </div>
+                    <div>
+                      <p class="text-xs text-gray-500 mb-1">Device</p>
+                      <p class="text-sm text-gray-700 flex items-center">
+                        <i data-feather="smartphone" class="w-4 h-4 mr-2 text-gray-400"></i>
+                        <?= $row['device'] ?? 'N/A'; ?>
+                      </p>
+                    </div>
+                    <div>
+                      <p class="text-xs text-gray-500 mb-1">Merek</p>
+                      <p class="text-sm text-gray-700 flex items-center">
+                        <i data-feather="tag" class="w-4 h-4 mr-2 text-gray-400"></i>
+                        <?= $row['merek'] ?? 'N/A'; ?>
+                      </p>
+                    </div>
+                    <div>
+                      <p class="text-xs text-gray-500 mb-1">Keluhan</p>
+                      <p class="text-sm text-gray-700 flex items-center">
+                        <i data-feather="message-square" class="w-4 h-4 mr-2 text-gray-400"></i>
+                        <?= $row['ket_keluhan'] ?? 'N/A'; ?>
+                      </p>
+                    </div>
+                  </div>
+
+                  <?php if (!empty($row['rma_number']) || !empty($row['end_warranty_date'])): ?>
+                    <div class="mt-3 pt-3 border-t border-gray-200">
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <?php if (!empty($row['rma_number'])): ?>
+                          <div>
+                            <p class="text-xs text-gray-500 mb-1">RMA Number</p>
+                            <p class="text-sm font-semibold text-indigo-600"><?= $row['rma_number']; ?></p>
+                          </div>
+                        <?php endif; ?>
+                        <?php if (!empty($row['end_warranty_date'])): ?>
+                          <div>
+                            <p class="text-xs text-gray-500 mb-1">End Warranty Date</p>
+                            <p class="text-sm font-semibold text-indigo-600"><?= date('d/m/Y', strtotime($row['end_warranty_date'])); ?></p>
+                          </div>
+                        <?php endif; ?>
+                      </div>
+                    </div>
+                  <?php endif; ?>
+                </div>
+              <?php endforeach; ?>
+            </div>
+          <?php elseif (!empty($search)): ?>
+            <div class="text-center py-12">
+              <i data-feather="search" class="w-16 h-16 mx-auto text-gray-300 mb-4"></i>
+              <p class="text-gray-500">Tidak ada hasil untuk "<strong><?= htmlspecialchars($search) ?></strong>"</p>
+            </div>
+          <?php else: ?>
+            <div class="text-center py-12">
+              <i data-feather="package" class="w-16 h-16 mx-auto text-gray-300 mb-4"></i>
+              <p class="text-gray-500">Tidak ada order part yang sudah dipesan</p>
+            </div>
+          <?php endif; ?>
+
+          <!-- Modals for Part Marking Update -->
+          <?php if (!empty($search) && $orders && is_object($orders) && $orders->num_rows() > 0): ?>
+            <?php foreach ($orders->result_array() as $row) : ?>
+              <?php
+                $safeTrans = preg_replace('/[^A-Za-z0-9_-]/', '-', $row['trans_kode']);
+                $modalId = "partModal-{$safeTrans}";
+              ?>
+              <div class="custom-modal" id="<?= $modalId ?>" style="display: none; background: transparent;">
+                <!-- Overlay -->
+                <div class="custom-modal-overlay" onclick="closeModal('<?= $modalId ?>')"></div>
+
+                <!-- Modal Content -->
+                <div class="custom-modal-content modal__content--md p-0" style="max-height: 95vh;">
+                  <div class="bg-white rounded-lg overflow-hidden">
+
+                    <!-- Header -->
+                    <div class="bg-gradient-to-r from-indigo-500 to-indigo-600 px-6 py-4 flex items-center justify-between sticky top-0 z-10">
+                      <h2 class="font-bold text-lg text-white flex items-center">
+                        <i data-feather="package" class="w-5 h-5 mr-2"></i>
+                        Update Part Marking
+                      </h2>
+                      <button type="button" onclick="closeModal('<?= $modalId ?>')" class="text-white hover:text-gray-200">
+                        <i data-feather="x" class="w-5 h-5"></i>
+                      </button>
+                    </div>
+
+                    <!-- Form -->
+                    <form method="post" action="<?= site_url('Order/update_part_marking') ?>">
+                      <input type="hidden" name="trans_kode" value="<?= $row['trans_kode']; ?>">
+                      <input type="hidden" name="is_ordered" value="yes">
+
+                      <!-- Body -->
+                      <div class="p-6">
+                        <div class="text-center mb-6">
+                            <i data-feather="package" class="w-16 h-16 mx-auto text-indigo-500 mb-4"></i>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">Konfirmasi Update Part Order</h3>
+                            <p class="text-gray-600">Apakah Anda yakin ingin mengupdate status part order untuk customer <strong class="font-mono"><?= $row['cos_kode']; ?></strong>?</p>
+                          </div>
+
+                        <!-- Order Info -->
+                        <div class="bg-gray-50 rounded-lg p-4">
+                          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                              <label class="block text-xs font-medium text-gray-500 mb-1">Customer</label>
+                              <p class="text-sm font-semibold text-gray-900"><?= $row['cos_nama']; ?></p>
+                            </div>
+                            <div>
+                              <label class="block text-xs font-medium text-gray-500 mb-1">Device</label>
+                              <p class="text-sm text-gray-900"><?= $row['device'] ?? 'N/A'; ?> <?= $row['merek'] ?? ''; ?></p>
+                            </div>
+                            <div>
+                              <label class="block text-xs font-medium text-gray-500 mb-1">Keluhan</label>
+                              <p class="text-sm text-gray-900"><?= $row['ket_keluhan'] ?? 'N/A'; ?></p>
+                            </div>
+                            <div>
+                              <label class="block text-xs font-medium text-gray-500 mb-1">Current Status</label>
+                              <p class="text-sm font-semibold text-gray-900">
+                                <?php
+                                  $statusColor = $row['is_ordered'] == 'yes' ? 'text-green-600' : 'text-red-600';
+                                ?>
+                                <span class="<?= $statusColor ?>"><?= $row['is_ordered'] == 'yes' ? 'PART ORDERED' : 'NOT ORDERED'; ?></span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Input Fields -->
+                        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">RMA Number</label>
+                            <input type="text" name="rma_number" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Masukkan RMA Number" value="<?= $row['rma_number'] ?? ''; ?>">
+                          </div>
+                          <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">End Warranty Date</label>
+                            <input type="date" name="end_warranty_date" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" value="<?= $row['end_warranty_date'] ?? ''; ?>">
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Footer -->
+                      <div class="bg-gray-50 px-6 py-4 flex justify-end gap-3 border-t border-gray-200">
+                        <button type="button" onclick="closeModal('<?= $modalId ?>')"
+                                class="px-5 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-100 transition-colors">
+                          Batal
+                        </button>
+                        <button type="submit"
+                                class="px-5 py-2 <?php echo ($row['is_ordered'] == 'yes') ? 'bg-gray-500 cursor-not-allowed' : 'bg-indigo-500 hover:bg-indigo-600'; ?> text-white rounded-lg font-medium transition-colors flex items-center"
+                                <?php if ($row['is_ordered'] == 'yes') echo 'disabled'; ?>>
+                          <i data-feather="check" class="w-4 h-4 mr-2"></i>
+                          <?php echo ($row['is_ordered'] == 'yes') ? 'Already Ordered' : 'Update & Mark as Ordered'; ?>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            <?php endforeach; ?>
           <?php endif; ?>
         <?php endif; ?>
       </div>
@@ -616,6 +1162,41 @@ window.currentUser = '<?php echo addslashes($this->session->userdata('nama')); ?
                             </div>
                         </div>
 
+                        <!-- Part Marking -->
+                        <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-5 border-2 border-purple-200">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center text-lg">
+                                <i data-feather="package" class="w-5 h-5 mr-2 text-purple-600"></i>
+                                Part Order Marking
+                            </h3>
+                            <form method="post" action="<?= site_url('Order/update_part_marking') ?>">
+                                <input type="hidden" name="trans_kode" value="<?= $row['trans_kode']; ?>">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="bg-white rounded-lg p-4 shadow-sm">
+                                        <label class="block text-xs font-semibold text-gray-500 mb-2">RMA Number</label>
+                                        <input type="text" name="rma_number" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Masukkan RMA Number">
+                                    </div>
+                                    <div class="bg-white rounded-lg p-4 shadow-sm">
+                                        <label class="block text-xs font-semibold text-gray-500 mb-2">End Warranty Date</label>
+                                        <input type="date" name="end_warranty_date" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                                    </div>
+                                    <div class="bg-white rounded-lg p-4 shadow-sm md:col-span-2">
+                                        <label class="block text-xs font-semibold text-gray-500 mb-2">Part Ordered</label>
+                                        <select name="is_ordered" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                                            <option value="">Pilih Status</option>
+                                            <option value="yes">Yes - Part sudah diorder</option>
+                                            <option value="no">No - Part belum diorder</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mt-4 flex justify-end">
+                                    <button type="submit" class="px-6 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg font-medium transition-colors flex items-center">
+                                        <i data-feather="save" class="w-4 h-4 mr-2"></i>
+                                        Update Marking
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
                         <form id="<?= $formId; ?>" method="post">
                             <input type="hidden" name="tdkn_kode" value="<?= $row['tdkn_kode'] ?? ''; ?>">
                             <input type="hidden" name="trans_kode" value="<?= $row['trans_kode']; ?>">
@@ -701,8 +1282,25 @@ window.currentUser = '<?php echo addslashes($this->session->userdata('nama')); ?
                                 submitApproval('<?= $sanTrans; ?>', 'submit');
                             }
                         }
-                    });
-                    </script>
+                      });
+                      
+                      // Loading functions
+                      function showLoading() {
+                        document.getElementById('loading-overlay').classList.remove('hidden');
+                      }
+                      
+                      // Show loading on pagination clicks
+                      document.addEventListener('click', function(e) {
+                        if (e.target.closest('button') && e.target.closest('.flex.justify-center.items-center.space-x-2')) {
+                          showLoading();
+                        }
+                      });
+                      
+                      // Hide loading when page loads
+                      window.addEventListener('load', function() {
+                        document.getElementById('loading-overlay').classList.add('hidden');
+                      });
+                      </script>
                 </div>
             </div>
         </div>
@@ -848,7 +1446,7 @@ window.currentUser = '<?php echo addslashes($this->session->userdata('nama')); ?
                           <?php foreach ($karyawan->result_array() as $kry): ?>
                             <tr class="hover:bg-gray-50 transition-colors">
                               <td class="px-4 py-3 whitespace-nowrap">
-                                <input type="radio" name="kry_kode" value="<?= $kry['kry_kode']; ?>" 
+                                <input type="radio" name="kry_kode" value="<?= $kry['kry_kode']; ?>"
                                        required class="w-4 h-4 text-green-600 focus:ring-green-500">
                               </td>
                               <td class="px-4 py-3 whitespace-nowrap text-sm font-mono font-medium text-gray-900">
@@ -876,12 +1474,12 @@ window.currentUser = '<?php echo addslashes($this->session->userdata('nama')); ?
 
             <!-- Footer -->
             <div class="bg-gray-50 px-6 py-4 pb-10 flex justify-end gap-3 border-t border-gray-200">
-              <button type="button" onclick="closeModal('<?= $confirmModalId ?>')" 
+              <button type="button" onclick="closeModal('<?= $confirmModalId ?>')"
                       class="px-5 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-100 transition-colors">
                 Batal
               </button>
               <?php if (isset($karyawan) && $karyawan->num_rows() > 0): ?>
-                <button type="submit" 
+                <button type="submit"
                         class="px-5 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg font-medium transition-colors flex items-center">
                   <i data-feather="check" class="w-4 h-4 mr-2"></i>
                   Konfirmasi Order
@@ -894,6 +1492,152 @@ window.currentUser = '<?php echo addslashes($this->session->userdata('nama')); ?
     </div>
   <?php endforeach; ?>
 <?php endif; ?>
+
+  <!-- Modal Service Complete (Repairing) -->
+<?php if ($isRepairing && isset($orders)): ?>
+  <?php foreach ($orders->result_array() as $row) : ?>
+    <?php
+      $safeTrans = preg_replace('/[^A-Za-z0-9_-]/', '-', $row['trans_kode']);
+      $repairingModalId = "repairingModal-{$safeTrans}";
+      $isLegacy = isset($row['source_table']) && $row['source_table'] == 'transaksi';
+    ?>
+    <div class="custom-modal" id="<?= $repairingModalId ?>" style="display: none;">
+      <!-- Overlay -->
+      <div class="custom-modal-overlay" onclick="closeModal('<?= $repairingModalId ?>')"></div>
+
+      <!-- Modal Content -->
+      <div class="custom-modal-content modal__content--md p-0">
+        <div class="bg-white rounded-lg overflow-hidden">
+
+          <!-- Header -->
+          <div class="bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-4 flex items-center justify-between">
+            <h2 class="font-bold text-lg text-white flex items-center">
+              <i data-feather="settings" class="w-5 h-5 mr-2"></i>
+              Service Complete
+            </h2>
+            <button type="button" onclick="closeModal('<?= $repairingModalId ?>')" class="text-white hover:text-gray-200">
+              <i data-feather="x" class="w-5 h-5"></i>
+            </button>
+          </div>
+
+          <!-- Form -->
+          <form method="post" action="<?= site_url('Order/service_complete') ?>">
+            <input type="hidden" name="trans_kode" value="<?= $row['trans_kode']; ?>">
+
+            <!-- Body -->
+            <div class="p-6">
+              <div class="text-center mb-6">
+                  <i data-feather="settings" class="w-16 h-16 mx-auto text-orange-500 mb-4"></i>
+                  <h3 class="text-lg font-semibold text-gray-800 mb-2">Konfirmasi Service Selesai</h3>
+                  <p class="text-gray-600">Apakah Anda yakin service untuk customer <strong class="font-mono"><?= $row['cos_kode']; ?></strong> sudah selesai?</p>
+                </div>
+
+              <!-- Pilih Status Service -->
+              <div class="bg-blue-50 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-gray-700 mb-4 flex items-center">
+                  <i data-feather="check-circle" class="w-4 h-4 mr-2"></i>
+                  Pilih Status Service
+                </h3>
+                <div class="space-y-2">
+                  <label class="flex items-center">
+                    <input type="radio" name="service_status" value="completed" class="w-4 h-4 text-green-600 focus:ring-green-500" checked required>
+                    <span class="ml-2 text-sm font-medium text-gray-700">Service Complete - Service berhasil diselesaikan</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input type="radio" name="service_status" value="failed" class="w-4 h-4 text-red-600 focus:ring-red-500">
+                    <span class="ml-2 text-sm font-medium text-gray-700">Service Failed - Service gagal atau tidak dapat diperbaiki</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Order Info -->
+              <div class="bg-gray-50 rounded-lg p-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Customer</label>
+                    <p class="text-sm font-semibold text-gray-900"><?= $row['cos_nama']; ?></p>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Status Pembayaran</label>
+                    <p class="text-sm font-semibold text-gray-900">
+                      <?php
+                        $paymentStatus = isset($row['payment_status']) && $row['payment_status'] == 'Lunas' ? 'LUNAS' : 'DP';
+                        $statusColor = $paymentStatus == 'LUNAS' ? 'text-green-600' : 'text-blue-600';
+                      ?>
+                      <span class="<?= $statusColor ?>"><?= $paymentStatus ?></span>
+                    </p>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Device</label>
+                    <p class="text-sm text-gray-900"><?= $row['device'] ?? 'N/A'; ?></p>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Merek</label>
+                    <p class="text-sm text-gray-900"><?= $row['merek'] ?? 'N/A'; ?></p>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Keluhan</label>
+                    <p class="text-sm text-gray-900"><?= $row['ket_keluhan'] ?? 'N/A'; ?></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-gray-50 px-6 py-4 flex justify-end gap-3 border-t border-gray-200">
+              <button type="button" onclick="closeModal('<?= $repairingModalId ?>')"
+                      class="px-5 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-100 transition-colors">
+                Batal
+              </button>
+              <button type="submit"
+                      class="px-5 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-medium transition-colors flex items-center service-submit-btn">
+                <i data-feather="check" class="w-4 h-4 mr-2"></i>
+                <span class="service-submit-text">Ya, Service Selesai</span>
+              </button>
+            </div>
+
+            <script>
+            // Update form action and button text based on radio selection
+            document.querySelectorAll('input[name="service_status"]').forEach(radio => {
+              radio.addEventListener('change', function() {
+                const form = this.closest('form');
+                const submitBtn = form.querySelector('.service-submit-btn');
+                const submitText = form.querySelector('.service-submit-text');
+                const icon = submitBtn.querySelector('i');
+
+                if (this.value === 'failed') {
+                  form.action = '<?= site_url('Order/service_failed') ?>';
+                  submitBtn.className = submitBtn.className.replace('bg-orange-500 hover:bg-orange-600', 'bg-red-500 hover:bg-red-600');
+                  submitText.textContent = 'Ya, Service Gagal';
+                  icon.className = 'w-4 h-4 mr-2 feather feather-x-circle';
+                } else {
+                  form.action = '<?= site_url('Order/service_complete') ?>';
+                  submitBtn.className = submitBtn.className.replace('bg-red-500 hover:bg-red-600', 'bg-orange-500 hover:bg-orange-600');
+                  submitText.textContent = 'Ya, Service Selesai';
+                  icon.className = 'w-4 h-4 mr-2 feather feather-check';
+                }
+
+                // Re-render feather icons
+                if (typeof feather !== 'undefined') {
+                  feather.replace();
+                }
+              });
+            });
+            </script>
+          </form>
+        </div>
+      </div>
+    </div>
+  <?php endforeach; ?>
+<?php endif; ?>
+</div>
+
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-lg p-6 flex items-center space-x-4 shadow-xl">
+    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+    <span class="text-gray-700 font-medium">Loading...</span>
+  </div>
 </div>
 
 <style>
@@ -945,14 +1689,14 @@ window.currentUser = '<?php echo addslashes($this->session->userdata('nama')); ?
   }
 
   .custom-modal-content {
-   position: relative;
-   background: white;
-   border-radius: 8px;
-   max-width: 85%;
-   max-height: 85%;
-   overflow: hidden;
-   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
- }
+    position: relative;
+    background: white;
+    border-radius: 8px;
+    max-width: 85%;
+    max-height: 85%;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
 
  .modal__content--xl {
    max-width: 1000px;
@@ -1211,6 +1955,40 @@ window.confirmReject = function(transKode) {
   } else {
     if (confirm(confirmText)) doReject();
   }
+};
+
+// Send follow up for completed orders
+window.sendFollowUp = function(hp, nama, cos_kode, merek, device) {
+  // Format phone number
+  if (hp.startsWith('0')) {
+    hp = '62' + hp.substring(1);
+  }
+  hp = hp.replace(/\D/g, '');
+
+  let message = `SALAM SATU HATI,\n\nHALO ${nama},\n\nService unit ${device} ${merek} Anda dengan kode ${cos_kode} sudah SELESAI diperbaiki.\n\nSilakan ambil unit Anda di Azzahra Computer - Authorized Service Center.\n\nJika ada pertanyaan, hubungi kami di 085942001720.\n\nTerima Kasih atas kepercayaan Anda! 😊`;
+
+  const waUrl = `https://wa.me/${hp}?text=${encodeURIComponent(message)}`;
+  window.open(waUrl, '_blank');
+
+  // Update follow up count (optional, bisa ditambahkan jika perlu tracking)
+  // window.location.href = '<?= site_url('Order/mark_followup_sent/') ?>' + trans_kode;
+};
+
+// Send follow up for failed orders
+window.sendFollowUpFailed = function(hp, nama, cos_kode, merek, device) {
+  // Format phone number
+  if (hp.startsWith('0')) {
+    hp = '62' + hp.substring(1);
+  }
+  hp = hp.replace(/\D/g, '');
+
+  let message = `SALAM SATU HATI,\n\nHALO ${nama},\n\nTerdapat kendala dalam melakukan service untuk unit ${device} ${merek} Anda dengan kode ${cos_kode}.\n\nMohon maaf atas ketidaknyamanan ini. Silakan Ambil unit anda  di Azzahra Computer - Authorized Service Center.\n\nJika ada pertanyaan, hubungi kami di 085942001720.\n\nTerima Kasih atas kepercayaan Anda! 😊`;
+
+  const waUrl = `https://wa.me/${hp}?text=${encodeURIComponent(message)}`;
+  window.open(waUrl, '_blank');
+
+  // Update follow up count (optional, bisa ditambahkan jika perlu tracking)
+  // window.location.href = '<?= site_url('Order/mark_followup_sent/') ?>' + trans_kode;
 };
 
 // ESC untuk menutup modal yang sedang terbuka

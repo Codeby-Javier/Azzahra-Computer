@@ -48,6 +48,11 @@ class Auth extends CI_Controller {
 					$this->session->set_flashdata('login', $login['kry_nama']);
 					$this->session->set_userdata('just_logged_in', TRUE); // Flag for first login
 					redirect('Teknisi','refresh');
+				}elseif ($login['kry_level'] == 'HR') {
+					$this->session->set_userdata($data);
+					$this->session->set_flashdata('login', $login['kry_nama']);
+					$this->session->set_userdata('just_logged_in', TRUE); // Flag for first login
+					redirect('HR','refresh');
 				}
 
 			} else {

@@ -249,7 +249,7 @@ class PHPExcel_Reader_SYLK extends PHPExcel_Reader_Abstract implements PHPExcel_
             if ($dataType == 'P') {
                 $formatArray = array();
                 foreach ($rowData as $rowDatum) {
-                    switch ($rowDatum{0}) {
+                    switch ($rowDatum[0]) {
                         case 'P':
                             $formatArray['numberformat']['code'] = str_replace($fromFormats, $toFormats, substr($rowDatum, 1));
                             break;
@@ -327,7 +327,7 @@ class PHPExcel_Reader_SYLK extends PHPExcel_Reader_Abstract implements PHPExcel_
                                             $rowReference = $row;
                                         }
                                         //    Bracketed R references are relative to the current row
-                                        if ($rowReference{0} == '[') {
+                                        if ($rowReference[0] == '[') {
                                             $rowReference = $row + trim($rowReference, '[]');
                                         }
                                         $columnReference = $cellReference[4][0];
@@ -336,7 +336,7 @@ class PHPExcel_Reader_SYLK extends PHPExcel_Reader_Abstract implements PHPExcel_
                                             $columnReference = $column;
                                         }
                                         //    Bracketed C references are relative to the current column
-                                        if ($columnReference{0} == '[') {
+                                        if ($columnReference[0] == '[') {
                                             $columnReference = $column + trim($columnReference, '[]');
                                         }
                                         $A1CellReference = PHPExcel_Cell::stringFromColumnIndex($columnReference-1).$rowReference;

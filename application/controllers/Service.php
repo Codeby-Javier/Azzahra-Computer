@@ -6,6 +6,7 @@ class Service extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('M_service');
+		$this->load->model('M_order');
 		if($this->session->userdata('masuk') != TRUE){
 	      $url=base_url();
 	      redirect($url);
@@ -13,7 +14,7 @@ class Service extends CI_Controller {
 	    	if ($this->session->userdata('level') != 'Customer Service') {
 	    		$url=base_url();
 	      		redirect($url);
-	    	}	    	
+	    	}
 	    }
 	}
 
@@ -41,6 +42,7 @@ class Service extends CI_Controller {
 			);
 		$this->load->view('Costomer/cos-baru', $data);
 	}
+	
 	function cos_proses()
 	{
 		$data = array(
@@ -119,9 +121,11 @@ class Service extends CI_Controller {
 					'cos_model' 	 => $this->input->post('model'),
 					'cos_no_seri' 	 => $this->input->post('seri'),
 					'cos_asesoris' 	 => $this->input->post('asesoris'),
-					'cos_status' 	 => $this->input->post('status'),
-					'cos_pswd' 		 => $this->input->post('pswd'),
-					'cos_keluhan' 	 => $this->input->post('keluhan'),
+						'cos_status' 	 => $this->input->post('status'),
+						'cos_pswd_type'  => $this->input->post('pswd_type'),
+						'cos_pswd' 		 => $this->input->post('pswd_type') === 'text' ? $this->input->post('pswd') : ($this->input->post('pswd_type') === 'pattern_desc' ? $this->input->post('pswd_desc') : ($this->input->post('pswd_type') === 'pattern_canvas' ? '' : '')),
+						'cos_pswd_canvas' => $this->input->post('pswd_canvas'),
+						'cos_keluhan' 	 => $this->input->post('keluhan'),
 					'cos_keterangan' => $this->input->post('ket'),
 					'cos_tanggal'	 => date('Y-m-d'),
 					'cos_jam' 		 => date('H:i:s'),
@@ -158,17 +162,34 @@ class Service extends CI_Controller {
 		$trans_kode = $date_prefix_trans . str_pad($next_num_trans, 3, '0', STR_PAD_LEFT);
 		log_message('info', 'Generated trans_kode: ' . $trans_kode);
 
+		$is_quick_service = $this->input->post('is_quick_service') ? true : false;
+
 		$trans = array(
 				'cos_kode' 		 => $id_costomer,
 				'kry_kode' 		 => $this->session->userdata('kode'),
 				'trans_total' 	 => '0',
 				'trans_discount' => '0',
-				'trans_status' 	 => 'Baru',
+				'trans_status' 	 => $is_quick_service ? 'Pelunasan' : 'Baru',
 				'trans_tanggal'  => date('Y-m-d'),
 			);
 
 		$trans_result = $this->M_service->save_trans($trans);
 		log_message('info', 'Transaksi insert result: ' . ($trans_result ? 'success' : 'failed'));
+
+		// If quick service, add default tindakan
+		if ($is_quick_service) {
+			$tindakan_quick = array(
+				'trans_kode' 	=> $trans_kode,
+				'tdkn_nama' 	=> 'SERVICE',
+				'tdkn_ket' 		=> 'Service - ' . $this->input->post('keluhan'),
+				'tdkn_qty' 		=> 1,
+				'tdkn_subtot'  	=> 0,
+				'tdkn_tanggal' 	=> date('Y-m-d'),
+				'tdkn_jam'		=> date('H:i:s')
+			);
+			$this->M_service->save_tindakan(array($tindakan_quick));
+			log_message('info', 'Quick service tindakan added');
+		}
 
 		// Insert into order_list
 		$order_list = array(
@@ -191,6 +212,14 @@ class Service extends CI_Controller {
 		$order_list_result = $this->M_service->save_order_list($order_list);
 		log_message('info', 'Order_list insert result: ' . ($order_list_result ? 'success' : 'failed'));
 
+		// Insert into order_part_marking
+		$marking_data = array(
+			'trans_kode' => $trans_kode,
+			'is_ordered' => 'no'
+		);
+		$marking_result = $this->M_order->insert_order_part_marking($marking_data);
+		log_message('info', 'Order_part_marking insert result: ' . ($marking_result ? 'success' : 'failed'));
+
 		if ($this->input->is_ajax_request()) {
 			echo json_encode(['status' => 'success']);
 			exit;
@@ -212,9 +241,11 @@ class Service extends CI_Controller {
 					'cos_model' 	 => $this->input->post('model'),
 					'cos_no_seri' 	 => $this->input->post('seri'),
 					'cos_asesoris' 	 => $this->input->post('asesoris'),
-					'cos_status' 	 => $this->input->post('status'),
-					'cos_pswd' 		 => $this->input->post('pswd'),
-					'cos_keluhan' 	 => $this->input->post('keluhan'),
+						'cos_status' 	 => $this->input->post('status'),
+						'cos_pswd_type'  => $this->input->post('pswd_type'),
+						'cos_pswd' 		 => $this->input->post('pswd_type') === 'text' ? $this->input->post('pswd') : ($this->input->post('pswd_type') === 'pattern_desc' ? $this->input->post('pswd_desc') : ''),
+						'cos_pswd_canvas' => $this->input->post('pswd_canvas'),
+						'cos_keluhan' 	 => $this->input->post('keluhan'),
 					'cos_keterangan' => $this->input->post('ket'),
 					'cos_tanggal'	 => date('Y-m-d'),
 					'cos_jam' 		 => date('H:i:s')
@@ -369,6 +400,12 @@ class Service extends CI_Controller {
 			redirect('Service/cos_proses');
 		}
 
+		// Update follow up jika belum
+		if ($proses['trans_status'] == 'Konfirmasi' && (empty($proses['last_follow_up']) || $proses['follow_up_count'] === null)) {
+			$this->db->where('trans_kode', $kode);
+			$this->db->update('transaksi', array('last_follow_up' => date('Y-m-d H:i:s'), 'follow_up_count' => 0));
+		}
+
 		$vocher = $this->M_service->GetVocherBy($kode)->row_array();
 		if (!$vocher) {
 			$vocher = array('voc_status' => '0');
@@ -394,10 +431,9 @@ class Service extends CI_Controller {
 		$up_trans = array('trans_total' => $trans['trans_total'] - $tdkn['tdkn_subtot'], );
 		$this->M_service->up_knf_trans($kode_trans,$up_trans);
 
-		$up_tdkn = array('tdkn_subtot' => '0', );
-		$this->M_service->up_knf_tdkn($kode_tdkn,$up_tdkn);
+		$this->db->delete('tindakan', array('tdkn_kode' => $kode_tdkn));
 
-		$this->session->set_flashdata('sukses', 'DI PERBAHARUI');
+		$this->session->set_flashdata('sukses', 'TINDAKAN DIHAPUS');
 		redirect('Service/konfirmasi/'.$kode_trans,'refresh');
 	}
 	function vocer()
@@ -421,7 +457,7 @@ class Service extends CI_Controller {
 
 		$detail = array(
 				'trans_kode'		=> $kode,
-				'kry_kode' 			=> $this->session->userdata('kode'), 
+				'kry_kode' 			=> $this->session->userdata('kode'),
 				'dtl_jml_bayar' 	=> str_replace('.', '', $this->input->post('dp')),
 				'dtl_jenis_bayar' 	=> 'TRANFER',
 				'dtl_bank' 			=> $this->input->post('bank'),
@@ -435,6 +471,23 @@ class Service extends CI_Controller {
 		$trans = array('trans_status' => 'Pelunasan', );
 		$this->M_service->update_trans($trans,$kode);
 
+		// Update order_list status to 'repairing' when DP is paid (only if order_list exists)
+		$this->db->select('cos_kode');
+		$this->db->from('transaksi');
+		$this->db->where('trans_kode', $kode);
+		$query = $this->db->get();
+		$result = $query->row();
+		if ($result) {
+			$cos_kode = $result->cos_kode;
+			// Check if order_list exists for this cos_kode
+			$this->db->where('cos_kode', $cos_kode);
+			$order_exists = $this->db->get('order_list')->num_rows();
+			if ($order_exists > 0) {
+				$this->db->where('cos_kode', $cos_kode);
+				$this->db->update('order_list', array('trans_status' => 'repairing'));
+			}
+		}
+
 		$this->session->set_flashdata('sukses', 'DI SIMPAN');
 		redirect('Service/cos_konf','refresh');
 	}
@@ -442,10 +495,20 @@ class Service extends CI_Controller {
 	{
 		$kode = $this->uri->segment(3);
 
+		if (!$kode) {
+			redirect('Service/cos_pelunasan');
+		}
+
+		$proses = $this->M_service->pelunasan($kode)->row_array();
+		if (!$proses) {
+			$this->session->set_flashdata('gagal', 'Data tidak ditemukan');
+			redirect('Service/cos_pelunasan');
+		}
+
 		$data = array(
 				'title'  => 'Customer',
-				'proses' => $this->M_service->pelunasan($kode)->row_array(),
-				'data'	 => $this->M_service->GetTindakanBy($kode)
+				'proses' => $proses,
+				'data'	 => $this->M_service->GetTindakanBy($proses['trans_kode'])
 			);
 		$this->load->view('Service/pelunasan', $data);
 	}
@@ -456,9 +519,12 @@ class Service extends CI_Controller {
 	{
 		$kode = $this->uri->segment(3);
 
-		$data = array(
-				'data' => $this->M_service->printe($kode)->row_array(), 
-			);
+		$row = $this->M_service->printe($kode)->row_array();
+		if (!$row) {
+			$this->session->set_flashdata('gagal', 'Data tidak ditemukan');
+			redirect('Service/cos_baru');
+		}
+		$data = array('data' => $row);
 		$this->load->view('Service/print-tts',$data);
 	}
 
@@ -543,6 +609,60 @@ class Service extends CI_Controller {
 			$trans = array('trans_status' => 'Lunas', );
 			$this->M_service->update_trans($trans,$kode);
 
+			// Update order_list status to 'repairing' if exists and not already completed
+			$this->db->select('cos_kode');
+			$this->db->from('transaksi');
+			$this->db->where('trans_kode', $kode);
+			$query = $this->db->get();
+			$result = $query->row();
+			if ($result) {
+				$cos_kode = $result->cos_kode;
+				// Check if order_list exists for this cos_kode
+				$this->db->where('cos_kode', $cos_kode);
+				$order_exists = $this->db->get('order_list')->num_rows();
+				if ($order_exists > 0) {
+					// Get current status
+					$this->db->select('trans_status');
+					$this->db->where('cos_kode', $cos_kode);
+					$current_status = $this->db->get('order_list')->row()->trans_status;
+					// Only update if not already 'service_completed'
+					if ($current_status != 'service_completed') {
+						$this->db->where('cos_kode', $cos_kode);
+						$this->db->update('order_list', array('trans_status' => 'repairing'));
+					}
+				} else {
+					// BAYAR LUNAS LANGSUNG: Buat order_list baru dengan status repairing jika belum ada
+					// Ambil data dari transaksi dan costomer
+					$this->db->select('transaksi.*, costomer.cos_nama, costomer.cos_alamat, costomer.cos_hp');
+					$this->db->from('transaksi');
+					$this->db->join('costomer', 'transaksi.cos_kode = costomer.id_costomer');
+					$this->db->where('transaksi.trans_kode', $kode);
+					$trans_data = $this->db->get()->row();
+
+					if ($trans_data) {
+						$order_data = array(
+							'trans_kode' => $kode,
+							'cos_kode' => $trans_data->cos_kode,
+							'kry_kode' => null,
+							'trans_total' => $trans_data->trans_total,
+							'trans_discount' => $trans_data->trans_discount ?? 0,
+							'trans_tanggal' => $trans_data->trans_tanggal,
+							'trans_status' => 'repairing',
+							'merek' => '', // Kosong dulu, bisa diupdate nanti
+							'device' => '',
+							'status_garansi' => '',
+							'seri' => '',
+							'ket_keluhan' => '',
+							'email' => '',
+							'alamat' => $trans_data->cos_alamat ?? '',
+							'created_at' => date('Y-m-d H:i:s')
+						);
+						$this->db->insert('order_list', $order_data);
+						log_message('info', 'Created order_list for direct Lunas payment: ' . $kode);
+					}
+				}
+			}
+
 			$this->session->set_flashdata('sukses', 'DI LUNASI');
 			redirect('Service/cari/'.$kode,'refresh');
 		}
@@ -568,8 +688,77 @@ class Service extends CI_Controller {
 		$trans = array('trans_status' => 'Pelunasan', );
 		$this->M_service->update_trans($trans,$kode);
 
+		// Update order_list status to 'repairing' when DP is paid (only if order_list exists)
+		$this->db->select('cos_kode');
+		$this->db->from('transaksi');
+		$this->db->where('trans_kode', $kode);
+		$query = $this->db->get();
+		$result = $query->row();
+		if ($result) {
+			$cos_kode = $result->cos_kode;
+			// Check if order_list exists for this cos_kode
+			$this->db->where('cos_kode', $cos_kode);
+			$order_exists = $this->db->get('order_list')->num_rows();
+			if ($order_exists > 0) {
+				$this->db->where('cos_kode', $cos_kode);
+				$this->db->update('order_list', array('trans_status' => 'repairing'));
+			}
+		}
+
 		$this->session->set_flashdata('sukses', 'DI SIMPAN');
 		redirect('Service/cari/'.$kode,'refresh');
+	}
+
+	//follow up konfirmasi
+	function check_follow_up()
+	{
+		$this->db->select('transaksi.*, costomer.cos_nama, costomer.cos_hp');
+		$this->db->from('transaksi');
+		$this->db->join('costomer', 'transaksi.cos_kode = costomer.id_costomer');
+		$this->db->where('trans_status', 'Konfirmasi');
+		$this->db->where('TIMESTAMPDIFF(DAY, last_follow_up, NOW()) >', 3);
+		$query = $this->db->get();
+		foreach ($query->result() as $row) {
+			// Kirim WA reminder
+			$message = "SALAM SATU HATI,\n\nHALO {$row->cos_nama},\n\nKami masih menunggu konfirmasi DEAL atau TIDAK untuk servis unit Anda. Silakan hubungi kami atau balas pesan ini.\n\nTerima Kasih.";
+			// Asumsi ada method sendWA, atau gunakan API
+			// Untuk sekarang, log saja
+			log_message('info', 'Follow up sent to ' . $row->cos_hp . ': ' . $message);
+			// Update last_follow_up dan increment count
+			$this->db->where('trans_kode', $row->trans_kode);
+			$this->db->update('transaksi', array('last_follow_up' => date('Y-m-d H:i:s'), 'follow_up_count' => $row->follow_up_count + 1));
+		}
+	}
+
+	function send_follow_up_manual($kode)
+	{
+		$this->db->select('transaksi.*, costomer.cos_nama, costomer.cos_hp');
+		$this->db->from('transaksi');
+		$this->db->join('costomer', 'transaksi.cos_kode = costomer.id_costomer');
+		$this->db->where('trans_kode', $kode);
+		$row = $this->db->get()->row();
+		if ($row) {
+			// Update count
+			$this->db->where('trans_kode', $kode);
+			$this->db->update('transaksi', array('last_follow_up' => date('Y-m-d H:i:s'), 'follow_up_count' => $row->follow_up_count + 1));
+			log_message('info', 'Manual follow up sent for ' . $kode);
+			$this->session->set_flashdata('sukses', 'Follow up dikirim dan count diupdate.');
+		} else {
+			$this->session->set_flashdata('gagal', 'Data tidak ditemukan.');
+		}
+		$redirect = $this->input->get('redirect');
+		if ($redirect == 'cos_konf') {
+			redirect('Service/cos_konf');
+		} else {
+			redirect('Service/konfirmasi/'.$kode);
+		}
+	}
+
+	function get_tindakan_ajax()
+	{
+		$trans_kode = $this->input->post('trans_kode');
+		$tindakan = $this->M_service->GetTindakanBy($trans_kode)->result_array();
+		echo json_encode($tindakan);
 	}
 
 	//laporan
@@ -590,7 +779,23 @@ class Service extends CI_Controller {
 		$this->load->view('Service/laporan',$data);
 	}
 
-	
+	private function processCanvasImage($imgData) {
+		if (!$imgData) return '';
+
+		$img = str_replace('data:image/png;base64,', '', $imgData);
+		$img = str_replace(' ', '+', $img);
+		$data = base64_decode($img);
+
+		$uploadDir = './uploads/pola/';
+		if (!is_dir($uploadDir)) {
+			mkdir($uploadDir, 0777, true);
+		}
+
+		$fileName = 'pola_' . time() . '.png';
+		file_put_contents($uploadDir . $fileName, $data);
+
+		return $fileName;
+	}
 
 }
 

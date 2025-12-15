@@ -31,13 +31,13 @@ $(document).ready(function() {
 		const href = $(this).prop('href');
 		const name = $(this).data('nama');
 		Swal.fire({
-			title: 'Konfirmasi Penolakan',
-			html: `Apakah Anda yakin ingin menolak diskon untuk customer <strong>${name}</strong>?`,
-			icon: 'question',
+			title: 'Konfirmasi Hapus Data',
+			html: `Apakah Anda yakin ingin menghapus data customer <strong>${name}</strong>?`,
+			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#e74c3c',
 			cancelButtonColor: '#95a5a6',
-			confirmButtonText: 'Ya, Tolak',
+			confirmButtonText: 'Ya, Hapus',
 			cancelButtonText: 'Batal',
 			reverseButtons: true
 		}).then((result) => {

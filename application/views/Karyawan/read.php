@@ -139,12 +139,13 @@
 						<div class="col-span-12">
 		                    <label>Jabatan</label>
 		                    <select class="input w-full border mt-2 flex-1" name="level" required oninvalid="this.setCustomValidity('Jabatan tidak boleh kosong ?')" oninput="setCustomValidity('')">
-					             <option value="">-</option>
-					             <option value="Admin">Admin</option>
-					             <option value="Kasir">Kasir</option>
-					             <option value="Customer Service">Customer Service</option>
-					             <option value="Teknisi">Teknisi</option>
-					         </select>
+		                <option value="">-</option>
+		                <option value="Admin">Admin</option>
+		                <option value="Kasir">Kasir</option>
+		                <option value="Customer Service">Customer Service</option>
+		                <option value="Teknisi">Teknisi</option>
+		                <option value="HR">HR</option>
+		            </select>
 		                </div>
 		                <div class="col-span-12">
 		                    <label>Username</label>

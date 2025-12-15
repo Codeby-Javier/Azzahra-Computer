@@ -185,7 +185,7 @@
 		                                        </div>
 		                                    </div>
 		                                    <button type="submit" class="button w-40 mx-auto justify-center block bg-theme-9 text-gray-900 mt-5">Simpan DP</button>
-	                                	</form>
+		                                </form>
 	                                    
 	                                    
 	                                </div>
@@ -359,5 +359,6 @@
 
 	</div>
 </div>
+
 
 <?php $this->load->view('Template/footer'); ?>

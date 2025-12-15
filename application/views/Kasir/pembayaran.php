@@ -55,7 +55,7 @@
         <!-- BEGIN: Item List -->
         <div class="intro-y col-span-12 lg:col-span-8">
             <div class="grid grid-cols-12 gap-5 mt-5">
-                <div class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-1 p-5 cursor-pointer zoom-in" onclick="window.location='<?= site_url(($role == 'cs' ? 'Service' : 'Kasir').'/pembayaran/dp')?>'">
+                <div class="col-span-12 sm:col-span-3 xxl:col-span-3 box bg-theme-1 p-5 cursor-pointer zoom-in" onclick="window.location='<?= site_url(($role == 'cs' ? 'Service' : 'Kasir').'/pembayaran/dp')?>'">
                     <div class="font-medium text-base text-white">Down Payment (DP)</div>
                     <div class="text-theme-25">
                         <?php
@@ -64,7 +64,7 @@
                         <?= $dp->num_rows()?> Customer
                     </div>
                 </div>
-                <div class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-1 p-5 cursor-pointer zoom-in" onclick="window.location='<?= site_url(($role == 'cs' ? 'Service' : 'Kasir').'/pembayaran/lunas')?>'">
+                <div class="col-span-12 sm:col-span-3 xxl:col-span-3 box bg-theme-1 p-5 cursor-pointer zoom-in" onclick="window.location='<?= site_url(($role == 'cs' ? 'Service' : 'Kasir').'/pembayaran/lunas')?>'">
                     <div class="font-medium text-base text-white">Lunas</div>
                     <div class="text-theme-25">
                         <?php
@@ -73,7 +73,7 @@
                         <?= $lunas->num_rows()?> Customer
                     </div>
                 </div>
-                <div class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-1 p-5 cursor-pointer zoom-in" onclick="window.location='<?= site_url(($role == 'cs' ? 'Service' : 'Kasir').'/pembayaran')?>'">
+                <div class="col-span-12 sm:col-span-3 xxl:col-span-3 box bg-theme-1 p-5 cursor-pointer zoom-in" onclick="window.location='<?= site_url(($role == 'cs' ? 'Service' : 'Kasir').'/pembayaran')?>'">
                     <div class="font-medium text-base text-white">Jumlah Customer</div>
                     <div class="text-theme-25">
                         <?= $dp->num_rows() + $lunas->num_rows() ?> Customer

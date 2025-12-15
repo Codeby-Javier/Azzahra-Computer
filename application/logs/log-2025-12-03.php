@@ -1418,462 +1418,686 @@ INFO - 2025-12-03 11:12:31 --> Form Validation Class Initialized
 INFO - 2025-12-03 11:12:31 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Auth/login.php
 INFO - 2025-12-03 11:12:31 --> Final output sent to browser
 DEBUG - 2025-12-03 11:12:32 --> Total execution time: 0.5840
-INFO - 2025-12-03 14:33:05 --> Config Class Initialized
-INFO - 2025-12-03 14:33:05 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:33:05 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:33:05 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:33:05 --> URI Class Initialized
-DEBUG - 2025-12-03 14:33:05 --> No URI present. Default controller set.
-INFO - 2025-12-03 14:33:05 --> Router Class Initialized
-INFO - 2025-12-03 14:33:05 --> Output Class Initialized
-INFO - 2025-12-03 14:33:05 --> Security Class Initialized
-DEBUG - 2025-12-03 14:33:05 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:33:05 --> Input Class Initialized
-INFO - 2025-12-03 14:33:05 --> Language Class Initialized
-INFO - 2025-12-03 14:33:05 --> Loader Class Initialized
-INFO - 2025-12-03 14:33:05 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:33:05 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:33:05 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:33:05 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:33:05 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:33:05 --> Controller Class Initialized
-INFO - 2025-12-03 21:33:05 --> Model "M_auth" initialized
-INFO - 2025-12-03 21:33:05 --> Helper loaded: form_helper
-INFO - 2025-12-03 21:33:05 --> Form Validation Class Initialized
-INFO - 2025-12-03 21:33:05 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Auth/login.php
-INFO - 2025-12-03 21:33:05 --> Final output sent to browser
-DEBUG - 2025-12-03 21:33:05 --> Total execution time: 0.1928
-INFO - 2025-12-03 14:36:03 --> Config Class Initialized
-INFO - 2025-12-03 14:36:03 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:36:04 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:36:04 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:36:04 --> URI Class Initialized
-DEBUG - 2025-12-03 14:36:04 --> No URI present. Default controller set.
-INFO - 2025-12-03 14:36:04 --> Router Class Initialized
-INFO - 2025-12-03 14:36:04 --> Output Class Initialized
-INFO - 2025-12-03 14:36:04 --> Security Class Initialized
-DEBUG - 2025-12-03 14:36:04 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:36:04 --> Input Class Initialized
-INFO - 2025-12-03 14:36:04 --> Language Class Initialized
-INFO - 2025-12-03 14:36:04 --> Loader Class Initialized
-INFO - 2025-12-03 14:36:04 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:36:04 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:36:04 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:36:04 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:36:04 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:36:04 --> Controller Class Initialized
-INFO - 2025-12-03 21:36:04 --> Model "M_auth" initialized
-INFO - 2025-12-03 21:36:04 --> Helper loaded: form_helper
-INFO - 2025-12-03 21:36:04 --> Form Validation Class Initialized
-INFO - 2025-12-03 21:36:04 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Auth/login.php
-INFO - 2025-12-03 21:36:04 --> Final output sent to browser
-DEBUG - 2025-12-03 21:36:04 --> Total execution time: 0.2411
-INFO - 2025-12-03 14:44:16 --> Config Class Initialized
-INFO - 2025-12-03 14:44:16 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:44:16 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:44:16 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:44:16 --> URI Class Initialized
-INFO - 2025-12-03 14:44:16 --> Router Class Initialized
-INFO - 2025-12-03 14:44:16 --> Output Class Initialized
-INFO - 2025-12-03 14:44:16 --> Security Class Initialized
-DEBUG - 2025-12-03 14:44:16 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:44:16 --> Input Class Initialized
-INFO - 2025-12-03 14:44:16 --> Language Class Initialized
-INFO - 2025-12-03 14:44:16 --> Loader Class Initialized
-INFO - 2025-12-03 14:44:16 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:44:16 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:44:16 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:44:16 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:44:16 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:44:16 --> Controller Class Initialized
-INFO - 2025-12-03 21:44:16 --> Model "M_auth" initialized
-INFO - 2025-12-03 21:44:16 --> Helper loaded: form_helper
-INFO - 2025-12-03 21:44:16 --> Form Validation Class Initialized
-INFO - 2025-12-03 14:44:16 --> Config Class Initialized
-INFO - 2025-12-03 14:44:16 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:44:16 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:44:16 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:44:16 --> URI Class Initialized
-INFO - 2025-12-03 14:44:16 --> Router Class Initialized
-INFO - 2025-12-03 14:44:16 --> Output Class Initialized
-INFO - 2025-12-03 14:44:16 --> Security Class Initialized
-DEBUG - 2025-12-03 14:44:16 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:44:16 --> Input Class Initialized
-INFO - 2025-12-03 14:44:16 --> Language Class Initialized
-INFO - 2025-12-03 14:44:16 --> Loader Class Initialized
-INFO - 2025-12-03 14:44:16 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:44:16 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:44:16 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:44:16 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:44:16 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:44:16 --> Controller Class Initialized
-INFO - 2025-12-03 21:44:16 --> Model "M_service" initialized
-INFO - 2025-12-03 21:44:17 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/header.php
-INFO - 2025-12-03 21:44:17 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/footer.php
-INFO - 2025-12-03 21:44:17 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Service/dashboard.php
-INFO - 2025-12-03 21:44:17 --> Final output sent to browser
-DEBUG - 2025-12-03 21:44:17 --> Total execution time: 0.1263
-INFO - 2025-12-03 14:45:28 --> Config Class Initialized
-INFO - 2025-12-03 14:45:28 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:45:28 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:45:28 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:45:28 --> URI Class Initialized
-INFO - 2025-12-03 14:45:28 --> Router Class Initialized
-INFO - 2025-12-03 14:45:28 --> Output Class Initialized
-INFO - 2025-12-03 14:45:28 --> Security Class Initialized
-DEBUG - 2025-12-03 14:45:28 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:45:28 --> Input Class Initialized
-INFO - 2025-12-03 14:45:28 --> Language Class Initialized
-INFO - 2025-12-03 14:45:28 --> Loader Class Initialized
-INFO - 2025-12-03 14:45:28 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:45:28 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:45:28 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:45:28 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:45:28 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:45:28 --> Controller Class Initialized
-INFO - 2025-12-03 21:45:28 --> Model "M_service" initialized
-INFO - 2025-12-03 21:45:28 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/header.php
-INFO - 2025-12-03 21:45:28 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/footer.php
-INFO - 2025-12-03 21:45:28 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Costomer/cos-baru.php
-INFO - 2025-12-03 21:45:28 --> Final output sent to browser
-DEBUG - 2025-12-03 21:45:28 --> Total execution time: 0.0717
-INFO - 2025-12-03 14:45:31 --> Config Class Initialized
-INFO - 2025-12-03 14:45:31 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:45:31 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:45:31 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:45:31 --> URI Class Initialized
-INFO - 2025-12-03 14:45:31 --> Router Class Initialized
-INFO - 2025-12-03 14:45:31 --> Output Class Initialized
-INFO - 2025-12-03 14:45:31 --> Security Class Initialized
-DEBUG - 2025-12-03 14:45:31 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:45:31 --> Input Class Initialized
-INFO - 2025-12-03 14:45:31 --> Language Class Initialized
-INFO - 2025-12-03 14:45:31 --> Loader Class Initialized
-INFO - 2025-12-03 14:45:31 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:45:31 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:45:31 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:45:31 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:45:31 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:45:31 --> Controller Class Initialized
-INFO - 2025-12-03 21:45:31 --> Model "M_service" initialized
-INFO - 2025-12-03 21:45:31 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/header.php
-INFO - 2025-12-03 21:45:31 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/footer.php
-INFO - 2025-12-03 21:45:31 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Kasir/pembayaran.php
-INFO - 2025-12-03 21:45:31 --> Final output sent to browser
-DEBUG - 2025-12-03 21:45:31 --> Total execution time: 0.4426
-INFO - 2025-12-03 14:45:39 --> Config Class Initialized
-INFO - 2025-12-03 14:45:39 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:45:39 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:45:39 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:45:39 --> URI Class Initialized
-INFO - 2025-12-03 14:45:39 --> Router Class Initialized
-INFO - 2025-12-03 14:45:39 --> Output Class Initialized
-INFO - 2025-12-03 14:45:39 --> Security Class Initialized
-DEBUG - 2025-12-03 14:45:39 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:45:39 --> Input Class Initialized
-INFO - 2025-12-03 14:45:39 --> Language Class Initialized
-INFO - 2025-12-03 14:45:39 --> Loader Class Initialized
-INFO - 2025-12-03 14:45:39 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:45:39 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:45:39 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:45:39 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:45:39 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:45:39 --> Controller Class Initialized
-INFO - 2025-12-03 21:45:39 --> Model "M_service" initialized
-INFO - 2025-12-03 21:45:39 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/header.php
-INFO - 2025-12-03 21:45:39 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/footer.php
-INFO - 2025-12-03 21:45:39 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Service/laporan.php
-INFO - 2025-12-03 14:45:39 --> Config Class Initialized
-INFO - 2025-12-03 14:45:39 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:45:39 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:45:39 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:45:39 --> URI Class Initialized
-INFO - 2025-12-03 14:45:39 --> Router Class Initialized
-INFO - 2025-12-03 14:45:39 --> Output Class Initialized
-INFO - 2025-12-03 14:45:39 --> Security Class Initialized
-DEBUG - 2025-12-03 14:45:39 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:45:39 --> Input Class Initialized
-INFO - 2025-12-03 14:45:39 --> Language Class Initialized
-INFO - 2025-12-03 14:45:39 --> Loader Class Initialized
-INFO - 2025-12-03 14:45:39 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:45:39 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:45:39 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:45:39 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:45:39 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:45:39 --> Controller Class Initialized
-INFO - 2025-12-03 21:45:39 --> Model "M_service" initialized
-INFO - 2025-12-03 21:45:39 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/header.php
-INFO - 2025-12-03 21:45:39 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/footer.php
-INFO - 2025-12-03 21:45:39 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Service/laporan.php
-INFO - 2025-12-03 21:45:39 --> Final output sent to browser
-DEBUG - 2025-12-03 21:45:39 --> Total execution time: 0.0724
-INFO - 2025-12-03 14:45:43 --> Config Class Initialized
-INFO - 2025-12-03 14:45:43 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:45:43 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:45:43 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:45:43 --> URI Class Initialized
-INFO - 2025-12-03 14:45:43 --> Router Class Initialized
-INFO - 2025-12-03 14:45:43 --> Output Class Initialized
-INFO - 2025-12-03 14:45:43 --> Security Class Initialized
-DEBUG - 2025-12-03 14:45:43 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:45:43 --> Input Class Initialized
-INFO - 2025-12-03 14:45:43 --> Language Class Initialized
-INFO - 2025-12-03 14:45:43 --> Loader Class Initialized
-INFO - 2025-12-03 14:45:43 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:45:43 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:45:43 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:45:43 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:45:43 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:45:43 --> Controller Class Initialized
-INFO - 2025-12-03 21:45:43 --> Model "M_service" initialized
-INFO - 2025-12-03 21:45:43 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/header.php
-INFO - 2025-12-03 21:45:43 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/footer.php
-INFO - 2025-12-03 21:45:43 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Service/dashboard.php
-INFO - 2025-12-03 21:45:43 --> Final output sent to browser
-DEBUG - 2025-12-03 21:45:43 --> Total execution time: 0.1209
-INFO - 2025-12-03 14:45:46 --> Config Class Initialized
-INFO - 2025-12-03 14:45:46 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:45:46 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:45:46 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:45:46 --> URI Class Initialized
-INFO - 2025-12-03 14:45:46 --> Router Class Initialized
-INFO - 2025-12-03 14:45:46 --> Output Class Initialized
-INFO - 2025-12-03 14:45:46 --> Security Class Initialized
-DEBUG - 2025-12-03 14:45:46 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:45:46 --> Input Class Initialized
-INFO - 2025-12-03 14:45:46 --> Language Class Initialized
-INFO - 2025-12-03 14:45:46 --> Loader Class Initialized
-INFO - 2025-12-03 14:45:46 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:45:46 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:45:46 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:45:46 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:45:46 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:45:46 --> Controller Class Initialized
-INFO - 2025-12-03 21:45:46 --> Model "M_service" initialized
-INFO - 2025-12-03 21:45:46 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/header.php
-INFO - 2025-12-03 21:45:46 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/footer.php
-INFO - 2025-12-03 21:45:46 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Costomer/cos-baru.php
-INFO - 2025-12-03 21:45:46 --> Final output sent to browser
-DEBUG - 2025-12-03 21:45:46 --> Total execution time: 0.0518
-INFO - 2025-12-03 14:46:18 --> Config Class Initialized
-INFO - 2025-12-03 14:46:18 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:46:18 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:46:18 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:46:18 --> URI Class Initialized
-INFO - 2025-12-03 14:46:18 --> Router Class Initialized
-INFO - 2025-12-03 14:46:18 --> Output Class Initialized
-INFO - 2025-12-03 14:46:18 --> Security Class Initialized
-DEBUG - 2025-12-03 14:46:18 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:46:18 --> Input Class Initialized
-INFO - 2025-12-03 14:46:18 --> Language Class Initialized
-INFO - 2025-12-03 14:46:18 --> Loader Class Initialized
-INFO - 2025-12-03 14:46:18 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:46:18 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:46:18 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:46:18 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:46:18 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:46:18 --> Controller Class Initialized
-INFO - 2025-12-03 21:46:18 --> Model "M_service" initialized
-INFO - 2025-12-03 21:46:18 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/header.php
-INFO - 2025-12-03 21:46:18 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/footer.php
-INFO - 2025-12-03 21:46:18 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Service/dashboard.php
-INFO - 2025-12-03 21:46:18 --> Final output sent to browser
-DEBUG - 2025-12-03 21:46:18 --> Total execution time: 0.1202
-INFO - 2025-12-03 14:47:11 --> Config Class Initialized
-INFO - 2025-12-03 14:47:11 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:47:11 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:47:11 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:47:11 --> URI Class Initialized
-INFO - 2025-12-03 14:47:11 --> Router Class Initialized
-INFO - 2025-12-03 14:47:11 --> Output Class Initialized
-INFO - 2025-12-03 14:47:11 --> Security Class Initialized
-DEBUG - 2025-12-03 14:47:11 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:47:11 --> Input Class Initialized
-INFO - 2025-12-03 14:47:11 --> Language Class Initialized
-INFO - 2025-12-03 14:47:11 --> Loader Class Initialized
-INFO - 2025-12-03 14:47:11 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:47:11 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:47:11 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:47:11 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:47:11 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:47:11 --> Controller Class Initialized
-INFO - 2025-12-03 21:47:11 --> Model "M_service" initialized
-INFO - 2025-12-03 21:47:11 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/header.php
-INFO - 2025-12-03 21:47:11 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/footer.php
-INFO - 2025-12-03 21:47:11 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Costomer/cos-baru.php
-INFO - 2025-12-03 21:47:11 --> Final output sent to browser
-DEBUG - 2025-12-03 21:47:11 --> Total execution time: 0.0462
-INFO - 2025-12-03 14:49:53 --> Config Class Initialized
-INFO - 2025-12-03 14:49:53 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:49:53 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:49:53 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:49:53 --> URI Class Initialized
-INFO - 2025-12-03 14:49:53 --> Router Class Initialized
-INFO - 2025-12-03 14:49:53 --> Output Class Initialized
-INFO - 2025-12-03 14:49:53 --> Security Class Initialized
-DEBUG - 2025-12-03 14:49:53 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:49:53 --> Input Class Initialized
-INFO - 2025-12-03 14:49:53 --> Language Class Initialized
-INFO - 2025-12-03 14:49:53 --> Loader Class Initialized
-INFO - 2025-12-03 14:49:53 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:49:53 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:49:53 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:49:53 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:49:53 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:49:53 --> Controller Class Initialized
-INFO - 2025-12-03 21:49:53 --> Model "M_service" initialized
-INFO - 2025-12-03 21:49:53 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/header.php
-INFO - 2025-12-03 21:49:53 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/footer.php
-INFO - 2025-12-03 21:49:53 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Kasir/pembayaran.php
-INFO - 2025-12-03 21:49:53 --> Final output sent to browser
-DEBUG - 2025-12-03 21:49:53 --> Total execution time: 0.3957
-INFO - 2025-12-03 14:50:00 --> Config Class Initialized
-INFO - 2025-12-03 14:50:00 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:50:00 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:50:00 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:50:00 --> URI Class Initialized
-INFO - 2025-12-03 14:50:00 --> Router Class Initialized
-INFO - 2025-12-03 14:50:00 --> Output Class Initialized
-INFO - 2025-12-03 14:50:00 --> Security Class Initialized
-DEBUG - 2025-12-03 14:50:00 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:50:00 --> Input Class Initialized
-INFO - 2025-12-03 14:50:00 --> Language Class Initialized
-INFO - 2025-12-03 14:50:00 --> Loader Class Initialized
-INFO - 2025-12-03 14:50:00 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:50:00 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:50:00 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:50:00 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:50:00 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:50:00 --> Controller Class Initialized
-INFO - 2025-12-03 21:50:00 --> Model "M_service" initialized
-INFO - 2025-12-03 21:50:00 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/header.php
-INFO - 2025-12-03 21:50:00 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/footer.php
-INFO - 2025-12-03 21:50:00 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Service/laporan.php
-INFO - 2025-12-03 21:50:00 --> Final output sent to browser
-DEBUG - 2025-12-03 21:50:00 --> Total execution time: 0.1158
-INFO - 2025-12-03 14:50:04 --> Config Class Initialized
-INFO - 2025-12-03 14:50:04 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:50:04 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:50:04 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:50:04 --> URI Class Initialized
-INFO - 2025-12-03 14:50:04 --> Router Class Initialized
-INFO - 2025-12-03 14:50:04 --> Output Class Initialized
-INFO - 2025-12-03 14:50:04 --> Security Class Initialized
-DEBUG - 2025-12-03 14:50:04 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:50:04 --> Input Class Initialized
-INFO - 2025-12-03 14:50:04 --> Language Class Initialized
-INFO - 2025-12-03 14:50:04 --> Loader Class Initialized
-INFO - 2025-12-03 14:50:04 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:50:04 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:50:04 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:50:04 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:50:04 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:50:04 --> Controller Class Initialized
-INFO - 2025-12-03 21:50:04 --> Model "M_order" initialized
-INFO - 2025-12-03 21:50:04 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/header.php
-INFO - 2025-12-03 21:50:04 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/footer.php
-INFO - 2025-12-03 21:50:04 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\CSdanAdmin/order.php
-INFO - 2025-12-03 21:50:04 --> Final output sent to browser
-DEBUG - 2025-12-03 21:50:04 --> Total execution time: 0.1521
-INFO - 2025-12-03 14:50:07 --> Config Class Initialized
-INFO - 2025-12-03 14:50:07 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:50:07 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:50:07 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:50:07 --> URI Class Initialized
-INFO - 2025-12-03 14:50:07 --> Router Class Initialized
-INFO - 2025-12-03 14:50:07 --> Output Class Initialized
-INFO - 2025-12-03 14:50:07 --> Security Class Initialized
-DEBUG - 2025-12-03 14:50:07 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:50:07 --> Input Class Initialized
-INFO - 2025-12-03 14:50:07 --> Language Class Initialized
-INFO - 2025-12-03 14:50:07 --> Loader Class Initialized
-INFO - 2025-12-03 14:50:07 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:50:07 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:50:07 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:50:07 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:50:07 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:50:07 --> Controller Class Initialized
-INFO - 2025-12-03 21:50:07 --> Model "M_voucher" initialized
-INFO - 2025-12-03 21:50:07 --> Language file loaded: language/english/pagination_lang.php
-INFO - 2025-12-03 21:50:07 --> Pagination Class Initialized
-INFO - 2025-12-03 21:50:07 --> Helper loaded: form_helper
-INFO - 2025-12-03 21:50:07 --> Form Validation Class Initialized
-INFO - 2025-12-03 21:50:07 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/header.php
-INFO - 2025-12-03 21:50:07 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Voucher/read.php
-INFO - 2025-12-03 21:50:07 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/footer.php
-INFO - 2025-12-03 21:50:07 --> Final output sent to browser
-DEBUG - 2025-12-03 21:50:07 --> Total execution time: 0.0567
-INFO - 2025-12-03 14:50:08 --> Config Class Initialized
-INFO - 2025-12-03 14:50:08 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:50:08 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:50:08 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:50:08 --> URI Class Initialized
-INFO - 2025-12-03 14:50:08 --> Router Class Initialized
-INFO - 2025-12-03 14:50:08 --> Output Class Initialized
-INFO - 2025-12-03 14:50:08 --> Security Class Initialized
-DEBUG - 2025-12-03 14:50:08 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:50:08 --> Input Class Initialized
-INFO - 2025-12-03 14:50:08 --> Language Class Initialized
-INFO - 2025-12-03 14:50:08 --> Loader Class Initialized
-INFO - 2025-12-03 14:50:08 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:50:08 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:50:08 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:50:08 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:50:08 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:50:08 --> Controller Class Initialized
-INFO - 2025-12-03 21:50:08 --> Model "M_voucher" initialized
-INFO - 2025-12-03 21:50:08 --> Language file loaded: language/english/pagination_lang.php
-INFO - 2025-12-03 21:50:08 --> Pagination Class Initialized
-INFO - 2025-12-03 21:50:08 --> Helper loaded: form_helper
-INFO - 2025-12-03 21:50:08 --> Form Validation Class Initialized
-INFO - 2025-12-03 21:50:08 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Voucher/ajax_table.php
-INFO - 2025-12-03 21:50:08 --> Final output sent to browser
-DEBUG - 2025-12-03 21:50:08 --> Total execution time: 0.0839
-INFO - 2025-12-03 14:52:34 --> Config Class Initialized
-INFO - 2025-12-03 14:52:34 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:52:34 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:52:34 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:52:34 --> URI Class Initialized
-INFO - 2025-12-03 14:52:34 --> Router Class Initialized
-INFO - 2025-12-03 14:52:34 --> Output Class Initialized
-INFO - 2025-12-03 14:52:34 --> Security Class Initialized
-DEBUG - 2025-12-03 14:52:34 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:52:34 --> Input Class Initialized
-INFO - 2025-12-03 14:52:34 --> Language Class Initialized
-INFO - 2025-12-03 14:52:34 --> Loader Class Initialized
-INFO - 2025-12-03 14:52:34 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:52:34 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:52:34 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:52:34 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:52:34 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:52:34 --> Controller Class Initialized
-INFO - 2025-12-03 21:52:34 --> Model "M_service" initialized
-INFO - 2025-12-03 21:52:34 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/header.php
-INFO - 2025-12-03 21:52:34 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/footer.php
-INFO - 2025-12-03 21:52:34 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Kasir/pembayaran.php
-INFO - 2025-12-03 21:52:34 --> Final output sent to browser
-DEBUG - 2025-12-03 21:52:34 --> Total execution time: 0.4971
-INFO - 2025-12-03 14:53:02 --> Config Class Initialized
-INFO - 2025-12-03 14:53:02 --> Hooks Class Initialized
-DEBUG - 2025-12-03 14:53:02 --> UTF-8 Support Enabled
-INFO - 2025-12-03 14:53:02 --> Utf8 Class Initialized
-INFO - 2025-12-03 14:53:02 --> URI Class Initialized
-INFO - 2025-12-03 14:53:02 --> Router Class Initialized
-INFO - 2025-12-03 14:53:02 --> Output Class Initialized
-INFO - 2025-12-03 14:53:02 --> Security Class Initialized
-DEBUG - 2025-12-03 14:53:02 --> Global POST, GET and COOKIE data sanitized
-INFO - 2025-12-03 14:53:02 --> Input Class Initialized
-INFO - 2025-12-03 14:53:02 --> Language Class Initialized
-INFO - 2025-12-03 14:53:02 --> Loader Class Initialized
-INFO - 2025-12-03 14:53:02 --> Helper loaded: url_helper
-INFO - 2025-12-03 21:53:02 --> Helper loaded: is_helper
-INFO - 2025-12-03 21:53:02 --> Database Driver Class Initialized
-DEBUG - 2025-12-03 21:53:02 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2025-12-03 21:53:02 --> Session: Class initialized using 'files' driver.
-INFO - 2025-12-03 21:53:02 --> Controller Class Initialized
-INFO - 2025-12-03 21:53:02 --> Model "M_service" initialized
-INFO - 2025-12-03 21:53:02 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/header.php
-INFO - 2025-12-03 21:53:02 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Template/footer.php
-INFO - 2025-12-03 21:53:02 --> File loaded: C:\wamp64\www\Azzahra_Website-master\application\views\Costomer/cos-baru.php
-INFO - 2025-12-03 21:53:02 --> Final output sent to browser
-DEBUG - 2025-12-03 21:53:02 --> Total execution time: 0.0497
+INFO - 2025-12-03 04:19:53 --> Config Class Initialized
+INFO - 2025-12-03 04:19:53 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:19:53 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:19:53 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:19:53 --> URI Class Initialized
+INFO - 2025-12-03 04:19:53 --> Router Class Initialized
+INFO - 2025-12-03 04:19:53 --> Output Class Initialized
+INFO - 2025-12-03 04:19:53 --> Security Class Initialized
+DEBUG - 2025-12-03 04:19:53 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:19:53 --> Input Class Initialized
+INFO - 2025-12-03 04:19:53 --> Language Class Initialized
+INFO - 2025-12-03 04:19:53 --> Loader Class Initialized
+INFO - 2025-12-03 04:19:53 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:19:54 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:19:54 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:19:54 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:19:54 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:19:54 --> Controller Class Initialized
+INFO - 2025-12-03 11:19:54 --> Model "M_auth" initialized
+INFO - 2025-12-03 11:19:54 --> Helper loaded: form_helper
+INFO - 2025-12-03 11:19:54 --> Form Validation Class Initialized
+INFO - 2025-12-03 04:19:54 --> Config Class Initialized
+INFO - 2025-12-03 04:19:54 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:19:54 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:19:54 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:19:54 --> URI Class Initialized
+INFO - 2025-12-03 04:19:54 --> Router Class Initialized
+INFO - 2025-12-03 04:19:54 --> Output Class Initialized
+INFO - 2025-12-03 04:19:54 --> Security Class Initialized
+DEBUG - 2025-12-03 04:19:54 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:19:54 --> Input Class Initialized
+INFO - 2025-12-03 04:19:54 --> Language Class Initialized
+INFO - 2025-12-03 04:19:54 --> Loader Class Initialized
+INFO - 2025-12-03 04:19:54 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:19:54 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:19:54 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:19:54 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:19:54 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:19:54 --> Controller Class Initialized
+INFO - 2025-12-03 11:19:54 --> Model "M_admin" initialized
+INFO - 2025-12-03 11:19:54 --> Model "M_order" initialized
+INFO - 2025-12-03 11:19:54 --> Model "M_customer" initialized
+INFO - 2025-12-03 11:19:55 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/header.php
+INFO - 2025-12-03 11:19:55 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/footer.php
+INFO - 2025-12-03 11:19:55 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Admin/dashboard.php
+INFO - 2025-12-03 11:19:55 --> Final output sent to browser
+DEBUG - 2025-12-03 11:19:55 --> Total execution time: 0.9099
+INFO - 2025-12-03 04:19:57 --> Config Class Initialized
+INFO - 2025-12-03 04:19:57 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:19:57 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:19:57 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:19:57 --> URI Class Initialized
+INFO - 2025-12-03 04:19:57 --> Router Class Initialized
+INFO - 2025-12-03 04:19:57 --> Output Class Initialized
+INFO - 2025-12-03 04:19:57 --> Security Class Initialized
+DEBUG - 2025-12-03 04:19:57 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:19:57 --> Input Class Initialized
+INFO - 2025-12-03 04:19:57 --> Language Class Initialized
+INFO - 2025-12-03 04:19:58 --> Loader Class Initialized
+INFO - 2025-12-03 04:19:58 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:19:58 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:19:58 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:19:58 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:19:58 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:19:58 --> Controller Class Initialized
+INFO - 2025-12-03 11:19:58 --> Model "M_voucher" initialized
+INFO - 2025-12-03 11:19:58 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2025-12-03 11:19:58 --> Pagination Class Initialized
+INFO - 2025-12-03 11:19:58 --> Helper loaded: form_helper
+INFO - 2025-12-03 11:19:58 --> Form Validation Class Initialized
+INFO - 2025-12-03 11:19:58 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/header.php
+INFO - 2025-12-03 11:19:58 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Voucher/read.php
+INFO - 2025-12-03 11:19:58 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/footer.php
+INFO - 2025-12-03 11:19:58 --> Final output sent to browser
+DEBUG - 2025-12-03 11:19:58 --> Total execution time: 0.8926
+INFO - 2025-12-03 04:19:59 --> Config Class Initialized
+INFO - 2025-12-03 04:19:59 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:19:59 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:19:59 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:19:59 --> URI Class Initialized
+INFO - 2025-12-03 04:19:59 --> Router Class Initialized
+INFO - 2025-12-03 04:19:59 --> Output Class Initialized
+INFO - 2025-12-03 04:19:59 --> Security Class Initialized
+DEBUG - 2025-12-03 04:19:59 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:19:59 --> Input Class Initialized
+INFO - 2025-12-03 04:19:59 --> Language Class Initialized
+INFO - 2025-12-03 04:19:59 --> Loader Class Initialized
+INFO - 2025-12-03 04:19:59 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:19:59 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:19:59 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:20:00 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:20:00 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:20:00 --> Controller Class Initialized
+INFO - 2025-12-03 11:20:00 --> Model "M_voucher" initialized
+INFO - 2025-12-03 11:20:00 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2025-12-03 11:20:00 --> Pagination Class Initialized
+INFO - 2025-12-03 11:20:00 --> Helper loaded: form_helper
+INFO - 2025-12-03 11:20:00 --> Form Validation Class Initialized
+INFO - 2025-12-03 11:20:00 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Voucher/ajax_table.php
+INFO - 2025-12-03 11:20:00 --> Final output sent to browser
+DEBUG - 2025-12-03 11:20:00 --> Total execution time: 0.9204
+INFO - 2025-12-03 04:20:02 --> Config Class Initialized
+INFO - 2025-12-03 04:20:02 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:20:02 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:20:02 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:20:02 --> URI Class Initialized
+INFO - 2025-12-03 04:20:02 --> Router Class Initialized
+INFO - 2025-12-03 04:20:02 --> Output Class Initialized
+INFO - 2025-12-03 04:20:02 --> Security Class Initialized
+DEBUG - 2025-12-03 04:20:02 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:20:02 --> Input Class Initialized
+INFO - 2025-12-03 04:20:02 --> Language Class Initialized
+INFO - 2025-12-03 04:20:02 --> Loader Class Initialized
+INFO - 2025-12-03 04:20:02 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:20:02 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:20:02 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:20:02 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:20:02 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:20:02 --> Controller Class Initialized
+INFO - 2025-12-03 11:20:03 --> Model "M_voucher" initialized
+INFO - 2025-12-03 11:20:03 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2025-12-03 11:20:03 --> Pagination Class Initialized
+INFO - 2025-12-03 11:20:03 --> Helper loaded: form_helper
+INFO - 2025-12-03 11:20:03 --> Form Validation Class Initialized
+INFO - 2025-12-03 11:20:03 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/header.php
+INFO - 2025-12-03 11:20:03 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Voucher/add.php
+INFO - 2025-12-03 11:20:03 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/footer.php
+INFO - 2025-12-03 11:20:03 --> Final output sent to browser
+DEBUG - 2025-12-03 11:20:03 --> Total execution time: 0.8535
+INFO - 2025-12-03 04:20:24 --> Config Class Initialized
+INFO - 2025-12-03 04:20:24 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:20:24 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:20:24 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:20:24 --> URI Class Initialized
+INFO - 2025-12-03 04:20:24 --> Router Class Initialized
+INFO - 2025-12-03 04:20:24 --> Output Class Initialized
+INFO - 2025-12-03 04:20:24 --> Security Class Initialized
+DEBUG - 2025-12-03 04:20:24 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:20:24 --> Input Class Initialized
+INFO - 2025-12-03 04:20:24 --> Language Class Initialized
+INFO - 2025-12-03 04:20:24 --> Loader Class Initialized
+INFO - 2025-12-03 04:20:24 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:20:24 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:20:24 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:20:24 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:20:24 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:20:24 --> Controller Class Initialized
+INFO - 2025-12-03 11:20:24 --> Model "M_voucher" initialized
+INFO - 2025-12-03 11:20:24 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2025-12-03 11:20:25 --> Pagination Class Initialized
+INFO - 2025-12-03 11:20:25 --> Helper loaded: form_helper
+INFO - 2025-12-03 11:20:25 --> Form Validation Class Initialized
+INFO - 2025-12-03 11:20:25 --> Voucher save method called
+INFO - 2025-12-03 11:20:25 --> Language file loaded: language/english/form_validation_lang.php
+INFO - 2025-12-03 11:20:25 --> Processing voucher_code: DISC50
+INFO - 2025-12-03 11:20:25 --> Uploading voucher image
+INFO - 2025-12-03 11:20:25 --> Starting voucher image upload to API: voucher_1764735625_7512.jpeg type: voucher
+ERROR - 2025-12-03 11:20:25 --> CURL extension not loaded
+ERROR - 2025-12-03 11:20:25 --> Voucher image upload failed: CURL extension not available
+INFO - 2025-12-03 11:20:25 --> Final output sent to browser
+DEBUG - 2025-12-03 11:20:25 --> Total execution time: 0.8930
+INFO - 2025-12-03 04:24:01 --> Config Class Initialized
+INFO - 2025-12-03 04:24:01 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:24:01 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:24:01 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:24:01 --> URI Class Initialized
+INFO - 2025-12-03 04:24:01 --> Router Class Initialized
+INFO - 2025-12-03 04:24:01 --> Output Class Initialized
+INFO - 2025-12-03 04:24:01 --> Security Class Initialized
+DEBUG - 2025-12-03 04:24:01 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:24:01 --> Input Class Initialized
+INFO - 2025-12-03 04:24:01 --> Language Class Initialized
+INFO - 2025-12-03 04:24:01 --> Loader Class Initialized
+INFO - 2025-12-03 04:24:01 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:24:01 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:24:01 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:24:01 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:24:01 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:24:01 --> Controller Class Initialized
+INFO - 2025-12-03 11:24:01 --> Model "M_voucher" initialized
+INFO - 2025-12-03 11:24:01 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2025-12-03 11:24:01 --> Pagination Class Initialized
+INFO - 2025-12-03 11:24:02 --> Helper loaded: form_helper
+INFO - 2025-12-03 11:24:02 --> Form Validation Class Initialized
+INFO - 2025-12-03 11:24:02 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/header.php
+INFO - 2025-12-03 11:24:02 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Voucher/add.php
+INFO - 2025-12-03 11:24:02 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/footer.php
+INFO - 2025-12-03 11:24:02 --> Final output sent to browser
+DEBUG - 2025-12-03 11:24:02 --> Total execution time: 0.7337
+INFO - 2025-12-03 04:24:15 --> Config Class Initialized
+INFO - 2025-12-03 04:24:15 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:24:15 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:24:15 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:24:15 --> URI Class Initialized
+INFO - 2025-12-03 04:24:15 --> Router Class Initialized
+INFO - 2025-12-03 04:24:15 --> Output Class Initialized
+INFO - 2025-12-03 04:24:15 --> Security Class Initialized
+DEBUG - 2025-12-03 04:24:15 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:24:15 --> Input Class Initialized
+INFO - 2025-12-03 04:24:15 --> Language Class Initialized
+INFO - 2025-12-03 04:24:15 --> Loader Class Initialized
+INFO - 2025-12-03 04:24:15 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:24:15 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:24:15 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:24:15 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:24:15 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:24:15 --> Controller Class Initialized
+INFO - 2025-12-03 11:24:15 --> Model "M_voucher" initialized
+INFO - 2025-12-03 11:24:15 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2025-12-03 11:24:15 --> Pagination Class Initialized
+INFO - 2025-12-03 11:24:15 --> Helper loaded: form_helper
+INFO - 2025-12-03 11:24:15 --> Form Validation Class Initialized
+INFO - 2025-12-03 11:24:15 --> Voucher save method called
+INFO - 2025-12-03 11:24:15 --> Language file loaded: language/english/form_validation_lang.php
+INFO - 2025-12-03 11:24:15 --> Processing voucher_code: DISC50
+INFO - 2025-12-03 11:24:15 --> Uploading voucher image
+INFO - 2025-12-03 11:24:15 --> Starting voucher image upload to API: voucher_1764735855_2072.jpeg type: voucher
+ERROR - 2025-12-03 11:24:16 --> CURL extension not loaded
+ERROR - 2025-12-03 11:24:16 --> Voucher image upload failed: CURL extension not available
+INFO - 2025-12-03 11:24:16 --> Final output sent to browser
+DEBUG - 2025-12-03 11:24:16 --> Total execution time: 0.8668
+INFO - 2025-12-03 04:36:14 --> Config Class Initialized
+INFO - 2025-12-03 04:36:14 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:36:14 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:36:14 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:36:14 --> URI Class Initialized
+INFO - 2025-12-03 04:36:14 --> Router Class Initialized
+INFO - 2025-12-03 04:36:14 --> Output Class Initialized
+INFO - 2025-12-03 04:36:14 --> Security Class Initialized
+DEBUG - 2025-12-03 04:36:14 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:36:14 --> Input Class Initialized
+INFO - 2025-12-03 04:36:14 --> Language Class Initialized
+INFO - 2025-12-03 04:36:14 --> Loader Class Initialized
+INFO - 2025-12-03 04:36:14 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:36:14 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:36:14 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:36:14 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:36:14 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:36:14 --> Controller Class Initialized
+INFO - 2025-12-03 11:36:14 --> Model "M_admin" initialized
+INFO - 2025-12-03 11:36:14 --> Model "M_order" initialized
+INFO - 2025-12-03 11:36:14 --> Model "M_customer" initialized
+INFO - 2025-12-03 11:36:14 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/header.php
+INFO - 2025-12-03 11:36:15 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/footer.php
+INFO - 2025-12-03 11:36:15 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Admin/cus-baru.php
+INFO - 2025-12-03 11:36:15 --> Final output sent to browser
+DEBUG - 2025-12-03 11:36:15 --> Total execution time: 0.9756
+INFO - 2025-12-03 04:39:01 --> Config Class Initialized
+INFO - 2025-12-03 04:39:01 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:39:01 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:39:01 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:39:01 --> URI Class Initialized
+INFO - 2025-12-03 04:39:01 --> Router Class Initialized
+INFO - 2025-12-03 04:39:01 --> Output Class Initialized
+INFO - 2025-12-03 04:39:01 --> Security Class Initialized
+DEBUG - 2025-12-03 04:39:01 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:39:01 --> Input Class Initialized
+INFO - 2025-12-03 04:39:01 --> Language Class Initialized
+INFO - 2025-12-03 04:39:01 --> Loader Class Initialized
+INFO - 2025-12-03 04:39:01 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:39:01 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:39:01 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:39:01 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:39:01 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:39:01 --> Controller Class Initialized
+INFO - 2025-12-03 11:39:01 --> Model "M_order" initialized
+INFO - 2025-12-03 11:39:02 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/header.php
+INFO - 2025-12-03 11:39:02 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/footer.php
+INFO - 2025-12-03 11:39:02 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\CSdanAdmin/order.php
+INFO - 2025-12-03 11:39:02 --> Final output sent to browser
+DEBUG - 2025-12-03 11:39:02 --> Total execution time: 1.3865
+INFO - 2025-12-03 04:39:04 --> Config Class Initialized
+INFO - 2025-12-03 04:39:04 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:39:04 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:39:04 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:39:04 --> URI Class Initialized
+INFO - 2025-12-03 04:39:04 --> Router Class Initialized
+INFO - 2025-12-03 04:39:04 --> Output Class Initialized
+INFO - 2025-12-03 04:39:04 --> Security Class Initialized
+DEBUG - 2025-12-03 04:39:04 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:39:04 --> Input Class Initialized
+INFO - 2025-12-03 04:39:04 --> Language Class Initialized
+INFO - 2025-12-03 04:39:04 --> Loader Class Initialized
+INFO - 2025-12-03 04:39:04 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:39:04 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:39:04 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:39:04 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:39:04 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:39:04 --> Controller Class Initialized
+INFO - 2025-12-03 11:39:04 --> Model "M_voucher" initialized
+INFO - 2025-12-03 11:39:04 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2025-12-03 11:39:04 --> Pagination Class Initialized
+INFO - 2025-12-03 11:39:04 --> Helper loaded: form_helper
+INFO - 2025-12-03 11:39:05 --> Form Validation Class Initialized
+INFO - 2025-12-03 11:39:05 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/header.php
+INFO - 2025-12-03 11:39:05 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Voucher/read.php
+INFO - 2025-12-03 11:39:05 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/footer.php
+INFO - 2025-12-03 11:39:05 --> Final output sent to browser
+DEBUG - 2025-12-03 11:39:05 --> Total execution time: 0.9715
+INFO - 2025-12-03 04:39:05 --> Config Class Initialized
+INFO - 2025-12-03 04:39:05 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:39:05 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:39:05 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:39:05 --> URI Class Initialized
+INFO - 2025-12-03 04:39:05 --> Router Class Initialized
+INFO - 2025-12-03 04:39:06 --> Output Class Initialized
+INFO - 2025-12-03 04:39:06 --> Security Class Initialized
+DEBUG - 2025-12-03 04:39:06 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:39:06 --> Input Class Initialized
+INFO - 2025-12-03 04:39:06 --> Language Class Initialized
+INFO - 2025-12-03 04:39:06 --> Loader Class Initialized
+INFO - 2025-12-03 04:39:06 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:39:06 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:39:06 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:39:06 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:39:06 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:39:06 --> Controller Class Initialized
+INFO - 2025-12-03 11:39:06 --> Model "M_voucher" initialized
+INFO - 2025-12-03 11:39:06 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2025-12-03 11:39:06 --> Pagination Class Initialized
+INFO - 2025-12-03 11:39:06 --> Helper loaded: form_helper
+INFO - 2025-12-03 11:39:06 --> Form Validation Class Initialized
+INFO - 2025-12-03 11:39:06 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Voucher/ajax_table.php
+INFO - 2025-12-03 11:39:06 --> Final output sent to browser
+DEBUG - 2025-12-03 11:39:06 --> Total execution time: 1.0423
+INFO - 2025-12-03 04:39:08 --> Config Class Initialized
+INFO - 2025-12-03 04:39:09 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:39:09 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:39:09 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:39:09 --> URI Class Initialized
+INFO - 2025-12-03 04:39:09 --> Router Class Initialized
+INFO - 2025-12-03 04:39:09 --> Output Class Initialized
+INFO - 2025-12-03 04:39:09 --> Security Class Initialized
+DEBUG - 2025-12-03 04:39:09 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:39:09 --> Input Class Initialized
+INFO - 2025-12-03 04:39:09 --> Language Class Initialized
+INFO - 2025-12-03 04:39:09 --> Loader Class Initialized
+INFO - 2025-12-03 04:39:09 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:39:09 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:39:09 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:39:09 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:39:09 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:39:09 --> Controller Class Initialized
+INFO - 2025-12-03 11:39:09 --> Model "M_voucher" initialized
+INFO - 2025-12-03 11:39:09 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2025-12-03 11:39:09 --> Pagination Class Initialized
+INFO - 2025-12-03 11:39:09 --> Helper loaded: form_helper
+INFO - 2025-12-03 11:39:09 --> Form Validation Class Initialized
+INFO - 2025-12-03 11:39:09 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/header.php
+INFO - 2025-12-03 11:39:09 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Voucher/edit.php
+INFO - 2025-12-03 11:39:09 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/footer.php
+INFO - 2025-12-03 11:39:09 --> Final output sent to browser
+DEBUG - 2025-12-03 11:39:10 --> Total execution time: 0.9985
+INFO - 2025-12-03 04:39:23 --> Config Class Initialized
+INFO - 2025-12-03 04:39:23 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:39:23 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:39:23 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:39:23 --> URI Class Initialized
+INFO - 2025-12-03 04:39:23 --> Router Class Initialized
+INFO - 2025-12-03 04:39:23 --> Output Class Initialized
+INFO - 2025-12-03 04:39:23 --> Security Class Initialized
+DEBUG - 2025-12-03 04:39:23 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:39:23 --> Input Class Initialized
+INFO - 2025-12-03 04:39:23 --> Language Class Initialized
+INFO - 2025-12-03 04:39:23 --> Loader Class Initialized
+INFO - 2025-12-03 04:39:23 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:39:23 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:39:23 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:39:23 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:39:23 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:39:23 --> Controller Class Initialized
+INFO - 2025-12-03 11:39:23 --> Model "M_voucher" initialized
+INFO - 2025-12-03 11:39:23 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2025-12-03 11:39:23 --> Pagination Class Initialized
+INFO - 2025-12-03 11:39:23 --> Helper loaded: form_helper
+INFO - 2025-12-03 11:39:23 --> Form Validation Class Initialized
+INFO - 2025-12-03 11:39:23 --> Voucher update method called for ID: 14
+INFO - 2025-12-03 11:39:24 --> Language file loaded: language/english/form_validation_lang.php
+INFO - 2025-12-03 11:39:24 --> Updating voucher_code from DISC25 to DISC25
+INFO - 2025-12-03 11:39:24 --> Uploading new voucher image for update
+INFO - 2025-12-03 11:39:24 --> Starting voucher image upload to API: voucher_1764736764_1071.jpeg type: voucher
+ERROR - 2025-12-03 11:39:24 --> CURL extension not loaded
+ERROR - 2025-12-03 11:39:24 --> Voucher image upload failed during update: CURL extension not available
+INFO - 2025-12-03 11:39:24 --> Final output sent to browser
+DEBUG - 2025-12-03 11:39:24 --> Total execution time: 0.9237
+INFO - 2025-12-03 04:46:54 --> Config Class Initialized
+INFO - 2025-12-03 04:46:54 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:46:54 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:46:54 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:46:54 --> URI Class Initialized
+INFO - 2025-12-03 04:46:54 --> Router Class Initialized
+INFO - 2025-12-03 04:46:54 --> Output Class Initialized
+INFO - 2025-12-03 04:46:54 --> Security Class Initialized
+DEBUG - 2025-12-03 04:46:54 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:46:54 --> Input Class Initialized
+INFO - 2025-12-03 04:46:54 --> Language Class Initialized
+INFO - 2025-12-03 04:46:54 --> Loader Class Initialized
+INFO - 2025-12-03 04:46:54 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:46:54 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:46:54 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:46:54 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:46:54 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:46:54 --> Controller Class Initialized
+INFO - 2025-12-03 11:46:54 --> Model "M_voucher" initialized
+INFO - 2025-12-03 11:46:54 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2025-12-03 11:46:54 --> Pagination Class Initialized
+INFO - 2025-12-03 11:46:54 --> Helper loaded: form_helper
+INFO - 2025-12-03 11:46:54 --> Form Validation Class Initialized
+INFO - 2025-12-03 11:46:54 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/header.php
+INFO - 2025-12-03 11:46:54 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Voucher/edit.php
+INFO - 2025-12-03 11:46:54 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/footer.php
+INFO - 2025-12-03 11:46:55 --> Final output sent to browser
+DEBUG - 2025-12-03 11:46:55 --> Total execution time: 0.8466
+INFO - 2025-12-03 04:47:06 --> Config Class Initialized
+INFO - 2025-12-03 04:47:06 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:47:06 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:47:06 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:47:06 --> URI Class Initialized
+INFO - 2025-12-03 04:47:06 --> Router Class Initialized
+INFO - 2025-12-03 04:47:06 --> Output Class Initialized
+INFO - 2025-12-03 04:47:06 --> Security Class Initialized
+DEBUG - 2025-12-03 04:47:06 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:47:06 --> Input Class Initialized
+INFO - 2025-12-03 04:47:06 --> Language Class Initialized
+INFO - 2025-12-03 04:47:06 --> Loader Class Initialized
+INFO - 2025-12-03 04:47:06 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:47:06 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:47:06 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:47:07 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:47:07 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:47:07 --> Controller Class Initialized
+INFO - 2025-12-03 11:47:07 --> Model "M_voucher" initialized
+INFO - 2025-12-03 11:47:07 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2025-12-03 11:47:07 --> Pagination Class Initialized
+INFO - 2025-12-03 11:47:07 --> Helper loaded: form_helper
+INFO - 2025-12-03 11:47:07 --> Form Validation Class Initialized
+INFO - 2025-12-03 11:47:07 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/header.php
+INFO - 2025-12-03 11:47:07 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Voucher/read.php
+INFO - 2025-12-03 11:47:07 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/footer.php
+INFO - 2025-12-03 11:47:07 --> Final output sent to browser
+DEBUG - 2025-12-03 11:47:07 --> Total execution time: 0.8858
+INFO - 2025-12-03 04:47:08 --> Config Class Initialized
+INFO - 2025-12-03 04:47:08 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:47:08 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:47:08 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:47:08 --> URI Class Initialized
+INFO - 2025-12-03 04:47:08 --> Router Class Initialized
+INFO - 2025-12-03 04:47:08 --> Output Class Initialized
+INFO - 2025-12-03 04:47:08 --> Security Class Initialized
+DEBUG - 2025-12-03 04:47:08 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:47:08 --> Input Class Initialized
+INFO - 2025-12-03 04:47:08 --> Language Class Initialized
+INFO - 2025-12-03 04:47:08 --> Loader Class Initialized
+INFO - 2025-12-03 04:47:08 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:47:08 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:47:08 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:47:08 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:47:08 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:47:08 --> Controller Class Initialized
+INFO - 2025-12-03 11:47:08 --> Model "M_voucher" initialized
+INFO - 2025-12-03 11:47:08 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2025-12-03 11:47:08 --> Pagination Class Initialized
+INFO - 2025-12-03 11:47:09 --> Helper loaded: form_helper
+INFO - 2025-12-03 11:47:09 --> Form Validation Class Initialized
+INFO - 2025-12-03 11:47:09 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Voucher/ajax_table.php
+INFO - 2025-12-03 11:47:09 --> Final output sent to browser
+DEBUG - 2025-12-03 11:47:09 --> Total execution time: 0.9910
+INFO - 2025-12-03 04:47:11 --> Config Class Initialized
+INFO - 2025-12-03 04:47:11 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:47:11 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:47:11 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:47:11 --> URI Class Initialized
+INFO - 2025-12-03 04:47:11 --> Router Class Initialized
+INFO - 2025-12-03 04:47:11 --> Output Class Initialized
+INFO - 2025-12-03 04:47:11 --> Security Class Initialized
+DEBUG - 2025-12-03 04:47:11 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:47:11 --> Input Class Initialized
+INFO - 2025-12-03 04:47:11 --> Language Class Initialized
+INFO - 2025-12-03 04:47:11 --> Loader Class Initialized
+INFO - 2025-12-03 04:47:11 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:47:11 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:47:11 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:47:11 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:47:11 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:47:11 --> Controller Class Initialized
+INFO - 2025-12-03 11:47:11 --> Model "M_voucher" initialized
+INFO - 2025-12-03 11:47:12 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2025-12-03 11:47:12 --> Pagination Class Initialized
+INFO - 2025-12-03 11:47:12 --> Helper loaded: form_helper
+INFO - 2025-12-03 11:47:12 --> Form Validation Class Initialized
+INFO - 2025-12-03 11:47:12 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/header.php
+INFO - 2025-12-03 11:47:12 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Voucher/edit.php
+INFO - 2025-12-03 11:47:12 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/footer.php
+INFO - 2025-12-03 11:47:12 --> Final output sent to browser
+DEBUG - 2025-12-03 11:47:12 --> Total execution time: 0.8966
+INFO - 2025-12-03 04:47:25 --> Config Class Initialized
+INFO - 2025-12-03 04:47:25 --> Hooks Class Initialized
+DEBUG - 2025-12-03 04:47:25 --> UTF-8 Support Enabled
+INFO - 2025-12-03 04:47:25 --> Utf8 Class Initialized
+INFO - 2025-12-03 04:47:25 --> URI Class Initialized
+INFO - 2025-12-03 04:47:25 --> Router Class Initialized
+INFO - 2025-12-03 04:47:25 --> Output Class Initialized
+INFO - 2025-12-03 04:47:25 --> Security Class Initialized
+DEBUG - 2025-12-03 04:47:25 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 04:47:25 --> Input Class Initialized
+INFO - 2025-12-03 04:47:25 --> Language Class Initialized
+INFO - 2025-12-03 04:47:25 --> Loader Class Initialized
+INFO - 2025-12-03 04:47:25 --> Helper loaded: url_helper
+INFO - 2025-12-03 11:47:25 --> Helper loaded: is_helper
+INFO - 2025-12-03 11:47:25 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 11:47:25 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 11:47:25 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 11:47:25 --> Controller Class Initialized
+INFO - 2025-12-03 11:47:25 --> Model "M_voucher" initialized
+INFO - 2025-12-03 11:47:25 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2025-12-03 11:47:25 --> Pagination Class Initialized
+INFO - 2025-12-03 11:47:25 --> Helper loaded: form_helper
+INFO - 2025-12-03 11:47:25 --> Form Validation Class Initialized
+INFO - 2025-12-03 11:47:25 --> Voucher update method called for ID: 14
+INFO - 2025-12-03 11:47:25 --> Language file loaded: language/english/form_validation_lang.php
+INFO - 2025-12-03 11:47:25 --> Updating voucher_code from DISC25 to DISC25
+INFO - 2025-12-03 11:47:25 --> Uploading new voucher image for update
+INFO - 2025-12-03 11:47:25 --> Starting voucher image upload to API: voucher_1764737245_1932.jpeg type: voucher
+ERROR - 2025-12-03 11:47:26 --> CURL extension not loaded
+ERROR - 2025-12-03 11:47:26 --> Voucher image upload failed during update: CURL extension not available
+INFO - 2025-12-03 11:47:26 --> Final output sent to browser
+DEBUG - 2025-12-03 11:47:26 --> Total execution time: 0.9747
+INFO - 2025-12-03 05:07:51 --> Config Class Initialized
+INFO - 2025-12-03 05:07:51 --> Hooks Class Initialized
+DEBUG - 2025-12-03 05:07:51 --> UTF-8 Support Enabled
+INFO - 2025-12-03 05:07:51 --> Utf8 Class Initialized
+INFO - 2025-12-03 05:07:51 --> URI Class Initialized
+INFO - 2025-12-03 05:07:51 --> Router Class Initialized
+INFO - 2025-12-03 05:07:51 --> Output Class Initialized
+INFO - 2025-12-03 05:07:51 --> Security Class Initialized
+DEBUG - 2025-12-03 05:07:51 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 05:07:51 --> Input Class Initialized
+INFO - 2025-12-03 05:07:51 --> Language Class Initialized
+INFO - 2025-12-03 05:07:51 --> Loader Class Initialized
+INFO - 2025-12-03 05:07:51 --> Helper loaded: url_helper
+INFO - 2025-12-03 12:07:52 --> Helper loaded: is_helper
+INFO - 2025-12-03 12:07:52 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 12:07:52 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 12:07:52 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 12:07:52 --> Controller Class Initialized
+INFO - 2025-12-03 12:07:52 --> Model "M_admin" initialized
+INFO - 2025-12-03 12:07:52 --> Model "M_order" initialized
+INFO - 2025-12-03 12:07:52 --> Model "M_customer" initialized
+INFO - 2025-12-03 12:07:53 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/header.php
+INFO - 2025-12-03 12:07:53 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/footer.php
+INFO - 2025-12-03 12:07:53 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Admin/dashboard.php
+INFO - 2025-12-03 12:07:53 --> Final output sent to browser
+DEBUG - 2025-12-03 12:07:53 --> Total execution time: 2.7615
+INFO - 2025-12-03 06:57:17 --> Config Class Initialized
+INFO - 2025-12-03 06:57:17 --> Hooks Class Initialized
+INFO - 2025-12-03 06:57:17 --> Config Class Initialized
+DEBUG - 2025-12-03 06:57:17 --> UTF-8 Support Enabled
+INFO - 2025-12-03 06:57:17 --> Hooks Class Initialized
+INFO - 2025-12-03 06:57:17 --> Utf8 Class Initialized
+DEBUG - 2025-12-03 06:57:17 --> UTF-8 Support Enabled
+INFO - 2025-12-03 06:57:17 --> URI Class Initialized
+INFO - 2025-12-03 06:57:17 --> Utf8 Class Initialized
+INFO - 2025-12-03 06:57:17 --> Router Class Initialized
+INFO - 2025-12-03 06:57:17 --> URI Class Initialized
+INFO - 2025-12-03 06:57:17 --> Output Class Initialized
+INFO - 2025-12-03 06:57:17 --> Router Class Initialized
+INFO - 2025-12-03 06:57:17 --> Security Class Initialized
+INFO - 2025-12-03 06:57:17 --> Output Class Initialized
+DEBUG - 2025-12-03 06:57:17 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 06:57:17 --> Security Class Initialized
+INFO - 2025-12-03 06:57:17 --> Input Class Initialized
+DEBUG - 2025-12-03 06:57:17 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 06:57:17 --> Language Class Initialized
+INFO - 2025-12-03 06:57:17 --> Input Class Initialized
+INFO - 2025-12-03 06:57:17 --> Loader Class Initialized
+INFO - 2025-12-03 06:57:17 --> Language Class Initialized
+INFO - 2025-12-03 06:57:17 --> Loader Class Initialized
+INFO - 2025-12-03 06:57:17 --> Helper loaded: url_helper
+INFO - 2025-12-03 06:57:17 --> Helper loaded: url_helper
+INFO - 2025-12-03 13:57:17 --> Helper loaded: is_helper
+INFO - 2025-12-03 13:57:17 --> Helper loaded: is_helper
+INFO - 2025-12-03 13:57:17 --> Database Driver Class Initialized
+INFO - 2025-12-03 13:57:17 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 13:57:17 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+DEBUG - 2025-12-03 13:57:17 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 13:57:18 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 13:57:18 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 13:57:18 --> Controller Class Initialized
+INFO - 2025-12-03 13:57:18 --> Controller Class Initialized
+INFO - 2025-12-03 13:57:18 --> Model "M_admin" initialized
+INFO - 2025-12-03 13:57:18 --> Model "M_admin" initialized
+INFO - 2025-12-03 13:57:18 --> Model "M_order" initialized
+INFO - 2025-12-03 13:57:18 --> Model "M_order" initialized
+INFO - 2025-12-03 13:57:18 --> Model "M_customer" initialized
+INFO - 2025-12-03 13:57:18 --> Model "M_customer" initialized
+INFO - 2025-12-03 13:57:18 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/header.php
+INFO - 2025-12-03 13:57:18 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/header.php
+INFO - 2025-12-03 13:57:18 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/footer.php
+INFO - 2025-12-03 13:57:18 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/footer.php
+INFO - 2025-12-03 13:57:18 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Admin/cus-konf.php
+INFO - 2025-12-03 13:57:18 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Admin/cus-konf.php
+INFO - 2025-12-03 13:57:18 --> Final output sent to browser
+INFO - 2025-12-03 13:57:18 --> Final output sent to browser
+DEBUG - 2025-12-03 13:57:18 --> Total execution time: 1.3699
+DEBUG - 2025-12-03 13:57:18 --> Total execution time: 1.4906
+INFO - 2025-12-03 06:57:21 --> Config Class Initialized
+INFO - 2025-12-03 06:57:21 --> Hooks Class Initialized
+DEBUG - 2025-12-03 06:57:22 --> UTF-8 Support Enabled
+INFO - 2025-12-03 06:57:22 --> Utf8 Class Initialized
+INFO - 2025-12-03 06:57:22 --> URI Class Initialized
+INFO - 2025-12-03 06:57:22 --> Router Class Initialized
+INFO - 2025-12-03 06:57:22 --> Output Class Initialized
+INFO - 2025-12-03 06:57:22 --> Security Class Initialized
+DEBUG - 2025-12-03 06:57:22 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 06:57:22 --> Input Class Initialized
+INFO - 2025-12-03 06:57:22 --> Language Class Initialized
+INFO - 2025-12-03 06:57:22 --> Loader Class Initialized
+INFO - 2025-12-03 06:57:22 --> Helper loaded: url_helper
+INFO - 2025-12-03 13:57:22 --> Helper loaded: is_helper
+INFO - 2025-12-03 13:57:22 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 13:57:22 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 13:57:22 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 13:57:22 --> Controller Class Initialized
+INFO - 2025-12-03 13:57:22 --> Model "M_order" initialized
+INFO - 2025-12-03 13:57:23 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/header.php
+INFO - 2025-12-03 13:57:23 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/footer.php
+INFO - 2025-12-03 13:57:23 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\CSdanAdmin/order.php
+INFO - 2025-12-03 13:57:23 --> Final output sent to browser
+DEBUG - 2025-12-03 13:57:23 --> Total execution time: 1.3065
+INFO - 2025-12-03 06:57:25 --> Config Class Initialized
+INFO - 2025-12-03 06:57:25 --> Hooks Class Initialized
+DEBUG - 2025-12-03 06:57:25 --> UTF-8 Support Enabled
+INFO - 2025-12-03 06:57:25 --> Utf8 Class Initialized
+INFO - 2025-12-03 06:57:25 --> URI Class Initialized
+INFO - 2025-12-03 06:57:25 --> Router Class Initialized
+INFO - 2025-12-03 06:57:25 --> Output Class Initialized
+INFO - 2025-12-03 06:57:25 --> Security Class Initialized
+DEBUG - 2025-12-03 06:57:25 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 06:57:25 --> Input Class Initialized
+INFO - 2025-12-03 06:57:25 --> Language Class Initialized
+INFO - 2025-12-03 06:57:25 --> Loader Class Initialized
+INFO - 2025-12-03 06:57:26 --> Helper loaded: url_helper
+INFO - 2025-12-03 13:57:26 --> Helper loaded: is_helper
+INFO - 2025-12-03 13:57:26 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 13:57:26 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 13:57:26 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 13:57:26 --> Controller Class Initialized
+INFO - 2025-12-03 13:57:26 --> Model "M_voucher" initialized
+INFO - 2025-12-03 13:57:26 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2025-12-03 13:57:26 --> Pagination Class Initialized
+INFO - 2025-12-03 13:57:26 --> Helper loaded: form_helper
+INFO - 2025-12-03 13:57:26 --> Form Validation Class Initialized
+INFO - 2025-12-03 13:57:26 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/header.php
+INFO - 2025-12-03 13:57:26 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Voucher/read.php
+INFO - 2025-12-03 13:57:26 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Template/footer.php
+INFO - 2025-12-03 13:57:26 --> Final output sent to browser
+DEBUG - 2025-12-03 13:57:26 --> Total execution time: 1.3592
+INFO - 2025-12-03 06:57:27 --> Config Class Initialized
+INFO - 2025-12-03 06:57:27 --> Hooks Class Initialized
+DEBUG - 2025-12-03 06:57:27 --> UTF-8 Support Enabled
+INFO - 2025-12-03 06:57:27 --> Utf8 Class Initialized
+INFO - 2025-12-03 06:57:27 --> URI Class Initialized
+INFO - 2025-12-03 06:57:27 --> Router Class Initialized
+INFO - 2025-12-03 06:57:27 --> Output Class Initialized
+INFO - 2025-12-03 06:57:27 --> Security Class Initialized
+DEBUG - 2025-12-03 06:57:27 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-12-03 06:57:27 --> Input Class Initialized
+INFO - 2025-12-03 06:57:27 --> Language Class Initialized
+INFO - 2025-12-03 06:57:27 --> Loader Class Initialized
+INFO - 2025-12-03 06:57:27 --> Helper loaded: url_helper
+INFO - 2025-12-03 13:57:27 --> Helper loaded: is_helper
+INFO - 2025-12-03 13:57:27 --> Database Driver Class Initialized
+DEBUG - 2025-12-03 13:57:27 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-12-03 13:57:27 --> Session: Class initialized using 'files' driver.
+INFO - 2025-12-03 13:57:27 --> Controller Class Initialized
+INFO - 2025-12-03 13:57:27 --> Model "M_voucher" initialized
+INFO - 2025-12-03 13:57:28 --> Language file loaded: language/english/pagination_lang.php
+INFO - 2025-12-03 13:57:28 --> Pagination Class Initialized
+INFO - 2025-12-03 13:57:28 --> Helper loaded: form_helper
+INFO - 2025-12-03 13:57:28 --> Form Validation Class Initialized
+INFO - 2025-12-03 13:57:28 --> File loaded: C:\xampp\htdocs\azzahra2_multibrand\application\views\Voucher/ajax_table.php
+INFO - 2025-12-03 13:57:28 --> Final output sent to browser
+DEBUG - 2025-12-03 13:57:28 --> Total execution time: 0.9776

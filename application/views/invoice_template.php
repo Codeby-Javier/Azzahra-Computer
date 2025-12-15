@@ -337,11 +337,11 @@
         </div>
          <!-- kolom kanan hanya informasi yang sudah ada -->
         <div class="contact-icons">
-            <div>No. Invoice: <strong><?php echo $customer['cos_kode'] . ($dtl_status == 'DP' ? '/DP' : ($dtl_status == 'PELUNASAN' ? '/LUNAS' : '')); ?></strong></div>
-            <div>Tanggal: <?php echo $tanggal; ?> &nbsp; <?php echo date('H:i'); ?></div>
+            <div>No. Invoice: <strong><?php echo isset($is_cos_kode) && $is_cos_kode ? (isset($customer['id_costomer']) ? $customer['id_costomer'] : '') : ((isset($customer['cos_kode']) ? $customer['cos_kode'] : '') . ($dtl_status == 'DP' ? '/DP' : ($dtl_status == 'PELUNASAN' ? '/LUNAS' : ''))); ?></strong></div>
+            <div>Tanggal: <?php echo isset($is_cos_kode) && $is_cos_kode ? $tanggal : $tanggal; ?> &nbsp; <?php echo isset($is_cos_kode) && $is_cos_kode ? (isset($jam) ? $jam : '') : date('H:i'); ?></div>
              <div class="invoice-badge" style="margin-top: 30px">
-                <span>INVOICE <?php echo $dtl_status == 'DP' ? 'DP' : ($dtl_status == 'PELUNASAN' ? 'LUNAS' : ''); ?></span>
-            </div>
+                 <span><?php echo isset($is_cos_kode) && $is_cos_kode ? 'INVOICE' : ('INVOICE ' . ($dtl_status == 'DP' ? 'DP' : ($dtl_status == 'PELUNASAN' ? 'LUNAS' : ''))); ?></span>
+             </div>
         </div>
        
     </div>
@@ -350,9 +350,9 @@
     <div class="summary-row">
         <div class="total-box">
             <div class="total-label text-uppercase muted">Customer</div>
-            <div class="invoice-customer-name"><?php echo $customer['cos_nama']; ?></div>
+            <div class="invoice-customer-name"><?php echo isset($customer['cos_nama']) ? $customer['cos_nama'] : ''; ?></div>
             <div class="invoice-customer-meta">
-                Alamat: <?php echo $customer['cos_alamat']; ?><br>
+                Alamat: <?php echo isset($customer['cos_alamat']) ? $customer['cos_alamat'] : ''; ?><br>
                 Hp/WA: <?php echo isset($customer['cos_hp']) ? preg_replace('/(\d{2})(\d{4})(\d{4,})/', '$1xx-xxxx-$3', $customer['cos_hp']) : ''; ?>
             </div>
         </div>
@@ -362,15 +362,15 @@
             <div class="invoice-meta">
                 <div>
                     <span class="invoice-meta-label">No</span>
-                    <span class="invoice-meta-value">: <?php echo $customer['cos_kode'] . ($dtl_status == 'DP' ? '/DP' : ($dtl_status == 'PELUNASAN' ? '/LUNAS' : '')); ?></span>
+                    <span class="invoice-meta-value">: <?php echo isset($is_cos_kode) && $is_cos_kode ? (isset($customer['id_costomer']) ? $customer['id_costomer'] : '') : ((isset($customer['cos_kode']) ? $customer['cos_kode'] : '') . ($dtl_status == 'DP' ? '/DP' : ($dtl_status == 'PELUNASAN' ? '/LUNAS' : ''))); ?></span>
                 </div>
                 <div>
                     <span class="invoice-meta-label">Tanggal</span>
-                    <span class="invoice-meta-value">: <?php echo $tanggal; ?></span>
+                    <span class="invoice-meta-value">: <?php echo isset($is_cos_kode) && $is_cos_kode ? $tanggal : $tanggal; ?></span>
                 </div>
                 <div>
                     <span class="invoice-meta-label">Jam</span>
-                    <span class="invoice-meta-value">: <?php echo date('H:i'); ?></span>
+                    <span class="invoice-meta-value">: <?php echo isset($is_cos_kode) && $is_cos_kode ? (isset($jam) ? $jam : '') : date('H:i'); ?></span>
                 </div>
             </div>
         </div>

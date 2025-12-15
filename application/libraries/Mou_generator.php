@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 use Dompdf\Dompdf;
 
 class Mou_generator {
-	
+
 	private $temp_dir;
 	private $CI;
 
@@ -12,7 +12,7 @@ class Mou_generator {
 	{
 		$this->CI = get_instance();
 		$this->temp_dir = APPPATH . 'cache/mou_temp/';
-		
+
 		if (!is_dir($this->temp_dir)) {
 			@mkdir($this->temp_dir, 0755, true);
 		}
@@ -26,7 +26,7 @@ class Mou_generator {
 	public function generate($mou_id, $file_name, $lokasi, $tanggal, $customer, $items, $grand_total)
 	{
 		$pdf_path = $this->temp_dir . $mou_id . '_' . preg_replace('/[^a-zA-Z0-9_-]/', '_', $file_name) . '.pdf';
-		
+
 		if (file_exists($pdf_path)) {
 			return $pdf_path;
 		}
@@ -215,7 +215,7 @@ table td {
 	<div class="title">SURAT PENAWARAN</div>
 
 	<div class="intro">Dengan hormat,<br><br>
-	Kami AZZAHRA COMPUTER & SERVICE CENTER TEGAL, mengajukan penawaran harga sebagai berikut:</div>
+	Kami AZZAHRA COMPUTER & AUTHORIZED SERVICE CENTER, mengajukan penawaran harga sebagai berikut:</div>
 
 	<table>
 		<thead>

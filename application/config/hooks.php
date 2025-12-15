@@ -11,3 +11,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |	https://codeigniter.com/user_guide/general/hooks.html
 |
 */
+
+// Auto-create HR database tables on application start
+$hook['post_controller_constructor'][] = array(
+    'class'    => '',
+    'function' => 'ensure_hr_tables',
+    'filename' => 'db_migration_helper.php',
+    'filepath' => 'helpers'
+);

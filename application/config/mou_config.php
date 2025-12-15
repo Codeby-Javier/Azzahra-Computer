@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |--------------------------------------------------------------------------
 |
 | Konfigurasi untuk path file Word template Mou
-| 
+
 | Cara Setting:
 | 1. Copy file Word template "Mou Surat Penawaran" ke folder yang diinginkan
 | 2. Isi path lengkap ke file Word template di bawah ini
@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | - Gunakan forward slash (/) untuk path, bukan backslash (\)
 | - Untuk Windows, bisa juga menggunakan backslash dengan double (\\)
 | - Pastikan aplikasi memiliki permission untuk membaca file tersebut
-| - File Word template harus memiliki placeholder: <<Lokasi>>, <<Tanggal>>, 
+| - File Word template harus memiliki placeholder: <<Lokasi>>, <<Tanggal>>,
 |   <<Customer>>, <<No>>, <<Spesifikasi>>, <<Qty>>, <<Harga>>, <<Total>>, <<Grand>>
 |
 */
@@ -45,5 +45,3 @@ $config['mou_temp_dir'] = APPPATH . 'cache/mou_temp/';
 | Contoh: publish link (bukan edit) agar dapat diakses publik.
 */
 $config['mou_google_doc_url'] = 'https://docs.google.com/document/d/1KvjxxkdEage-hmIxQ9sRosmbtPogZyU5/edit?usp=sharing';
-
-

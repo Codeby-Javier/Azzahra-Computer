@@ -532,19 +532,20 @@ $config['proxy_ips'] = '';
 
 
 // URL untuk akses gambar (via Laravel serve)
-$config['laravel_image_url'] = 'https://api.azzahracomputertegal.com/api/storage/assets/image/';
+$config['laravel_image_url'] = 'http://localhost/api_e_service/api/storage/assets/image/';
+// $config['laravel_image_url'] = 'https://api.azzahracomputertegal.com/api/storage/assets/image/';
 //$config['laravel_image_url'] = 'http://192.168.1.21:8000/storage/assets/image/';
 
 
 // Base URL Laravel API
-$config['laravel_api_url'] = 'https://api.azzahracomputertegal.com/api';
+$config['laravel_api_url'] = 'http://localhost/api_e_service/api';
+// $config['laravel_api_url'] = 'https://api.azzahracomputertegal.com/api';
 // $config['laravel_api_url'] = 'http://localhost:8000';
 
-// Path FISIK ke folder voucher image di Laravel (untuk upload)
-$config['laravel_voucher_path'] = 'C:/xampp/htdocs/api_e_service/storage/app/public/assets/Vocer/';
 
 // Voucher image URL
-$config['voucher_image_url'] = 'https://api.azzahracomputertegal.com/api/storage/assets/Vocer/';
+$config['voucher_image_url'] = 'http://localhost/api_e_service/api/storage/assets/Vocer/';
+// $config['voucher_image_url'] = 'https://api.azzahracomputertegal.com/api/storage/assets/Vocer/';
 // $config['voucher_image_url'] = 'http://192.168.1.21:8000/storage/assets/Vocer/';
 
 

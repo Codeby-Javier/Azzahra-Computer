@@ -26,4 +26,3 @@ CREATE TABLE IF NOT EXISTS `mou_items` (
   PRIMARY KEY (`item_id`),
   KEY `mou_id` (`mou_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-

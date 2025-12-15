@@ -103,8 +103,154 @@ class M_mou extends CI_Model {
 		$this->db->limit($limit);
 		return $this->db->get('mou');
 	}
+
+	// Get Rekap MOU with filters
+	function get_rekap_mou($filters)
+	{
+		if (!$this->db->table_exists('mou')) {
+			$this->db->select('*');
+			$this->db->from('mou');
+			$this->db->where('1 = 0');
+			return $this->db->get();
+		}
+
+		$this->db->select('mou.*, karyawan.kry_nama');
+		$this->db->from('mou');
+		$this->db->join('karyawan', 'mou.kry_kode = karyawan.kry_kode', 'left');
+
+		// Apply filters
+		if (!empty($filters['tanggal_mulai']) && !empty($filters['tanggal_selesai'])) {
+			$this->db->where('mou.tanggal BETWEEN "' . $filters['tanggal_mulai'] . '" AND "' . $filters['tanggal_selesai'] . '"', null, false);
+		}
+		if (!empty($filters['lokasi'])) {
+			$this->db->where('mou.lokasi', $filters['lokasi']);
+		}
+		if (!empty($filters['customer'])) {
+			$this->db->like('mou.customer', $filters['customer']);
+		}
+		if (!empty($filters['kry_kode'])) {
+			$this->db->where('mou.kry_kode', $filters['kry_kode']);
+		}
+
+		$this->db->order_by('mou.tanggal', 'DESC');
+		$this->db->order_by('mou.created_at', 'DESC');
+		return $this->db->get();
+	}
+
+	// Get Summary for Rekap MOU
+	function get_rekap_summary($filters)
+	{
+		if (!$this->db->table_exists('mou')) {
+			return array(
+				'total_mou' => 0,
+				'total_grand_total' => 0,
+				'avg_grand_total' => 0
+			);
+		}
+
+		$this->db->select('COUNT(*) as total_mou, SUM(grand_total) as total_grand_total, AVG(grand_total) as avg_grand_total');
+		$this->db->from('mou');
+
+		// Apply filters
+		if (!empty($filters['tanggal_mulai']) && !empty($filters['tanggal_selesai'])) {
+			$this->db->where('mou.tanggal BETWEEN "' . $filters['tanggal_mulai'] . '" AND "' . $filters['tanggal_selesai'] . '"', null, false);
+		}
+		if (!empty($filters['lokasi'])) {
+			$this->db->where('mou.lokasi', $filters['lokasi']);
+		}
+		if (!empty($filters['customer'])) {
+			$this->db->like('mou.customer', $filters['customer']);
+		}
+		if (!empty($filters['kry_kode'])) {
+			$this->db->where('mou.kry_kode', $filters['kry_kode']);
+		}
+
+		return $this->db->get()->row_array();
+	}
+
+	// Get Rekap per Lokasi
+	function get_rekap_per_lokasi($filters)
+	{
+		if (!$this->db->table_exists('mou')) {
+			return array();
+		}
+
+		$this->db->select('lokasi, COUNT(*) as jumlah_mou, SUM(grand_total) as total_grand_total');
+		$this->db->from('mou');
+
+		// Apply filters
+		if (!empty($filters['tanggal_mulai']) && !empty($filters['tanggal_selesai'])) {
+			$this->db->where('mou.tanggal BETWEEN "' . $filters['tanggal_mulai'] . '" AND "' . $filters['tanggal_selesai'] . '"', null, false);
+		}
+		if (!empty($filters['lokasi'])) {
+			$this->db->where('mou.lokasi', $filters['lokasi']);
+		}
+		if (!empty($filters['customer'])) {
+			$this->db->like('mou.customer', $filters['customer']);
+		}
+		if (!empty($filters['kry_kode'])) {
+			$this->db->where('mou.kry_kode', $filters['kry_kode']);
+		}
+
+		$this->db->group_by('lokasi');
+		$this->db->order_by('total_grand_total', 'DESC');
+		return $this->db->get()->result_array();
+	}
+
+	// Get Rekap per Customer (Top 10)
+	function get_rekap_per_customer($filters)
+	{
+		if (!$this->db->table_exists('mou')) {
+			return array();
+		}
+
+		$this->db->select('customer, COUNT(*) as jumlah_mou, SUM(grand_total) as total_grand_total');
+		$this->db->from('mou');
+
+		// Apply filters
+		if (!empty($filters['tanggal_mulai']) && !empty($filters['tanggal_selesai'])) {
+			$this->db->where('mou.tanggal BETWEEN "' . $filters['tanggal_mulai'] . '" AND "' . $filters['tanggal_selesai'] . '"', null, false);
+		}
+		if (!empty($filters['lokasi'])) {
+			$this->db->where('mou.lokasi', $filters['lokasi']);
+		}
+		if (!empty($filters['kry_kode'])) {
+			$this->db->where('mou.kry_kode', $filters['kry_kode']);
+		}
+
+		$this->db->group_by('customer');
+		$this->db->order_by('total_grand_total', 'DESC');
+		$this->db->limit(10);
+		return $this->db->get()->result_array();
+	}
+
+	// Get Distinct Lokasi
+	function get_distinct_lokasi()
+	{
+		if (!$this->db->table_exists('mou')) {
+			return array();
+		}
+
+		$this->db->distinct();
+		$this->db->select('lokasi');
+		$this->db->from('mou');
+		$this->db->order_by('lokasi', 'ASC');
+		return $this->db->get()->result_array();
+	}
+
+	// Get All Karyawan
+	function get_all_karyawan()
+	{
+		if (!$this->db->table_exists('karyawan')) {
+			return array();
+		}
+
+		$this->db->select('kry_kode, kry_nama');
+		$this->db->from('karyawan');
+		$this->db->order_by('kry_nama', 'ASC');
+		return $this->db->get()->result_array();
+	}
 }
 
 /* End of file M_mou.php */
 /* Location: ./application/models/M_mou.php */
-

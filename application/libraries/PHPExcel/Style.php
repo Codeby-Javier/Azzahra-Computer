@@ -107,12 +107,12 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
 
         // Initialise values
         $this->conditionalStyles = array();
-        $this->font         = new PHPExcel_Style_Font($isSupervisor, $isConditional);
-        $this->fill         = new PHPExcel_Style_Fill($isSupervisor, $isConditional);
-        $this->borders      = new PHPExcel_Style_Borders($isSupervisor, $isConditional);
-        $this->alignment    = new PHPExcel_Style_Alignment($isSupervisor, $isConditional);
+        $this->font = new PHPExcel_Style_Font($isSupervisor, $isConditional);
+        $this->fill = new PHPExcel_Style_Fill($isSupervisor, $isConditional);
+        $this->borders = new PHPExcel_Style_Borders($isSupervisor, $isConditional);
+        $this->alignment = new PHPExcel_Style_Alignment($isSupervisor, $isConditional);
         $this->numberFormat = new PHPExcel_Style_NumberFormat($isSupervisor, $isConditional);
-        $this->protection   = new PHPExcel_Style_Protection($isSupervisor, $isConditional);
+        $this->protection = new PHPExcel_Style_Protection($isSupervisor, $isConditional);
 
         // bind parent if we are a supervisor
         if ($isSupervisor) {
@@ -225,11 +225,11 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
 
                 // Calculate range outer borders
                 $rangeStart = PHPExcel_Cell::coordinateFromString($rangeA);
-                $rangeEnd   = PHPExcel_Cell::coordinateFromString($rangeB);
+                $rangeEnd = PHPExcel_Cell::coordinateFromString($rangeB);
 
                 // Translate column into index
-                $rangeStart[0]    = PHPExcel_Cell::columnIndexFromString($rangeStart[0]) - 1;
-                $rangeEnd[0]    = PHPExcel_Cell::columnIndexFromString($rangeEnd[0]) - 1;
+                $rangeStart[0] = PHPExcel_Cell::columnIndexFromString($rangeStart[0]) - 1;
+                $rangeEnd[0] = PHPExcel_Cell::columnIndexFromString($rangeEnd[0]) - 1;
 
                 // Make sure we can loop upwards on rows and columns
                 if ($rangeStart[0] > $rangeEnd[0] && $rangeStart[1] > $rangeEnd[1]) {
@@ -279,11 +279,11 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
                         // start column index for region
                         $colStart = ($x == 3) ?
                             PHPExcel_Cell::stringFromColumnIndex($rangeEnd[0])
-                                : PHPExcel_Cell::stringFromColumnIndex($rangeStart[0] + $x - 1);
+                            : PHPExcel_Cell::stringFromColumnIndex($rangeStart[0] + $x - 1);
                         // end column index for region
                         $colEnd = ($x == 1) ?
                             PHPExcel_Cell::stringFromColumnIndex($rangeStart[0])
-                                : PHPExcel_Cell::stringFromColumnIndex($rangeEnd[0] - $xMax + $x);
+                            : PHPExcel_Cell::stringFromColumnIndex($rangeEnd[0] - $xMax + $x);
 
                         for ($y = 1; $y <= $yMax; ++$y) {
                             // which edges are touching the region
@@ -550,7 +550,7 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
     public function setConditionalStyles($pValue = null)
     {
         if (is_array($pValue)) {
-            $this->getActiveSheet()->setConditionalStyles($this->getSelectedCells(), $pValue);
+            $this->getActiveSheet()->setConditionalStyles($pValue, $this->getSelectedCells());
         }
         return $this;
     }
@@ -617,7 +617,7 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
             $this->numberFormat->getHashCode() .
             $hashConditionals .
             $this->protection->getHashCode() .
-            ($this->quotePrefix  ? 't' : 'f') .
+            ($this->quotePrefix ? 't' : 'f') .
             __CLASS__
         );
     }

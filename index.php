@@ -1,7 +1,4 @@
 <?php
-// DEBUG: index.php is being executed
-// echo "DEBUG: PHP is working"; exit;
-
 /**
  * CodeIgniter
  *

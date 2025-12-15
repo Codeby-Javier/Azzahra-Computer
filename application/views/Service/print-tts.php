@@ -424,7 +424,13 @@ function maskPhone($phone) {
                 <td class="textarea-cell">
                     <textarea readonly><?php echo $data['cos_keterangan']; ?></textarea>
                 </td>
-                <td style="vertical-align: top; padding-top: 8px;"><?php echo $data['cos_pswd']; ?></td>
+                <td style="vertical-align: top; padding-top: 8px;">
+                   	<?php if (!empty($data['cos_pswd_canvas'])): ?>
+                       	<img src="<?php echo $data['cos_pswd_canvas']; ?>" alt="Pattern" style="max-width: 100px; max-height: 100px; border: 1px solid #ccc;">
+                   	<?php else: ?>
+                       	<?php echo $data['cos_pswd']; ?>
+                   	<?php endif; ?>
+                </td>
             </tr>
         </tbody>
     </table>

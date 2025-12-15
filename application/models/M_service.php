@@ -9,10 +9,11 @@ class M_service extends CI_Model {
 		$this->db->where('trans_status', 'Baru');
 		return $this->db->get('transaksi');
 	}
+	
 	function ds_cos_proses()
 	{
 		$this->db->where('trans_status', 'Diproses');
-		return $this->db->get('transaksi');
+		return $this->db->get('transaksi');	
 	}
 	function ds_cos_knf()
 	{
@@ -101,19 +102,20 @@ class M_service extends CI_Model {
 		$this->db->select('*');
 	    $this->db->from('costomer');
 	    $this->db->join('transaksi','costomer.id_costomer=transaksi.cos_kode');
-	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode');
+	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode', 'left');
 	    $this->db->where('transaksi.trans_status', 'Baru');
 	    $this->db->group_by('costomer.id_costomer');
 	    $query = $this->db->get();
 	    return $query;
 	}
+	
 	function cos_proses()
 	{
 		$this->db->select('*');
 	    $this->db->from('costomer');
 	    $this->db->join('transaksi','costomer.id_costomer=transaksi.cos_kode');
-	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode');
-	    $this->db->where('transaksi.trans_status', 'Diproses');
+	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode', 'left');
+	    $this->db->where_in('transaksi.trans_status', ['Diproses', 'Pelunasan']);
 	    $query = $this->db->get();
 	    return $query;
 	}
@@ -122,7 +124,7 @@ class M_service extends CI_Model {
 		$this->db->select('*');
 	    $this->db->from('costomer');
 	    $this->db->join('transaksi','costomer.id_costomer=transaksi.cos_kode');
-	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode');
+	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode', 'left');
 	    $this->db->where('transaksi.trans_status', 'Konfirmasi');
 	    $query = $this->db->get();
 	    return $query;
@@ -132,17 +134,20 @@ class M_service extends CI_Model {
 		$this->db->select('*');
 	    $this->db->from('costomer');
 	    $this->db->join('transaksi','costomer.id_costomer=transaksi.cos_kode');
-	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode');
+	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode', 'left');
+	    $this->db->join('order_list','transaksi.cos_kode=order_list.cos_kode', 'left');
 	    $this->db->where('transaksi.trans_status', 'Pelunasan');
 	    $query = $this->db->get();
 	    return $query;
 	}
+
 	function cos_lunas()
 	{
 		$this->db->select('*');
 	    $this->db->from('costomer');
 	    $this->db->join('transaksi','costomer.id_costomer=transaksi.cos_kode');
-	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode');
+	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode', 'left');
+	    $this->db->where('transaksi.trans_status', 'Lunas');
 	    $query = $this->db->get();
 	    return $query;
 	}
@@ -156,7 +161,7 @@ class M_service extends CI_Model {
 		$this->db->select('*');
 	    $this->db->from('costomer');
 	    $this->db->join('transaksi','costomer.id_costomer=transaksi.cos_kode');
-	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode');
+	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode', 'left');
 	    $this->db->where('transaksi.cos_kode', $kode);
 	    $query = $this->db->get();
 	    return $query;
@@ -166,7 +171,7 @@ class M_service extends CI_Model {
 		$this->db->select('*');
 	    $this->db->from('costomer');
 	    $this->db->join('transaksi','costomer.id_costomer=transaksi.cos_kode');
-	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode');
+	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode', 'left');
 	    $this->db->where('transaksi.trans_kode', $kode);
 	    $query = $this->db->get();
 	    return $query;
@@ -217,12 +222,8 @@ class M_service extends CI_Model {
 	}
 	function GetTindakanBy($kode)
 	{
-		$this->db->select('tindakan.*, karyawan.kry_nama');
-		$this->db->from('tindakan');
-		$this->db->join('order_list', 'tindakan.trans_kode = order_list.trans_kode', 'left');
-		$this->db->join('karyawan', 'order_list.kry_kode = karyawan.kry_kode', 'left');
-		$this->db->where('tindakan.trans_kode', $kode);
-		return $this->db->get();
+		$this->db->where('trans_kode', $kode);
+		return $this->db->get('tindakan');
 	}
 	function vocer($data)
 	{
@@ -239,12 +240,13 @@ class M_service extends CI_Model {
 	}
 	function pelunasan($kode)
 	{
-		$this->db->select('*');
+		$this->db->select('costomer.*, transaksi.*, karyawan.*, COALESCE(transaksi_detail.dtl_jml_bayar, 0) as dtl_jml_bayar');
 	    $this->db->from('costomer');
 	    $this->db->join('transaksi','costomer.id_costomer=transaksi.cos_kode');
-	    $this->db->join('transaksi_detail','transaksi.trans_kode=transaksi_detail.trans_kode');
-	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode');
-	    $this->db->where('transaksi.trans_kode', $kode);
+	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode', 'left');
+	    $this->db->join('transaksi_detail','transaksi.trans_kode=transaksi_detail.trans_kode AND transaksi_detail.dtl_status="DP"', 'left');
+	    $this->db->where('costomer.id_costomer', $kode);
+	    $this->db->where('transaksi.trans_status', 'Pelunasan');
 	    $query = $this->db->get();
 	    return $query;
 	}
@@ -263,7 +265,7 @@ class M_service extends CI_Model {
 		$this->db->select('*');
 	    $this->db->from('costomer');
 	    $this->db->join('transaksi','costomer.id_costomer=transaksi.cos_kode');
-	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode');
+	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode', 'left');
 	    $this->db->where('transaksi.trans_status !=', 'Lunas');
 	    $query = $this->db->get();
 	    return $query;
@@ -273,6 +275,7 @@ class M_service extends CI_Model {
 		$this->db->select('*');
 	    $this->db->from('costomer');
 	    $this->db->join('transaksi','costomer.id_costomer=transaksi.cos_kode');
+	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode', 'left');
 	    $this->db->where('transaksi.trans_kode', $kode);
 	    $query = $this->db->get();
 	    return $query;
@@ -288,7 +291,7 @@ class M_service extends CI_Model {
 	    $this->db->from('costomer');
 	    $this->db->join('transaksi','costomer.id_costomer=transaksi.cos_kode');
 	    $this->db->join('transaksi_detail','transaksi.trans_kode=transaksi_detail.trans_kode');
-	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode');
+	    $this->db->join('karyawan','transaksi.kry_kode=karyawan.kry_kode', 'left');
 	    $this->db->where('transaksi_detail.dtl_tanggal', date('Y-m-d'));
 	    $query = $this->db->get();
 	    return $query;
@@ -301,7 +304,7 @@ class M_service extends CI_Model {
 		$this->db->select('*');
 	    $this->db->from('costomer');
 	    $this->db->join('transaksi','costomer.id_costomer=transaksi.cos_kode');
-	    $this->db->where('transaksi.trans_kode', $kode);
+	    $this->db->where('costomer.id_costomer', $kode);
 	    $query = $this->db->get();
 	    return $query;
 	}

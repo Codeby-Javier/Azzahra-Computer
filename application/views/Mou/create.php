@@ -217,4 +217,3 @@ document.addEventListener('DOMContentLoaded', () => {
 </style>
 
 <?php $this->load->view('Template/footer'); ?>
-
