@@ -168,6 +168,11 @@
                                 <div class="nav-icon"><i data-feather="bar-chart-2"></i></div>
                                 <span class="nav-text">KPI</span>
                             </a>
+                            <a href="<?= site_url('HR/laporan_mingguan') ?>" class="nav-link <?php if ($title == 'Laporan Mingguan')
+                                  echo 'active' ?>">
+                                <div class="nav-icon"><i data-feather="edit-3"></i></div>
+                                <span class="nav-text">Laporan Mingguan</span>
+                            </a>
                             <a href="<?= site_url('HR/rekap') ?>" class="nav-link <?php if ($title == 'Rekap HR')
                                   echo 'active' ?>">
                                 <div class="nav-icon"><i data-feather="file-text"></i></div>

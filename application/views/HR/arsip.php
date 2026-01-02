@@ -1,372 +1,480 @@
 <?php $this->load->view('Template/header'); ?>
 
-<!-- Layout Container -->
-<div class="w-full" style="position: relative; overflow-x: hidden;">
+<style>
+    .content-area {
+        margin-top: 4rem;
+        padding: 2rem;
+    }
 
-    <!-- Header Section -->
-    <header class="page-header"
-        style="position: relative; margin-top: 0px; margin-bottom: 0px; padding-bottom: 30px; z-index: 10;">
-        <div class="header-title">
-            <h1><i data-feather="archive"></i> Arsip Dokumen</h1>
-            <p>Database arsip perbaikan Dreame & Laptop</p>
-        </div>
-    </header>
+    .nav-pills .nav-link {
+        border-radius: 0.375rem;
+        padding: 0.5rem 1.5rem;
+        margin-right: 0.5rem;
+        transition: all 0.2s;
+        cursor: pointer;
+    }
 
-    <!-- Content Section -->
-    <div class="content" style="position: relative; z-index: 5; top: -50px;">
+    .nav-pills .nav-link.active {
+        background-color: #6366f1;
+        color: white;
+    }
 
-        <!-- TABLE 1: DREAME -->
-        <div class="intro-y box mt-5">
-            <div class="flex flex-col sm:flex-row items-center p-5 border-b border-gray-200">
-                <h2 class="font-medium text-base mr-auto">
-                    Arsip Dokumen Dreamé
-                </h2>
-                <div class="w-full sm:w-auto flex mt-4 sm:mt-0 gap-2">
-                    <button class="button text-white bg-theme-1 shadow-md"
-                        onclick="openModalArsip('dreame', 'add')">
-                        <i data-feather="plus" class="w-4 h-4 mr-1"></i> Tambah Arsip
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Filter Section -->
-            <div class="p-5 border-b border-gray-200 bg-gray-50">
-                <form action="<?= site_url('HR/arsip') ?>" method="GET" class="grid grid-cols-12 gap-3">
-                    <input type="hidden" name="tipe" value="Dreame">
-                    <div class="col-span-12 sm:col-span-3">
-                        <label class="form-label font-bold">Tipe Periode</label>
-                        <select name="siklus_dreame" id="siklusDreame" class="input w-full border" onchange="changeSiklusDreame(this.value)">
-                            <option value="harian">Harian</option>
-                            <option value="mingguan">Mingguan</option>
-                            <option value="bulanan" selected>Bulanan</option>
-                            <option value="tahunan">Tahunan</option>
-                        </select>
-                    </div>
-                    
-                    <div class="col-span-12 sm:col-span-3">
-                        <label class="form-label font-bold">Periode</label>
-                        <input type="date" name="periode_harian" id="periodeDreameHarian" class="input w-full border" style="display:none;">
-                        <input type="week" name="periode_mingguan" id="periodeDreameMingguan" class="input w-full border" style="display:none;">
-                        <input type="month" name="periode_bulanan" id="periodeDreameBulanan" class="input w-full border" value="<?= date('Y-m') ?>" style="display:block;">
-                        <input type="number" name="periode_tahunan" id="periodeDreameTahunan" class="input w-full border" placeholder="YYYY" min="2020" max="2099" style="display:none;">
-                    </div>
-                    
-                    <div class="col-span-12 sm:col-span-6 flex items-end gap-2">
-                        <button type="submit" class="button text-white bg-theme-1 shadow-md flex-1">
-                            <i data-feather="filter" class="w-4 h-4 inline mr-1"></i> Filter
-                        </button>
-                        <button type="button" onclick="exportArsipDreame('pdf')" class="button bg-theme-6 text-white shadow-md flex-1">
-                            <i data-feather="file" class="w-4 h-4 inline mr-1"></i> PDF
-                        </button>
-                        <button type="button" onclick="exportArsipDreame('csv')" class="button bg-theme-9 text-white shadow-md flex-1">
-                            <i data-feather="file-text" class="w-4 h-4 inline mr-1"></i> CSV
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <div class="p-5" id="responsive-table">
-                <div class="preview">
-                    <div class="overflow-x-auto">
-                        <table class="table" style="min-width: 1000px;"> <!-- Ensure horizontal scroll triggers -->
-                            <thead class="bg-gray-200">
-                                <tr>
-                                    <th class="whitespace-nowrap">Nama</th>
-                                    <th class="whitespace-nowrap">Tanggal</th>
-                                    <th class="whitespace-nowrap">No HP</th>
-                                    <th class="whitespace-nowrap">Tipe</th>
-                                    <th class="whitespace-nowrap">Kerusakan</th>
-                                    <th class="whitespace-nowrap">Alamat</th>
-                                    <th class="whitespace-nowrap text-center">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php if (empty($arsip_dreame)): ?>
-                                    <tr>
-                                        <td colspan="7" class="text-center text-gray-600 py-4">Tidak ada data arsip Dreamé.
-                                        </td>
-                                    </tr>
-                                <?php else: ?>
-                                    <?php foreach ($arsip_dreame as $row): ?>
-                                        <tr class="bg-white border-b hover:bg-gray-100">
-                                            <td class="font-medium"><?= htmlspecialchars($row['nama']) ?></td>
-                                            <td><?= date('d/m/Y', strtotime($row['tanggal'])) ?></td>
-                                            <td><?= htmlspecialchars($row['no_hp']) ?></td>
-                                            <td><?= htmlspecialchars(isset($row['tipe_detail']) ? $row['tipe_detail'] : $row['tipe']) ?></td>
-                                            <td><?= htmlspecialchars($row['kerusakan']) ?></td>
-                                            <td><?= htmlspecialchars($row['alamat']) ?></td>
-                                            <td class="table-report__action w-56">
-                                                <div class="flex justify-center items-center gap-2">
-                                                    <button class="flex items-center text-theme-1"
-                                                        onclick='editArsip(<?= json_encode($row, JSON_HEX_APOS | JSON_HEX_QUOT) ?>)'>
-                                                        <i data-feather="edit" class="w-4 h-4 mr-1"></i> Edit </button>
-                                                    <a class="flex items-center text-theme-6"
-                                                        href="<?= site_url('HR/delete_arsip/' . $row['arsip_id']) ?>"
-                                                        onclick="return confirm('Yakin hapus arsip ini?')">
-                                                        <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Hapus </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+    .nav-pills .nav-link:not(.active) {
+        background-color: #f3f4f6;
+        color: #374151;
+    }
 
-        <!-- TABLE 2: LAPTOP -->
-        <div class="intro-y box mt-5 mb-5">
-            <div class="flex flex-col sm:flex-row items-center p-5 border-b border-gray-200">
-                <h2 class="font-medium text-base mr-auto">
-                    Arsip Dokumen Laptop
-                </h2>
-                <div class="w-full sm:w-auto flex mt-4 sm:mt-0 gap-2">
-                    <button class="button text-white bg-theme-1 shadow-md"
-                        onclick="openModalArsip('laptop', 'add')">
-                        <i data-feather="plus" class="w-4 h-4 mr-1"></i> Tambah Arsip
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Filter Section -->
-            <div class="p-5 border-b border-gray-200 bg-gray-50">
-                <form action="<?= site_url('HR/arsip') ?>" method="GET" class="grid grid-cols-12 gap-3">
-                    <input type="hidden" name="tipe" value="Laptop">
-                    <div class="col-span-12 sm:col-span-3">
-                        <label class="form-label font-bold">Tipe Periode</label>
-                        <select name="siklus_laptop" id="siklusLaptop" class="input w-full border" onchange="changeSiklusLaptop(this.value)">
-                            <option value="harian">Harian</option>
-                            <option value="mingguan">Mingguan</option>
-                            <option value="bulanan" selected>Bulanan</option>
-                            <option value="tahunan">Tahunan</option>
-                        </select>
-                    </div>
-                    
-                    <div class="col-span-12 sm:col-span-3">
-                        <label class="form-label font-bold">Periode</label>
-                        <input type="date" name="periode_harian" id="periodeLaptopHarian" class="input w-full border" style="display:none;">
-                        <input type="week" name="periode_mingguan" id="periodeLaptopMingguan" class="input w-full border" style="display:none;">
-                        <input type="month" name="periode_bulanan" id="periodeLaptopBulanan" class="input w-full border" value="<?= date('Y-m') ?>" style="display:block;">
-                        <input type="number" name="periode_tahunan" id="periodeLaptopTahunan" class="input w-full border" placeholder="YYYY" min="2020" max="2099" style="display:none;">
-                    </div>
-                    
-                    <div class="col-span-12 sm:col-span-6 flex items-end gap-2">
-                        <button type="submit" class="button text-white bg-theme-1 shadow-md flex-1">
-                            <i data-feather="filter" class="w-4 h-4 inline mr-1"></i> Filter
-                        </button>
-                        <button type="button" onclick="exportArsipLaptop('pdf')" class="button bg-theme-6 text-white shadow-md flex-1">
-                            <i data-feather="file" class="w-4 h-4 inline mr-1"></i> PDF
-                        </button>
-                        <button type="button" onclick="exportArsipLaptop('csv')" class="button bg-theme-9 text-white shadow-md flex-1">
-                            <i data-feather="file-text" class="w-4 h-4 inline mr-1"></i> CSV
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <div class="p-5" id="responsive-table">
-                <div class="preview">
-                    <div class="overflow-x-auto">
-                        <table class="table" style="min-width: 1000px;">
-                            <thead class="bg-gray-200">
-                                <tr>
-                                    <th class="whitespace-nowrap">Nama</th>
-                                    <th class="whitespace-nowrap">Tanggal</th>
-                                    <th class="whitespace-nowrap">No HP</th>
-                                    <th class="whitespace-nowrap">Tipe</th>
-                                    <th class="whitespace-nowrap">Kerusakan</th>
-                                    <th class="whitespace-nowrap">Alamat</th>
-                                    <th class="whitespace-nowrap text-center">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php if (empty($arsip_laptop)): ?>
-                                    <tr>
-                                        <td colspan="7" class="text-center text-gray-600 py-4">Tidak ada data arsip Laptop.
-                                        </td>
-                                    </tr>
-                                <?php else: ?>
-                                    <?php foreach ($arsip_laptop as $row): ?>
-                                        <tr class="bg-white border-b hover:bg-gray-100">
-                                            <td class="font-medium"><?= htmlspecialchars($row['nama']) ?></td>
-                                            <td><?= date('d/m/Y', strtotime($row['tanggal'])) ?></td>
-                                            <td><?= htmlspecialchars($row['no_hp']) ?></td>
-                                            <td><?= htmlspecialchars(isset($row['tipe_detail']) ? $row['tipe_detail'] : $row['tipe']) ?></td>
-                                            <td><?= htmlspecialchars($row['kerusakan']) ?></td>
-                                            <td><?= htmlspecialchars($row['alamat']) ?></td>
-                                            <td class="table-report__action w-56">
-                                                <div class="flex justify-center items-center gap-2">
-                                                    <button class="flex items-center text-theme-1"
-                                                        onclick='editArsip(<?= json_encode($row, JSON_HEX_APOS | JSON_HEX_QUOT) ?>)'>
-                                                        <i data-feather="edit" class="w-4 h-4 mr-1"></i> Edit </button>
-                                                    <a class="flex items-center text-theme-6"
-                                                        href="<?= site_url('HR/delete_arsip/' . $row['arsip_id']) ?>"
-                                                        onclick="return confirm('Yakin hapus arsip ini?')">
-                                                        <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Hapus </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+    .tab-pane {
+        display: none;
+    }
+
+    .tab-pane.active {
+        display: block;
+    }
+</style>
+
+<div class="page-header">
+    <div class="page-header-left">
+        <div class="page-title-section">
+            <h1 class="page-title">
+                <i data-feather="archive" class="w-10 h-10 inline-block mr-2"></i>
+                Arsip Dokumen
+            </h1>
+            <p class="page-subtitle">
+                <i data-feather="folder"></i>
+                Manajemen dokumen garansi Dreame & Laptop
+            </p>
         </div>
     </div>
-    </main>
+    <div class="page-header-right">
+        <div class="header-actions">
+            <a href="javascript:;" class="btn btn-primary" id="btnAddDreame" data-toggle="modal" data-target="#modalAddDreame">
+                <i data-feather="plus-circle"></i> Tambah Dreame
+            </a>
+            <a href="javascript:;" class="btn btn-primary" id="btnAddLaptop" data-toggle="modal" data-target="#modalAddLaptop" style="display: none;">
+                <i data-feather="plus-circle"></i> Tambah Laptop
+            </a>
+        </div>
+    </div>
 </div>
 
-<!-- Modal Form -->
-<dialog id="arsipModal" class="rounded-lg shadow-lg p-0" style="max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto;">
-    <div class="p-6">
-        <h2 id="modalTitle" class="text-xl font-bold mb-4">Tambah Arsip</h2>
-        
-        <form id="arsipForm" method="POST">
-            <div class="grid grid-cols-1 gap-4">
-                <div>
-                    <label class="form-label font-bold">Nama Pelanggan</label>
-                    <input type="text" id="inputNama" name="nama" class="input w-full border" required>
-                </div>
-                <div>
-                    <label class="form-label font-bold">Tanggal</label>
-                    <input type="date" id="inputTanggal" name="tanggal" class="input w-full border" required>
-                </div>
-                <div>
-                    <label class="form-label font-bold">No HP</label>
-                    <input type="text" id="inputNoHP" name="no_hp" class="input w-full border" required>
-                </div>
-                <div>
-                    <label class="form-label font-bold">Tipe Detail</label>
-                    <input type="text" id="inputTipeDetail" name="tipe_detail" class="input w-full border" placeholder="cth: Dreame L10 Prime" required>
-                </div>
-                <div>
-                    <label class="form-label font-bold">Kerusakan</label>
-                    <textarea id="inputKerusakan" name="kerusakan" class="input w-full border" rows="3" required></textarea>
-                </div>
-                <div>
-                    <label class="form-label font-bold">Alamat</label>
-                    <textarea id="inputAlamat" name="alamat" class="input w-full border" rows="3" required></textarea>
+<div class="content-area">
+    <div class="dashboard-container">
+
+        <?php if ($this->session->flashdata('sukses')): ?>
+            <div class="alert alert-success d-flex align-items-center mb-4">
+                <i data-feather="check-circle" class="mr-2"></i>
+                <span><?= $this->session->flashdata('sukses'); ?></span>
+            </div>
+        <?php endif; ?>
+
+        <!-- Tab Navigation -->
+        <div class="chart-card" style="margin-bottom: 2rem;">
+            <div style="padding: 1rem;">
+                <ul class="nav nav-pills" id="arsipTab">
+                    <li class="nav-item">
+                        <a class="nav-link active" onclick="switchTab('dreame')">
+                            <i data-feather="package" style="width: 16px; height: 16px;"></i> Dreame
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="switchTab('laptop')">
+                            <i data-feather="monitor" style="width: 16px; height: 16px;"></i> Laptop
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="tab-content" id="arsipTabContent">
+            <!-- TAB DREAME -->
+            <div class="tab-pane active" id="dreame">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Data Arsip Dreame</h3>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <div class="table-responsive">
+                            <table id="tableDreame" class="table table-hover w-100">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th class="border-0" style="font-weight: 600; color: #4b5563;">Tanggal</th>
+                                        <th class="border-0" style="font-weight: 600; color: #4b5563;">Nama Customer</th>
+                                        <th class="border-0" style="font-weight: 600; color: #4b5563;">No HP</th>
+                                        <th class="border-0" style="font-weight: 600; color: #4b5563;">Tipe</th>
+                                        <th class="border-0" style="font-weight: 600; color: #4b5563;">Kerusakan</th>
+                                        <th class="border-0" style="font-weight: 600; color: #4b5563;">Alamat</th>
+                                        <th class="border-0 text-right" style="font-weight: 600; color: #4b5563;">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (!empty($arsip_dreame)):
+                                        foreach ($arsip_dreame as $row): ?>
+                                            <tr>
+                                                <td><?= date('d/m/Y', strtotime($row['tanggal'])); ?></td>
+                                                <td class="font-weight-bold"><?= htmlspecialchars($row['nama']); ?></td>
+                                                <td><?= htmlspecialchars($row['no_hp']); ?></td>
+                                                <td><span class="badge badge-light"><?= htmlspecialchars($row['tipe_detail']); ?></span></td>
+                                                <td class="text-truncate" style="max-width: 150px;" title="<?= htmlspecialchars($row['kerusakan']); ?>">
+                                                    <?= htmlspecialchars($row['kerusakan']); ?>
+                                                </td>
+                                                <td class="text-truncate" style="max-width: 150px;" title="<?= htmlspecialchars($row['alamat']); ?>">
+                                                    <?= htmlspecialchars($row['alamat']); ?>
+                                                </td>
+                                                <td class="text-right">
+                                                    <a href="javascript:;" class="btn btn-sm btn-outline-primary btn-edit"
+                                                        data-id="<?= $row['arsip_id']; ?>"
+                                                        data-nama="<?= htmlspecialchars($row['nama']); ?>"
+                                                        data-hp="<?= htmlspecialchars($row['no_hp']); ?>"
+                                                        data-alamat="<?= htmlspecialchars($row['alamat']); ?>"
+                                                        data-tipe="<?= htmlspecialchars($row['tipe_detail']); ?>"
+                                                        data-rusak="<?= htmlspecialchars($row['kerusakan']); ?>"
+                                                        data-tgl="<?= $row['tanggal']; ?>" title="Edit">
+                                                        <i data-feather="edit-2" style="width: 16px; height: 16px;"></i>
+                                                    </a>
+                                                    <a href="<?= site_url('HR/delete_arsip/' . $row['arsip_id']); ?>"
+                                                        class="btn btn-sm btn-outline-danger onclick-confirm" title="Hapus">
+                                                        <i data-feather="trash-2" style="width: 16px; height: 16px;"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach;
+                                    else: ?>
+                                        <tr>
+                                            <td colspan="7" class="text-center text-muted py-4">
+                                                <i data-feather="inbox" style="width: 48px; height: 48px;"></i>
+                                                <p class="mt-2">Belum ada data arsip Dreame</p>
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="flex gap-2 mt-6 justify-end">
-                <button type="button" class="button bg-gray-200 text-gray-600" onclick="document.getElementById('arsipModal').close()">Batal</button>
-                <button type="submit" class="button text-white bg-theme-1">Simpan</button>
+            <!-- TAB LAPTOP -->
+            <div class="tab-pane" id="laptop">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Data Arsip Laptop</h3>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <div class="table-responsive">
+                            <table id="tableLaptop" class="table table-hover w-100">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th class="border-0" style="font-weight: 600; color: #4b5563;">Tanggal</th>
+                                        <th class="border-0" style="font-weight: 600; color: #4b5563;">Nama Customer</th>
+                                        <th class="border-0" style="font-weight: 600; color: #4b5563;">No HP</th>
+                                        <th class="border-0" style="font-weight: 600; color: #4b5563;">Tipe</th>
+                                        <th class="border-0" style="font-weight: 600; color: #4b5563;">Kerusakan</th>
+                                        <th class="border-0" style="font-weight: 600; color: #4b5563;">Alamat</th>
+                                        <th class="border-0 text-right" style="font-weight: 600; color: #4b5563;">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (!empty($arsip_laptop)):
+                                        foreach ($arsip_laptop as $row): ?>
+                                            <tr>
+                                                <td><?= date('d/m/Y', strtotime($row['tanggal'])); ?></td>
+                                                <td class="font-weight-bold"><?= htmlspecialchars($row['nama']); ?></td>
+                                                <td><?= htmlspecialchars($row['no_hp']); ?></td>
+                                                <td><span class="badge badge-light"><?= htmlspecialchars($row['tipe_detail']); ?></span></td>
+                                                <td class="text-truncate" style="max-width: 150px;" title="<?= htmlspecialchars($row['kerusakan']); ?>">
+                                                    <?= htmlspecialchars($row['kerusakan']); ?>
+                                                </td>
+                                                <td class="text-truncate" style="max-width: 150px;" title="<?= htmlspecialchars($row['alamat']); ?>">
+                                                    <?= htmlspecialchars($row['alamat']); ?>
+                                                </td>
+                                                <td class="text-right">
+                                                    <a href="javascript:;" class="btn btn-sm btn-outline-primary btn-edit"
+                                                        data-id="<?= $row['arsip_id']; ?>"
+                                                        data-nama="<?= htmlspecialchars($row['nama']); ?>"
+                                                        data-hp="<?= htmlspecialchars($row['no_hp']); ?>"
+                                                        data-alamat="<?= htmlspecialchars($row['alamat']); ?>"
+                                                        data-tipe="<?= htmlspecialchars($row['tipe_detail']); ?>"
+                                                        data-rusak="<?= htmlspecialchars($row['kerusakan']); ?>"
+                                                        data-tgl="<?= $row['tanggal']; ?>" title="Edit">
+                                                        <i data-feather="edit-2" style="width: 16px; height: 16px;"></i>
+                                                    </a>
+                                                    <a href="<?= site_url('HR/delete_arsip/' . $row['arsip_id']); ?>"
+                                                        class="btn btn-sm btn-outline-danger onclick-confirm" title="Hapus">
+                                                        <i data-feather="trash-2" style="width: 16px; height: 16px;"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach;
+                                    else: ?>
+                                        <tr>
+                                            <td colspan="7" class="text-center text-muted py-4">
+                                                <i data-feather="inbox" style="width: 48px; height: 48px;"></i>
+                                                <p class="mt-2">Belum ada data arsip Laptop</p>
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal Add Dreame -->
+<div class="modal" id="modalAddDreame">
+    <div class="modal__content modal__content--md p-5 intro-y box" style="max-height: 85vh; overflow-y: auto;">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-medium">Tambah Arsip Dreame</h2>
+            <a href="javascript:;" data-dismiss="modal" class="text-gray-500 hover:text-gray-700">
+                <i data-feather="x" class="w-5 h-5"></i>
+            </a>
+        </div>
+        <form action="<?= site_url('HR/add_arsip_dreame'); ?>" method="POST">
+            <div class="mb-3">
+                <label class="font-medium text-sm">Nama Customer <span class="text-red-500">*</span></label>
+                <input type="text" name="nama" class="form-control w-full mt-1" required>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="mb-3">
+                    <label class="font-medium text-sm">No HP</label>
+                    <input type="text" name="no_hp" class="form-control w-full mt-1">
+                </div>
+                <div class="mb-3">
+                    <label class="font-medium text-sm">Tanggal <span class="text-red-500">*</span></label>
+                    <input type="date" name="tanggal" class="form-control w-full mt-1" value="<?= date('Y-m-d'); ?>" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="font-medium text-sm">Tipe Dreame</label>
+                <input type="text" name="tipe_detail" class="form-control w-full mt-1" placeholder="Contoh: Dreame V10">
+            </div>
+            <div class="mb-3">
+                <label class="font-medium text-sm">Kerusakan</label>
+                <textarea name="kerusakan" class="form-control w-full mt-1" rows="2"></textarea>
+            </div>
+            <div class="mb-4">
+                <label class="font-medium text-sm">Alamat</label>
+                <textarea name="alamat" class="form-control w-full mt-1" rows="2"></textarea>
+            </div>
+            <div class="flex justify-end gap-2 pt-3 border-t">
+                <a href="javascript:;" data-dismiss="modal" class="btn btn-secondary py-2 px-4">Batal</a>
+                <button type="submit" class="btn btn-primary py-2 px-4" style="background-color: #3b82f6; color: white; border: none;">
+                    Simpan
+                </button>
             </div>
         </form>
     </div>
-</dialog>
+</div>
 
-<script>
-function openModalArsip(type, mode) {
-    const modal = document.getElementById('arsipModal');
-    const form = document.getElementById('arsipForm');
-    const title = document.getElementById('modalTitle');
+<!-- Modal Add Laptop -->
+<div class="modal" id="modalAddLaptop">
+    <div class="modal__content modal__content--md p-5 intro-y box" style="max-height: 85vh; overflow-y: auto;">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-medium">Tambah Arsip Laptop</h2>
+            <a href="javascript:;" data-dismiss="modal" class="text-gray-500 hover:text-gray-700">
+                <i data-feather="x" class="w-5 h-5"></i>
+            </a>
+        </div>
+        <form action="<?= site_url('HR/add_arsip_laptop'); ?>" method="POST">
+            <div class="mb-3">
+                <label class="font-medium text-sm">Nama Customer <span class="text-red-500">*</span></label>
+                <input type="text" name="nama" class="form-control w-full mt-1" required>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="mb-3">
+                    <label class="font-medium text-sm">No HP</label>
+                    <input type="text" name="no_hp" class="form-control w-full mt-1">
+                </div>
+                <div class="mb-3">
+                    <label class="font-medium text-sm">Tanggal <span class="text-red-500">*</span></label>
+                    <input type="date" name="tanggal" class="form-control w-full mt-1" value="<?= date('Y-m-d'); ?>" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="font-medium text-sm">Tipe Laptop</label>
+                <input type="text" name="tipe_detail" class="form-control w-full mt-1" placeholder="Contoh: Asus ROG Strix">
+            </div>
+            <div class="mb-3">
+                <label class="font-medium text-sm">Kerusakan</label>
+                <textarea name="kerusakan" class="form-control w-full mt-1" rows="2"></textarea>
+            </div>
+            <div class="mb-4">
+                <label class="font-medium text-sm">Alamat</label>
+                <textarea name="alamat" class="form-control w-full mt-1" rows="2"></textarea>
+            </div>
+            <div class="flex justify-end gap-2 pt-3 border-t">
+                <a href="javascript:;" data-dismiss="modal" class="btn btn-secondary py-2 px-4">Batal</a>
+                <button type="submit" class="btn btn-primary py-2 px-4" style="background-color: #3b82f6; color: white; border: none;">
+                    Simpan
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 
-    title.textContent = 'Tambah Arsip ' + (type === 'dreame' ? 'Dreame' : 'Laptop');
-    form.action = '<?= site_url('HR/add_arsip_') ?>' + type;
-    
-    // Clear form
-    document.getElementById('inputNama').value = '';
-    document.getElementById('inputTanggal').value = '<?= date('Y-m-d') ?>';
-    document.getElementById('inputNoHP').value = '';
-    document.getElementById('inputTipeDetail').value = '';
-    document.getElementById('inputKerusakan').value = '';
-    document.getElementById('inputAlamat').value = '';
-
-    modal.showModal();
-}
-
-function editArsip(data) {
-    const modal = document.getElementById('arsipModal');
-    const form = document.getElementById('arsipForm');
-    const title = document.getElementById('modalTitle');
-
-    title.textContent = 'Edit Arsip';
-    form.action = '<?= site_url('HR/edit_arsip/') ?>' + data.arsip_id;
-    
-    // Fill form with data
-    document.getElementById('inputNama').value = data.nama;
-    document.getElementById('inputTanggal').value = data.tanggal;
-    document.getElementById('inputNoHP').value = data.no_hp;
-    document.getElementById('inputTipeDetail').value = data.tipe_detail || data.tipe;
-    document.getElementById('inputKerusakan').value = data.kerusakan;
-    document.getElementById('inputAlamat').value = data.alamat;
-
-    modal.showModal();
-}
-
-function changeSiklusDreame(val) {
-    document.getElementById('periodeDreameHarian').style.display = 'none';
-    document.getElementById('periodeDreameMingguan').style.display = 'none';
-    document.getElementById('periodeDreameBulanan').style.display = 'none';
-    document.getElementById('periodeDreameTahunan').style.display = 'none';
-    
-    if (val === 'harian') {
-        document.getElementById('periodeDreameHarian').style.display = 'block';
-    } else if (val === 'mingguan') {
-        document.getElementById('periodeDreameMingguan').style.display = 'block';
-    } else if (val === 'bulanan') {
-        document.getElementById('periodeDreameBulanan').style.display = 'block';
-    } else if (val === 'tahunan') {
-        document.getElementById('periodeDreameTahunan').style.display = 'block';
-    }
-}
-
-function changeSiklusLaptop(val) {
-    document.getElementById('periodeLaptopHarian').style.display = 'none';
-    document.getElementById('periodeLaptopMingguan').style.display = 'none';
-    document.getElementById('periodeLaptopBulanan').style.display = 'none';
-    document.getElementById('periodeLaptopTahunan').style.display = 'none';
-    
-    if (val === 'harian') {
-        document.getElementById('periodeLaptopHarian').style.display = 'block';
-    } else if (val === 'mingguan') {
-        document.getElementById('periodeLaptopMingguan').style.display = 'block';
-    } else if (val === 'bulanan') {
-        document.getElementById('periodeLaptopBulanan').style.display = 'block';
-    } else if (val === 'tahunan') {
-        document.getElementById('periodeLaptopTahunan').style.display = 'block';
-    }
-}
-
-function exportArsipDreame(format) {
-    var siklus = document.getElementById('siklusDreame').value;
-    var periode = '';
-    
-    if (siklus === 'harian') {
-        periode = document.getElementById('periodeDreameHarian').value;
-    } else if (siklus === 'mingguan') {
-        periode = document.getElementById('periodeDreameMingguan').value;
-    } else if (siklus === 'bulanan') {
-        periode = document.getElementById('periodeDreameBulanan').value;
-    } else if (siklus === 'tahunan') {
-        periode = document.getElementById('periodeDreameTahunan').value;
-    }
-    
-    var url = '<?= site_url('HR/export_arsip/') ?>' + format + '?tipe=Dreame&siklus=' + siklus + '&periode=' + periode;
-    window.location.href = url;
-}
-
-function exportArsipLaptop(format) {
-    var siklus = document.getElementById('siklusLaptop').value;
-    var periode = '';
-    
-    if (siklus === 'harian') {
-        periode = document.getElementById('periodeLaptopHarian').value;
-    } else if (siklus === 'mingguan') {
-        periode = document.getElementById('periodeLaptopMingguan').value;
-    } else if (siklus === 'bulanan') {
-        periode = document.getElementById('periodeLaptopBulanan').value;
-    } else if (siklus === 'tahunan') {
-        periode = document.getElementById('periodeLaptopTahunan').value;
-    }
-    
-    var url = '<?= site_url('HR/export_arsip/') ?>' + format + '?tipe=Laptop&siklus=' + siklus + '&periode=' + periode;
-    window.location.href = url;
-}
-</script>
+<!-- Modal Edit Arsip -->
+<div class="modal" id="modalEditArsip">
+    <div class="modal__content modal__content--md p-5 intro-y box" style="max-height: 85vh; overflow-y: auto;">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-medium">Edit Arsip</h2>
+            <a href="javascript:;" data-dismiss="modal" class="text-gray-500 hover:text-gray-700">
+                <i data-feather="x" class="w-5 h-5"></i>
+            </a>
+        </div>
+        <form id="formEditArsip" action="" method="POST">
+            <div class="mb-3">
+                <label class="font-medium text-sm">Nama Customer <span class="text-red-500">*</span></label>
+                <input type="text" name="nama" id="edit_nama" class="form-control w-full mt-1" required>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="mb-3">
+                    <label class="font-medium text-sm">No HP</label>
+                    <input type="text" name="no_hp" id="edit_hp" class="form-control w-full mt-1">
+                </div>
+                <div class="mb-3">
+                    <label class="font-medium text-sm">Tanggal <span class="text-red-500">*</span></label>
+                    <input type="date" name="tanggal" id="edit_tgl" class="form-control w-full mt-1" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="font-medium text-sm">Tipe Unit</label>
+                <input type="text" name="tipe_detail" id="edit_tipe" class="form-control w-full mt-1">
+            </div>
+            <div class="mb-3">
+                <label class="font-medium text-sm">Kerusakan</label>
+                <textarea name="kerusakan" id="edit_rusak" class="form-control w-full mt-1" rows="2"></textarea>
+            </div>
+            <div class="mb-4">
+                <label class="font-medium text-sm">Alamat</label>
+                <textarea name="alamat" id="edit_alamat" class="form-control w-full mt-1" rows="2"></textarea>
+            </div>
+            <div class="flex justify-end gap-2 pt-3 border-t">
+                <a href="javascript:;" data-dismiss="modal" class="btn btn-secondary py-2 px-4">Batal</a>
+                <button type="submit" class="btn btn-primary py-2 px-4" style="background-color: #3b82f6; color: white; border: none;">
+                    Update
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <?php $this->load->view('Template/footer'); ?>
+
+<script>
+$(document).ready(function() {
+    feather.replace();
+
+    // Initialize DataTables
+    $('#tableDreame').DataTable({
+        language: {
+            search: "Cari:",
+            lengthMenu: "Tampilkan _MENU_ data",
+            info: "Menampilkan _START_ - _END_ dari _TOTAL_ data"
+        }
+    });
+
+    $('#tableLaptop').DataTable({
+        language: {
+            search: "Cari:",
+            lengthMenu: "Tampilkan _MENU_ data",
+            info: "Menampilkan _START_ - _END_ dari _TOTAL_ data"
+        }
+    });
+
+    // Delete Confirmation
+    $('.onclick-confirm').on('click', function(e) {
+        e.preventDefault();
+        const href = $(this).attr('href');
+        Swal.fire({
+            title: 'Hapus data ini?',
+            text: "Data yang dihapus tidak dapat dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) window.location.href = href;
+        });
+    });
+
+    // Edit button - open modal with data using template's modal system
+    $('.btn-edit').on('click', function() {
+        const id = $(this).data('id');
+        const nama = $(this).data('nama');
+        const hp = $(this).data('hp');
+        const alamat = $(this).data('alamat');
+        const tipe = $(this).data('tipe');
+        const rusak = $(this).data('rusak');
+        const tgl = $(this).data('tgl');
+
+        $('#edit_nama').val(nama);
+        $('#edit_hp').val(hp);
+        $('#edit_alamat').val(alamat);
+        $('#edit_tipe').val(tipe);
+        $('#edit_rusak').val(rusak);
+        $('#edit_tgl').val(tgl);
+
+        $('#formEditArsip').attr('action', '<?= site_url('HR/edit_arsip/'); ?>' + id);
+
+        // Show modal using template's modal system (same as data-toggle="modal")
+        $('#modalEditArsip').modal('show');
+    });
+
+    // Fix: Ensure body scroll is restored when any modal is closed
+    $('[data-dismiss="modal"]').on('click', function() {
+        setTimeout(function() {
+            if (!$('.modal.show').length) {
+                $('body').removeClass('overflow-y-hidden').css('padding-right', '');
+            }
+        }, 300);
+    });
+
+    // Fix: Also restore scroll when clicking outside modal
+    $('.modal').on('click', function(e) {
+        if (e.target === this) {
+            setTimeout(function() {
+                if (!$('.modal.show').length) {
+                    $('body').removeClass('overflow-y-hidden').css('padding-right', '');
+                }
+            }, 300);
+        }
+    });
+});
+
+// Tab switching function
+function switchTab(tabName) {
+    // Hide all tab panes
+    document.querySelectorAll('.tab-pane').forEach(function(pane) {
+        pane.classList.remove('active');
+    });
+    
+    // Remove active from all nav links
+    document.querySelectorAll('.nav-link').forEach(function(link) {
+        link.classList.remove('active');
+    });
+    
+    // Show selected tab pane
+    document.getElementById(tabName).classList.add('active');
+    
+    // Add active to clicked nav link
+    event.target.closest('.nav-link').classList.add('active');
+    
+    // Toggle add buttons based on active tab
+    if (tabName === 'dreame') {
+        document.getElementById('btnAddDreame').style.display = 'inline-flex';
+        document.getElementById('btnAddLaptop').style.display = 'none';
+    } else {
+        document.getElementById('btnAddDreame').style.display = 'none';
+        document.getElementById('btnAddLaptop').style.display = 'inline-flex';
+    }
+    
+    // Re-init feather icons
+    feather.replace();
+}
+</script>

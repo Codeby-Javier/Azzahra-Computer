@@ -4,12 +4,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Database Migration Helper
  * Memastikan semua tabel yang diperlukan sudah ada
+ * Note: Tabel karyawan sudah ada dengan struktur berbeda, jadi skip
  */
 
 if (!function_exists('ensure_hr_tables')) {
     function ensure_hr_tables()
     {
         $CI = &get_instance();
+        
+        // Karyawan table already exists with different structure - skip creation
+        // The existing table has: kry_kode, kry_nama, kry_level, etc.
         
         // Check and create absensi table
         if (!$CI->db->table_exists('absensi')) {

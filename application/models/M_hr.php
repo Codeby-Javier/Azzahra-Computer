@@ -17,81 +17,8 @@ class M_hr extends CI_Model
         }
 
         // Load PHPExcel Library (now using PhpSpreadsheet wrapper)
-        require_once APPPATH . 'libraries/PHPExcel.php';
-    }
-
-    // --- HELPER METHODS ---
-
-    private function load_excel($filename)
-    {
-        $file_path = $this->cache_path . $filename;
-        if (!file_exists($file_path)) {
-            return null;
-        }
-        try {
-            return PHPExcel_IOFactory::load($file_path);
-        } catch (Exception $e) {
-            log_message('error', 'Error loading Excel: ' . $e->getMessage());
-            return null;
-        }
-    }
-
-    private function save_excel($objPHPExcel, $filename)
-    {
-        try {
-            $filepath = $this->cache_path . $filename;
-            
-            // Ensure directory exists
-            if (!is_dir($this->cache_path)) {
-                mkdir($this->cache_path, 0777, true);
-            }
-            
-            // Remove old file if exists
-            if (file_exists($filepath)) {
-                @unlink($filepath);
-            }
-            
-            $writer = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-            $writer->save($filepath);
-            
-            // Verify file was created
-            if (!file_exists($filepath)) {
-                log_message('error', 'Excel file was not created at ' . $filepath);
-                return false;
-            }
-            
-            return true;
-        } catch (Exception $e) {
-            log_message('error', 'Error saving Excel: ' . $e->getMessage());
-            return false;
-        }
-    }
-
-    public function create_new_excel($filename, $sheets_config)
-    {
-        $objPHPExcel = new PHPExcel();
-
-        $i = 0;
-        foreach ($sheets_config as $sheet_name => $headers) {
-            if ($i > 0) {
-                $objPHPExcel->createSheet();
-            }
-            $objPHPExcel->setActiveSheetIndex($i);
-            $sheet = $objPHPExcel->getActiveSheet();
-            $sheet->setTitle($sheet_name);
-
-            // Set Headers
-            $col = 'A';
-            foreach ($headers as $header) {
-                $sheet->setCellValue($col . '1', $header);
-                $sheet->getStyle($col . '1')->getFont()->setBold(true);
-                $col++;
-            }
-            $i++;
-        }
-
-        $objPHPExcel->setActiveSheetIndex(0);
-        return $this->save_excel($objPHPExcel, $filename);
+        // require_once APPPATH . 'libraries/PHPExcel.php'; 
+        // Commented out to avoid errors if not present, assuming direct DB operations mostly
     }
 
     // --- ABSENSI METHODS ---
@@ -103,7 +30,7 @@ class M_hr extends CI_Model
             return false;
         }
 
-        // Check if record exists
+        // Check if record exists (Single date per employee)
         $existing = $this->db->get_where('absensi', [
             'tanggal' => $data['tanggal'],
             'id_karyawan' => $data['id_karyawan']
@@ -120,279 +47,58 @@ class M_hr extends CI_Model
         }
     }
 
+    public function delete_absensi($id)
+    {
+        if (!$this->db->table_exists('absensi'))
+            return false;
+        $this->db->where('absensi_id', $id);
+        return $this->db->delete('absensi');
+    }
+
     public function get_absensi_by_date($tanggal)
     {
-        if (!$this->db->table_exists('absensi')) {
+        if (!$this->db->table_exists('absensi'))
             return [];
-        }
-
         $this->db->where('tanggal', $tanggal);
-        $this->db->order_by('nama_karyawan', 'ASC');
-        return $this->db->get('absensi')->result_array();
-    }
-
-    public function get_rekap_absensi($periode, $tipe = 'bulanan')
-    {
-        // $periode format: YYYY-MM (bulanan), YYYY-W## (mingguan), YYYY-MM-DD (harian)
-        if (!$this->db->table_exists('absensi')) {
-            return [];
-        }
-
-        $this->db->select('tanggal, status, COUNT(*) as jumlah');
-        $this->db->from('absensi');
-
-        if ($tipe === 'harian') {
-            $this->db->where('tanggal', $periode);
-        } elseif ($tipe === 'mingguan') {
-            // Parse week format W##-YYYY or YYYY-W##
-            if (strpos($periode, 'W') !== false) {
-                if (strpos($periode, '-W') !== false) {
-                    // Format: YYYY-W##
-                    list($year, $week_part) = explode('-W', $periode);
-                    $week_num = intval($week_part);
-                } else {
-                    // Format: W##-YYYY
-                    list($week_part, $year) = explode('-', $periode);
-                    $week_num = intval(substr($week_part, 1));
-                }
-                $start_date = date('Y-m-d', strtotime($year . 'W' . str_pad($week_num, 2, '0', STR_PAD_LEFT)));
-                $end_date = date('Y-m-d', strtotime($start_date . ' +6 days'));
-                $this->db->where('tanggal >=', $start_date);
-                $this->db->where('tanggal <=', $end_date);
-            }
-        } else {
-            // Bulanan - use LIKE instead of DATE_FORMAT
-            $this->db->like('tanggal', $periode, 'after');
-        }
-
-        $this->db->group_by('status');
-        return $this->db->get()->result_array();
-    }
-
-    // --- KPI METHODS ---
-
-    public function migrate_kpi_file()
-    {
-        // Placeholder for backward compatibility
-        return true;
-    }
-
-    public function save_kpi($data)
-    {
-        if (!$this->db->table_exists('kpi')) {
-            return false;
-        }
-
-        // Check if record exists
-        $existing = $this->db->get_where('kpi', [
-            'id_karyawan' => $data['id_karyawan'],
-            'periode' => $data['periode'],
-            'siklus' => isset($data['siklus']) ? $data['siklus'] : 'bulanan'
-        ])->row();
-
-        if ($existing) {
-            // Update existing record
-            $this->db->where('id_karyawan', $data['id_karyawan']);
-            $this->db->where('periode', $data['periode']);
-            $this->db->where('siklus', isset($data['siklus']) ? $data['siklus'] : 'bulanan');
-            return $this->db->update('kpi', $data);
-        } else {
-            // Insert new record
-            return $this->db->insert('kpi', $data);
-        }
-    }
-
-    public function get_kpi_by_periode($periode)
-    {
-        if (!$this->db->table_exists('kpi')) {
-            return [];
-        }
-
-        // Aggregate daily KPI for the month - ROUND to 1 decimal for Rekap
-        $this->db->select('
-            id_karyawan,
-            nama_karyawan,
-            posisi,
-            status_kerja,
-            ROUND(AVG(kedisiplinan), 1) as kedisiplinan,
-            ROUND(AVG(kualitas_kerja), 1) as kualitas_kerja,
-            ROUND(AVG(produktivitas), 1) as produktivitas,
-            ROUND(AVG(kerja_tim), 1) as kerja_tim,
-            ROUND(AVG(kedisiplinan) + AVG(kualitas_kerja) + AVG(produktivitas) + AVG(kerja_tim), 1) as total,
-            ROUND((AVG(kedisiplinan) + AVG(kualitas_kerja) + AVG(produktivitas) + AVG(kerja_tim)) / 4, 2) as rata_rata,
-            CASE 
-                WHEN (AVG(kedisiplinan) + AVG(kualitas_kerja) + AVG(produktivitas) + AVG(kerja_tim)) / 4 >= 4.5 THEN "Sangat Baik"
-                WHEN (AVG(kedisiplinan) + AVG(kualitas_kerja) + AVG(produktivitas) + AVG(kerja_tim)) / 4 >= 3.5 THEN "Baik"
-                WHEN (AVG(kedisiplinan) + AVG(kualitas_kerja) + AVG(produktivitas) + AVG(kerja_tim)) / 4 >= 2.5 THEN "Cukup"
-                ELSE "Kurang"
-            END as kategori,
-            GROUP_CONCAT(catatan SEPARATOR "; ") as catatan
-        ');
-        $this->db->from('kpi');
-        $this->db->where('siklus', 'harian');
-        $this->db->like('periode', $periode, 'after');
-        $this->db->group_by('id_karyawan, nama_karyawan, posisi, status_kerja');
-        $this->db->order_by('nama_karyawan', 'ASC');
-        
-        return $this->db->get()->result_array();
-    }
-
-    public function get_all_kpi()
-    {
-        if (!$this->db->table_exists('kpi')) {
-            return [];
-        }
-
-        $this->db->order_by('periode', 'DESC');
-        $this->db->order_by('nama_karyawan', 'ASC');
-        return $this->db->get('kpi')->result_array();
-    }
-
-    public function get_laporan_mingguan($periode_text = null)
-    {
-        if (!$this->db->table_exists('laporan_mingguan')) {
-            return [];
-        }
-
-        if ($periode_text !== null) {
-            $this->db->like('periode', $periode_text);
-        }
-
-        $this->db->order_by('periode', 'DESC');
-        $this->db->order_by('nama_karyawan', 'ASC');
-        return $this->db->get('laporan_mingguan')->result_array();
-    }
-
-    public function save_laporan_mingguan($data)
-    {
-        if (!$this->db->table_exists('laporan_mingguan')) {
-            return false;
-        }
-
-        // Check if record exists
-        $existing = $this->db->get_where('laporan_mingguan', [
-            'id_karyawan' => $data['id_karyawan'],
-            'periode' => $data['periode']
-        ])->row();
-
-        if ($existing) {
-            // Update existing record
-            $this->db->where('id_karyawan', $data['id_karyawan']);
-            $this->db->where('periode', $data['periode']);
-            return $this->db->update('laporan_mingguan', $data);
-        } else {
-            // Insert new record
-            return $this->db->insert('laporan_mingguan', $data);
-        }
-    }
-
-    public function update_laporan_mingguan($id, $data)
-    {
-        if (!$this->db->table_exists('laporan_mingguan')) {
-            return false;
-        }
-
-        $this->db->where('laporan_id', $id);
-        return $this->db->update('laporan_mingguan', $data);
-    }
-
-    public function delete_laporan_mingguan($id)
-    {
-        if (!$this->db->table_exists('laporan_mingguan')) {
-            return false;
-        }
-
-        $this->db->where('laporan_id', $id);
-        return $this->db->delete('laporan_mingguan');
-    }
-
-    public function get_laporan_by_id($id)
-    {
-        if (!$this->db->table_exists('laporan_mingguan')) {
-            return null;
-        }
-
-        return $this->db->get_where('laporan_mingguan', ['laporan_id' => $id])->row_array();
-    }
-
-    // --- ARSIP METHODS ---
-
-    public function get_arsip($tipe = null)
-    {
-        if (!$this->db->table_exists('arsip')) {
-            return [];
-        }
-
-        if ($tipe !== null) {
-            $this->db->where('tipe', $tipe);
-        }
-
-        $this->db->order_by('tanggal', 'DESC');
-        return $this->db->get('arsip')->result_array();
-    }
-
-    public function save_arsip($data)
-    {
-        if (!$this->db->table_exists('arsip')) {
-            return false;
-        }
-
-        return $this->db->insert('arsip', $data);
-    }
-
-    public function update_arsip($id, $data)
-    {
-        if (!$this->db->table_exists('arsip')) {
-            return false;
-        }
-
-        $this->db->where('arsip_id', $id);
-        return $this->db->update('arsip', $data);
-    }
-
-    public function delete_arsip($id)
-    {
-        if (!$this->db->table_exists('arsip')) {
-            return false;
-        }
-
-        $this->db->where('arsip_id', $id);
-        return $this->db->delete('arsip');
-    }
-
-    public function get_absensi_all()
-    {
-        if (!$this->db->table_exists('absensi')) {
-            return [];
-        }
-
-        $this->db->order_by('tanggal', 'DESC');
         $this->db->order_by('nama_karyawan', 'ASC');
         return $this->db->get('absensi')->result_array();
     }
 
     public function get_absensi_all_by_periode($periode, $tipe = 'bulanan')
     {
-        if (!$this->db->table_exists('absensi')) {
+        if (!$this->db->table_exists('absensi'))
             return [];
-        }
 
         if ($tipe === 'harian') {
             $this->db->where('tanggal', $periode);
         } elseif ($tipe === 'mingguan') {
-            // Parse week format
+            // Parse week format YYYY-W## or W##-YYYY
             if (strpos($periode, 'W') !== false) {
-                if (strpos($periode, '-W') !== false) {
-                    list($year, $week_part) = explode('-W', $periode);
-                    $week_num = intval($week_part);
+                $parts = explode('-W', $periode);
+                if (count($parts) == 2) {
+                    $year = $parts[0];
+                    $week = $parts[1];
                 } else {
-                    list($week_part, $year) = explode('-', $periode);
-                    $week_num = intval(substr($week_part, 1));
+                    $parts = explode('-', $periode);
+                    // Try to guess if W01-2025 format
+                    if (strpos($parts[0], 'W') !== false) {
+                        $week = intval(substr($parts[0], 1));
+                        $year = $parts[1];
+                    } else {
+                        // Fallback
+                        $year = date('Y');
+                        $week = date('W');
+                    }
                 }
-                $start_date = date('Y-m-d', strtotime($year . 'W' . str_pad($week_num, 2, '0', STR_PAD_LEFT)));
-                $end_date = date('Y-m-d', strtotime($start_date . ' +6 days'));
-                $this->db->where('tanggal >=', $start_date);
-                $this->db->where('tanggal <=', $end_date);
+
+                $dto = new DateTime();
+                $dto->setISODate($year, $week);
+                $start = $dto->format('Y-m-d');
+                $dto->modify('+6 days');
+                $end = $dto->format('Y-m-d');
+
+                $this->db->where('tanggal >=', $start);
+                $this->db->where('tanggal <=', $end);
             }
         } else {
             // Bulanan
@@ -404,91 +110,79 @@ class M_hr extends CI_Model
         return $this->db->get('absensi')->result_array();
     }
 
-    // --- DATABASE HELPERS ---
+    // --- KPI METHODS ---
+
+    public function migrate_kpi_file()
+    {
+        return true;
+    }
+
+    public function save_kpi($data)
+    {
+        if (!$this->db->table_exists('kpi'))
+            return false;
+
+        // Check if record exists
+        $this->db->where('id_karyawan', $data['id_karyawan']);
+        $this->db->where('periode', $data['periode']);
+        $this->db->where('siklus', isset($data['siklus']) ? $data['siklus'] : 'bulanan');
+        $existing = $this->db->get('kpi')->row();
+
+        if ($existing) {
+            $this->db->where('kpi_id', $existing->kpi_id);
+            return $this->db->update('kpi', $data);
+        } else {
+            return $this->db->insert('kpi', $data);
+        }
+    }
+
+    public function update_kpi_by_id($id, $data)
+    {
+        if (!$this->db->table_exists('kpi'))
+            return false;
+        $this->db->where('kpi_id', $id);
+        return $this->db->update('kpi', $data);
+    }
+
+    public function delete_kpi($id)
+    {
+        if (!$this->db->table_exists('kpi'))
+            return false;
+        $this->db->where('kpi_id', $id);
+        return $this->db->delete('kpi');
+    }
+
+    public function get_kpi_by_id($id)
+    {
+        return $this->db->get_where('kpi', ['kpi_id' => $id])->row_array();
+    }
 
     public function get_kpi_by_siklus($siklus, $periode)
     {
-        /**
-         * Get KPI data filtered by cycle type with automatic aggregation
-         * $siklus: 'harian' (single date), 'mingguan' (week range), 'bulanan' (month), 'tahunan' (year)
-         * $periode: format sesuai siklus - YYYY-MM-DD / 2025-W01 / YYYY-MM / YYYY
-         */
-        if (!$this->db->table_exists('kpi')) {
+        if (!$this->db->table_exists('kpi'))
             return [];
-        }
 
-        switch($siklus) {
+        switch ($siklus) {
             case 'harian':
-                // Direct query for daily KPI
                 $this->db->where('siklus', 'harian');
                 $this->db->where('periode', $periode);
                 $this->db->order_by('nama_karyawan', 'ASC');
                 return $this->db->get('kpi')->result_array();
-                
+
             case 'mingguan':
-                // Aggregate from daily KPI
-                return $this->get_kpi_mingguan_aggregated($periode);
-                
+                return $this->get_aggregated_kpi($periode, 'mingguan');
             case 'bulanan':
-                // Aggregate from daily KPI
-                return $this->get_kpi_bulanan_aggregated($periode);
-                
+                return $this->get_aggregated_kpi($periode, 'bulanan');
             case 'tahunan':
-                // Aggregate from daily KPI
-                return $this->get_kpi_tahunan_aggregated($periode);
-                
+                return $this->get_aggregated_kpi($periode, 'tahunan');
             default:
                 return [];
         }
     }
 
-    private function get_kpi_mingguan_aggregated($periode)
+    private function get_aggregated_kpi($periode, $type)
     {
-        // Parse week format: 2025-W01
-        if (strpos($periode, '-W') !== false) {
-            list($year, $week_part) = explode('-W', $periode);
-            $week_num = intval($week_part);
-            
-            // Calculate date range for the week
-            $start_date = date('Y-m-d', strtotime($year . 'W' . str_pad($week_num, 2, '0', STR_PAD_LEFT)));
-            $end_date = date('Y-m-d', strtotime($start_date . ' +6 days'));
-            
-            // Aggregate daily KPI for this week - ROUND to 1 decimal
-            $this->db->select('
-                id_karyawan,
-                nama_karyawan,
-                posisi,
-                status_kerja,
-                ROUND(AVG(kedisiplinan), 1) as kedisiplinan,
-                ROUND(AVG(kualitas_kerja), 1) as kualitas_kerja,
-                ROUND(AVG(produktivitas), 1) as produktivitas,
-                ROUND(AVG(kerja_tim), 1) as kerja_tim,
-                ROUND(AVG(kedisiplinan) + AVG(kualitas_kerja) + AVG(produktivitas) + AVG(kerja_tim), 1) as total,
-                ROUND((AVG(kedisiplinan) + AVG(kualitas_kerja) + AVG(produktivitas) + AVG(kerja_tim)) / 4, 1) as rata_rata,
-                CASE 
-                    WHEN (AVG(kedisiplinan) + AVG(kualitas_kerja) + AVG(produktivitas) + AVG(kerja_tim)) / 4 >= 4.5 THEN "Sangat Baik"
-                    WHEN (AVG(kedisiplinan) + AVG(kualitas_kerja) + AVG(produktivitas) + AVG(kerja_tim)) / 4 >= 3.5 THEN "Baik"
-                    WHEN (AVG(kedisiplinan) + AVG(kualitas_kerja) + AVG(produktivitas) + AVG(kerja_tim)) / 4 >= 2.5 THEN "Cukup"
-                    ELSE "Kurang"
-                END as kategori,
-                GROUP_CONCAT(catatan SEPARATOR "; ") as catatan
-            ');
-            $this->db->from('kpi');
-            $this->db->where('siklus', 'harian');
-            $this->db->where('periode >=', $start_date);
-            $this->db->where('periode <=', $end_date);
-            $this->db->group_by('id_karyawan, nama_karyawan, posisi, status_kerja');
-            $this->db->order_by('nama_karyawan', 'ASC');
-            
-            return $this->db->get()->result_array();
-        }
-        
-        return [];
-    }
-
-    private function get_kpi_bulanan_aggregated($periode)
-    {
-        // Aggregate daily KPI for the month - ROUND to 1 decimal
+        // Smart Aggregation Logic
         $this->db->select('
             id_karyawan,
             nama_karyawan,
@@ -498,39 +192,8 @@ class M_hr extends CI_Model
             ROUND(AVG(kualitas_kerja), 1) as kualitas_kerja,
             ROUND(AVG(produktivitas), 1) as produktivitas,
             ROUND(AVG(kerja_tim), 1) as kerja_tim,
-            ROUND(AVG(kedisiplinan) + AVG(kualitas_kerja) + AVG(produktivitas) + AVG(kerja_tim), 1) as total,
-            ROUND((AVG(kedisiplinan) + AVG(kualitas_kerja) + AVG(produktivitas) + AVG(kerja_tim)) / 4, 1) as rata_rata,
-            CASE 
-                WHEN (AVG(kedisiplinan) + AVG(kualitas_kerja) + AVG(produktivitas) + AVG(kerja_tim)) / 4 >= 4.5 THEN "Sangat Baik"
-                WHEN (AVG(kedisiplinan) + AVG(kualitas_kerja) + AVG(produktivitas) + AVG(kerja_tim)) / 4 >= 3.5 THEN "Baik"
-                WHEN (AVG(kedisiplinan) + AVG(kualitas_kerja) + AVG(produktivitas) + AVG(kerja_tim)) / 4 >= 2.5 THEN "Cukup"
-                ELSE "Kurang"
-            END as kategori,
-            GROUP_CONCAT(catatan SEPARATOR "; ") as catatan
-        ');
-        $this->db->from('kpi');
-        $this->db->where('siklus', 'harian');
-        $this->db->like('periode', $periode, 'after');
-        $this->db->group_by('id_karyawan, nama_karyawan, posisi, status_kerja');
-        $this->db->order_by('nama_karyawan', 'ASC');
-        
-        return $this->db->get()->result_array();
-    }
-
-    private function get_kpi_tahunan_aggregated($periode)
-    {
-        // Aggregate daily KPI for the year
-        $this->db->select('
-            id_karyawan,
-            nama_karyawan,
-            posisi,
-            status_kerja,
-            AVG(kedisiplinan) as kedisiplinan,
-            AVG(kualitas_kerja) as kualitas_kerja,
-            AVG(produktivitas) as produktivitas,
-            AVG(kerja_tim) as kerja_tim,
-            AVG(total) as total,
-            AVG(rata_rata) as rata_rata,
+            ROUND(AVG(total), 1) as total,
+            ROUND(AVG(rata_rata), 2) as rata_rata,
             CASE 
                 WHEN AVG(rata_rata) >= 4.5 THEN "Sangat Baik"
                 WHEN AVG(rata_rata) >= 3.5 THEN "Baik"
@@ -541,80 +204,141 @@ class M_hr extends CI_Model
         ');
         $this->db->from('kpi');
         $this->db->where('siklus', 'harian');
-        $this->db->like('periode', $periode, 'after');
-        $this->db->group_by('id_karyawan, nama_karyawan, posisi, status_kerja');
-        $this->db->order_by('nama_karyawan', 'ASC');
-        
+
+        if ($type == 'mingguan') {
+            // Parse week
+            $year = substr($periode, 0, 4);
+            $week = substr($periode, 6); // 2025-W05
+            $dto = new DateTime();
+            $dto->setISODate(intval($year), intval($week));
+            $start = $dto->format('Y-m-d');
+            $dto->modify('+6 days');
+            $end = $dto->format('Y-m-d');
+            $this->db->where('periode >=', $start);
+            $this->db->where('periode <=', $end);
+        } elseif ($type == 'bulanan') {
+            $this->db->like('periode', $periode, 'after'); // 2025-01
+        } elseif ($type == 'tahunan') {
+            $this->db->like('periode', $periode, 'after'); // 2025
+        }
+
+        $this->db->group_by('id_karyawan');
+        $this->db->order_by('rata_rata', 'DESC');
         return $this->db->get()->result_array();
     }
 
+    public function get_kpi_by_periode($periode)
+    {
+        // For reports - basically monthly aggregation
+        return $this->get_aggregated_kpi($periode, 'bulanan');
+    }
+
+    // --- OTHER METHODS ---
+
     public function get_all_karyawan_from_db()
     {
-        if ($this->db->table_exists('karyawan')) {
-            return $this->db->get('karyawan')->result();
+        // Check if karyawan table exists
+        if (!$this->db->table_exists('karyawan')) {
+            return [];
         }
+
+        $this->db->order_by('kry_nama', 'ASC');
+        $query = $this->db->get('karyawan');
+
+        if ($query) {
+            return $query->result();
+        }
+
         return [];
     }
 
-    public function delete_absensi($tanggal, $id_karyawan)
+    public function get_karyawan_by_id($id)
     {
-        if (!$this->db->table_exists('absensi')) {
-            return false;
+        if (!$this->db->table_exists('karyawan')) {
+            return null;
         }
 
-        $this->db->where('tanggal', $tanggal);
-        $this->db->where('id_karyawan', $id_karyawan);
-        return $this->db->delete('absensi');
+        return $this->db->get_where('karyawan', ['kry_kode' => $id])->row();
     }
 
-    public function get_laporan_mingguan_by_periode($periode, $siklus = 'mingguan')
+    // --- Laporan Mingguan & Arsip (Standard CRUD) ---
+    public function get_laporan_mingguan($periode = null)
     {
-        if (!$this->db->table_exists('laporan_mingguan')) {
+        if (!$this->db->table_exists('laporan_mingguan'))
             return [];
+        
+        if ($periode) {
+            // Exact match for week format (e.g., 2026-W01)
+            $this->db->where('periode', $periode);
         }
-
-        if ($siklus === 'mingguan') {
-            $this->db->like('periode', $periode);
-        } elseif ($siklus === 'bulanan') {
-            // Extract year-month from periode
-            $this->db->like('periode', substr($periode, 0, 7), 'after');
-        } elseif ($siklus === 'tahunan') {
-            // Extract year from periode
-            $this->db->like('periode', $periode, 'after');
-        }
-
-        $this->db->order_by('periode', 'DESC');
         $this->db->order_by('nama_karyawan', 'ASC');
         return $this->db->get('laporan_mingguan')->result_array();
     }
-
-    public function get_arsip_by_periode($tipe, $periode, $siklus = 'bulanan')
+    
+    public function save_laporan_mingguan($data)
     {
-        if (!$this->db->table_exists('arsip')) {
-            return [];
+        if (!$this->db->table_exists('laporan_mingguan'))
+            return false;
+        
+        // Check if record exists (same employee + period)
+        $existing = $this->db->get_where('laporan_mingguan', [
+            'id_karyawan' => $data['id_karyawan'],
+            'periode' => $data['periode']
+        ])->row();
+        
+        if ($existing) {
+            // Update existing record
+            $this->db->where('laporan_id', $existing->laporan_id);
+            return $this->db->update('laporan_mingguan', $data);
+        } else {
+            // Insert new record
+            return $this->db->insert('laporan_mingguan', $data);
         }
+    }
+    public function update_laporan_mingguan($id, $data)
+    {
+        $this->db->where('laporan_id', $id);
+        return $this->db->update('laporan_mingguan', $data);
+    }
+    public function delete_laporan_mingguan($id)
+    {
+        $this->db->where('laporan_id', $id);
+        return $this->db->delete('laporan_mingguan');
+    }
 
-        $this->db->where('tipe', $tipe);
-
-        if ($siklus === 'harian') {
-            $this->db->where('tanggal', $periode);
-        } elseif ($siklus === 'mingguan') {
-            // Parse week format
-            if (strpos($periode, '-W') !== false) {
-                list($year, $week_part) = explode('-W', $periode);
-                $week_num = intval($week_part);
-                $start_date = date('Y-m-d', strtotime($year . 'W' . str_pad($week_num, 2, '0', STR_PAD_LEFT)));
-                $end_date = date('Y-m-d', strtotime($start_date . ' +6 days'));
-                $this->db->where('tanggal >=', $start_date);
-                $this->db->where('tanggal <=', $end_date);
-            }
-        } elseif ($siklus === 'bulanan') {
-            $this->db->like('tanggal', $periode, 'after');
-        } elseif ($siklus === 'tahunan') {
-            $this->db->like('tanggal', $periode, 'after');
-        }
-
+    public function get_arsip($tipe = null)
+    {
+        if ($tipe)
+            $this->db->where('tipe', $tipe);
         $this->db->order_by('tanggal', 'DESC');
         return $this->db->get('arsip')->result_array();
     }
+    public function get_arsip_by_periode($tipe, $periode, $siklus)
+    {
+        // Simple logic reused from above
+        $this->db->where('tipe', $tipe);
+        if ($siklus == 'harian')
+            $this->db->where('tanggal', $periode);
+        else if ($siklus == 'bulanan')
+            $this->db->like('tanggal', $periode, 'after');
+        else if ($siklus == 'tahunan')
+            $this->db->like('tanggal', $periode, 'after');
+        $this->db->order_by('tanggal', 'DESC');
+        return $this->db->get('arsip')->result_array();
+    }
+    public function save_arsip($data)
+    {
+        return $this->db->insert('arsip', $data);
+    }
+    public function update_arsip($id, $data)
+    {
+        $this->db->where('arsip_id', $id);
+        return $this->db->update('arsip', $data);
+    }
+    public function delete_arsip($id)
+    {
+        $this->db->where('arsip_id', $id);
+        return $this->db->delete('arsip');
+    }
+
 }

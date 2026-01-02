@@ -1,22 +1,52 @@
 <?php
 /**
  * Router untuk PHP Built-in Server
- * Mengarahkan semua request ke index.php untuk CodeIgniter
+ * Digunakan oleh easy_run.bat
  */
 
-// Jika file yang diminta benar-benar ada (static files), serve langsung
-$requested_file = __DIR__ . $_SERVER["REQUEST_URI"];
-$requested_file = str_replace('\\', '/', $requested_file);
+// Dapatkan URI yang diminta
+$uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
-// Jika request adalah untuk file atau folder yang benar-benar ada
-if (file_exists($requested_file) && is_file($requested_file)) {
-    return false; // Let the server handle this request
-}
-
-// Jika request adalah untuk folder yang benar-benar ada
-if (is_dir($requested_file)) {
+// Jika file statis ada, serve langsung
+if ($uri !== '/' && file_exists(__DIR__ . $uri)) {
+    // Cek apakah file PHP
+    if (pathinfo($uri, PATHINFO_EXTENSION) === 'php') {
+        // Jangan serve file PHP langsung kecuali index.php
+        if (basename($uri) !== 'index.php') {
+            return false;
+        }
+    }
+    
+    // Serve file statis (CSS, JS, images, dll)
+    $mimeTypes = [
+        'css'  => 'text/css',
+        'js'   => 'application/javascript',
+        'json' => 'application/json',
+        'png'  => 'image/png',
+        'jpg'  => 'image/jpeg',
+        'jpeg' => 'image/jpeg',
+        'gif'  => 'image/gif',
+        'svg'  => 'image/svg+xml',
+        'ico'  => 'image/x-icon',
+        'woff' => 'font/woff',
+        'woff2'=> 'font/woff2',
+        'ttf'  => 'font/ttf',
+        'eot'  => 'application/vnd.ms-fontobject',
+        'pdf'  => 'application/pdf',
+    ];
+    
+    $ext = pathinfo($uri, PATHINFO_EXTENSION);
+    
+    if (isset($mimeTypes[$ext])) {
+        header('Content-Type: ' . $mimeTypes[$ext]);
+        readfile(__DIR__ . $uri);
+        return true;
+    }
+    
+    // Untuk file lain, biarkan PHP handle
     return false;
 }
 
-// Untuk semua request lainnya, arahkan ke index.php (CodeIgniter routing)
+// Semua request lain diarahkan ke index.php (CodeIgniter)
+$_SERVER['SCRIPT_NAME'] = '/index.php';
 require_once __DIR__ . '/index.php';

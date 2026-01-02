@@ -6,8 +6,8 @@
 
 > Sistem manajemen HR dan MOU yang lengkap dengan fitur absensi, KPI, arsip, dan rekap performa.
 
-**Last Updated:** December 15, 2025  
-**Version:** 1.0 Production  
+**Last Updated:** January 2, 2026  
+**Version:** 1.1 Production  
 **Status:** ✅ PRODUCTION READY
 
 ---
@@ -42,8 +42,9 @@ System is ready for production!
 |--------|--------|----------|
 | **HR - Absensi** | ✅ | Input, filter, export CSV/PDF |
 | **HR - KPI** | ✅ | Input, auto-calc, export CSV/PDF |
+| **HR - Laporan Mingguan** | ✅ | Input laporan kinerja mingguan |
 | **HR - Arsip** | ✅ | CRUD, export CSV/PDF |
-| **HR - Rekap** | ✅ | Integrated data, export |
+| **HR - Rekap** | ✅ | Integrated data (KPI + Laporan), export |
 | **MOU** | ✅ | Create, edit, recap (role-based) |
 | **Database** | ✅ | 6 tables, all working |
 | **Export** | ✅ | CSV & PDF working |
@@ -68,14 +69,20 @@ System is ready for production!
 - ✅ Kategori otomatis: Sangat Baik, Baik, Cukup, Kurang
 - ✅ Export CSV dan PDF
 
-#### 3. Arsip Dokumen
+#### 3. Laporan Mingguan
+- ✅ Input laporan kinerja mingguan per karyawan
+- ✅ Target mingguan, tugas dilakukan, hasil
+- ✅ Kendala dan solusi
+- ✅ Terintegrasi dengan Rekap Performa
+
+#### 4. Arsip Dokumen
 - ✅ CRUD lengkap (Create, Read, Update, Delete)
 - ✅ Tipe: Dreame dan Laptop
 - ✅ Export CSV dan PDF
 - ✅ Sinkronisasi otomatis dengan Rekap Performa
 
-#### 4. Rekap Performa
-- ✅ Data terintegrasi: KPI + Arsip
+#### 5. Rekap Performa
+- ✅ Data terintegrasi: KPI + Laporan Mingguan
 - ✅ Filter per periode
 - ✅ Export CSV dan PDF
 
@@ -107,9 +114,11 @@ cd Azzahra_Website-master
 # Install dependencies
 composer install
 
-# Setup database
+# Setup database (PENTING!)
 mysql -u root -p azzahra < hr_database.sql
 ```
+
+**⚠️ PENTING: Jika fitur input HR tidak berfungsi, baca [PANDUAN_PERBAIKAN_HR.md](PANDUAN_PERBAIKAN_HR.md)**
 
 ### 3. Menjalankan Aplikasi
 
@@ -135,6 +144,44 @@ URL: http://localhost:8000
 - **HR:** Access to HR modules (Absensi, KPI, Arsip, Rekap)
 - **Customer Service:** Access to MOU (without Recap)
 
+### 5. Troubleshooting HR Input
+
+Jika dropdown karyawan kosong atau input tidak berfungsi:
+
+1. **Import tabel karyawan:**
+   ```bash
+   mysql -u root -p azzahra < karyawan_table.sql
+   ```
+
+2. **Test database:**
+   ```bash
+   php test_database.php
+   ```
+
+3. **Baca panduan lengkap:** [PANDUAN_PERBAIKAN_HR.md](PANDUAN_PERBAIKAN_HR.md)
+
+---
+
+## 📁 File Penting
+
+### Database Files
+- **`hr_database.sql`** - Database lengkap dengan semua tabel dan data sample
+- **`karyawan_table.sql`** - Hanya tabel karyawan (untuk perbaikan cepat)
+- **`mou_database.sql`** - Database MOU (jika diperlukan)
+
+### Testing & Debugging
+- **`test_database.php`** - Test koneksi database dan tabel
+- **`easy_run.bat`** - Script untuk menjalankan aplikasi dengan mudah
+
+### Documentation
+- **`DOKUMENTASI.md`** - Dokumentasi utama sistem (file ini)
+- **`PANDUAN_PERBAIKAN_HR.md`** - Panduan khusus perbaikan fitur input HR
+
+### Core Application
+- **`index.php`** - Entry point aplikasi
+- **`application/`** - Folder utama CodeIgniter
+- **`vendor/`** - Dependencies Composer (Dompdf, PhpSpreadsheet)
+
 ---
 
 ## 📁 Struktur Proyek
@@ -152,6 +199,7 @@ Azzahra_Website-master/
 │   │   ├── HR/                 # HR views
 │   │   │   ├── absensi.php
 │   │   │   ├── kpi.php
+│   │   │   ├── laporan_mingguan.php
 │   │   │   ├── arsip.php
 │   │   │   └── rekap.php
 │   │   └── Mou/                # MOU views
@@ -166,8 +214,12 @@ Azzahra_Website-master/
 ├── system/                     # CodeIgniter core
 ├── vendor/                     # Composer dependencies
 ├── easy_run.bat               # Quick start script
-├── hr_database.sql            # Database schema
-└── DOKUMENTASI.md             # This file
+├── hr_database.sql            # Database schema lengkap
+├── karyawan_table.sql         # Hanya tabel karyawan
+├── test_database.php          # Test database connection
+├── DOKUMENTASI.md             # Dokumentasi utama
+├── PANDUAN_PERBAIKAN_HR.md    # Panduan perbaikan HR input
+└── index.php                  # Entry point
 ```
 
 ---
