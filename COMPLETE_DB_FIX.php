@@ -428,6 +428,71 @@ $sql = "CREATE TABLE `mou_items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
 if ($conn->query($sql)) echo "✓ mou_items\n"; else echo "✗ mou_items: {$conn->error}\n";
 
+// ============================================
+// POIN_PERFORMA TABLE - Penilaian mingguan
+// ============================================
+$sql = "CREATE TABLE `poin_performa` (
+  `poin_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_karyawan` varchar(20) NOT NULL,
+  `nama_karyawan` varchar(100) DEFAULT NULL,
+  `posisi` varchar(50) DEFAULT NULL,
+  `tipe_karyawan` enum('Karyawan','Magang') DEFAULT 'Karyawan',
+  `periode_minggu` varchar(20) NOT NULL COMMENT 'Format: YYYY-WXX',
+  `bulan` varchar(7) NOT NULL COMMENT 'Format: YYYY-MM',
+  
+  -- Komponen Karyawan
+  `hasil_kerja` int(11) DEFAULT 0 COMMENT 'Max 20 poin',
+  `pencapaian_target` int(11) DEFAULT 0 COMMENT 'Max 20 poin',
+  `kualitas_kerja` int(11) DEFAULT 0 COMMENT 'Max 15 poin',
+  `disiplin` int(11) DEFAULT 0 COMMENT 'Max 15 poin',
+  `tanggung_jawab` int(11) DEFAULT 0 COMMENT 'Max 10 poin',
+  `produktivitas_layanan` int(11) DEFAULT 0 COMMENT 'Max 10 poin',
+  `kepatuhan_sop` int(11) DEFAULT 0 COMMENT 'Max 5 poin',
+  `minim_komplain` int(11) DEFAULT 0 COMMENT 'Max 5 poin',
+  
+  -- Komponen Magang
+  `proses_belajar` int(11) DEFAULT 0 COMMENT 'Max 25 poin',
+  `tugas_dijalankan` int(11) DEFAULT 0 COMMENT 'Max 25 poin',
+  `sikap` int(11) DEFAULT 0 COMMENT 'Max 20 poin',
+  `kedisiplinan` int(11) DEFAULT 0 COMMENT 'Max 15 poin',
+  `kepatuhan_sop_magang` int(11) DEFAULT 0 COMMENT 'Max 15 poin',
+  
+  `total_poin` int(11) DEFAULT 0,
+  `catatan` text,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`poin_id`),
+  UNIQUE KEY `unique_poin` (`id_karyawan`, `periode_minggu`),
+  KEY `idx_bulan` (`bulan`),
+  KEY `idx_tipe` (`tipe_karyawan`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
+if ($conn->query($sql)) echo "✓ poin_performa\n"; else echo "✗ poin_performa: {$conn->error}\n";
+
+// ============================================
+// REKAP_PERFORMA_BULANAN TABLE - Rekap bulanan
+// ============================================
+$sql = "CREATE TABLE `rekap_performa_bulanan` (
+  `rekap_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_karyawan` varchar(20) NOT NULL,
+  `nama_karyawan` varchar(100) DEFAULT NULL,
+  `posisi` varchar(50) DEFAULT NULL,
+  `tipe_karyawan` enum('Karyawan','Magang') DEFAULT 'Karyawan',
+  `bulan` varchar(7) NOT NULL COMMENT 'Format: YYYY-MM',
+  `total_poin_bulan` int(11) DEFAULT 0,
+  `jumlah_minggu` int(11) DEFAULT 0,
+  `rata_rata_poin` decimal(5,2) DEFAULT 0.00,
+  `level_performa` enum('Beginner','Intermediate','Advanced','Top Performer') DEFAULT 'Beginner',
+  `ranking` int(11) DEFAULT 0,
+  `catatan_evaluasi` text,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`rekap_id`),
+  UNIQUE KEY `unique_rekap` (`id_karyawan`, `bulan`),
+  KEY `idx_bulan` (`bulan`),
+  KEY `idx_level` (`level_performa`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
+if ($conn->query($sql)) echo "✓ rekap_performa_bulanan\n"; else echo "✗ rekap_performa_bulanan: {$conn->error}\n";
+
 echo "\n=== STEP 4: CREATING VIEWS ===\n";
 
 $sql = "CREATE VIEW `kpi_mingguan_view` AS

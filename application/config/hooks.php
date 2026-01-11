@@ -21,7 +21,7 @@ $hook['post_controller_constructor'][] = array(
 );
 
 // Fix SQL mode ONLY_FULL_GROUP_BY
-$hook['pre_controller'][] = array(
+$hook['post_controller_constructor'][] = array(
     'class'    => '',
     'function' => 'fix_sql_mode',
     'filename' => 'sql_mode_fix.php',

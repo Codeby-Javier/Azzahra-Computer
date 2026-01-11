@@ -182,12 +182,12 @@ class M_hr extends CI_Model
 
     private function get_aggregated_kpi($periode, $type)
     {
-        // Smart Aggregation Logic
+        // Smart Aggregation Logic - Fixed for ONLY_FULL_GROUP_BY
         $this->db->select('
             id_karyawan,
-            nama_karyawan,
-            posisi,
-            status_kerja,
+            MAX(nama_karyawan) as nama_karyawan,
+            MAX(posisi) as posisi,
+            MAX(status_kerja) as status_kerja,
             ROUND(AVG(kedisiplinan), 1) as kedisiplinan,
             ROUND(AVG(kualitas_kerja), 1) as kualitas_kerja,
             ROUND(AVG(produktivitas), 1) as produktivitas,
@@ -339,6 +339,220 @@ class M_hr extends CI_Model
     {
         $this->db->where('arsip_id', $id);
         return $this->db->delete('arsip');
+    }
+
+    // --- POIN PERFORMA METHODS ---
+
+    public function save_poin_performa($data)
+    {
+        if (!$this->db->table_exists('poin_performa'))
+            return false;
+
+        // Check if record exists
+        $existing = $this->db->get_where('poin_performa', [
+            'id_karyawan' => $data['id_karyawan'],
+            'periode_minggu' => $data['periode_minggu']
+        ])->row();
+
+        if ($existing) {
+            $this->db->where('poin_id', $existing->poin_id);
+            return $this->db->update('poin_performa', $data);
+        } else {
+            return $this->db->insert('poin_performa', $data);
+        }
+    }
+
+    public function get_poin_performa_mingguan($periode_minggu, $tipe = null)
+    {
+        if (!$this->db->table_exists('poin_performa')) {
+            log_message('debug', 'poin_performa table does not exist');
+            return [];
+        }
+
+        $this->db->where('periode_minggu', $periode_minggu);
+        if ($tipe) {
+            $this->db->where('tipe_karyawan', $tipe);
+        }
+        $this->db->order_by('total_poin', 'DESC');
+        
+        $result = $this->db->get('poin_performa');
+        log_message('debug', 'get_poin_performa_mingguan - periode: ' . $periode_minggu . ', tipe: ' . ($tipe ?: 'all') . ', rows: ' . ($result ? $result->num_rows() : 0));
+        
+        if ($result) {
+            return $result->result_array();
+        }
+        return [];
+    }
+
+    public function get_poin_performa_bulanan($bulan, $tipe = null)
+    {
+        if (!$this->db->table_exists('poin_performa'))
+            return [];
+
+        $this->db->select('
+            id_karyawan,
+            nama_karyawan,
+            posisi,
+            tipe_karyawan,
+            SUM(total_poin) as total_poin_bulan,
+            COUNT(*) as jumlah_minggu,
+            ROUND(AVG(total_poin), 2) as rata_rata_poin
+        ');
+        $this->db->where('bulan', $bulan);
+        if ($tipe) {
+            $this->db->where('tipe_karyawan', $tipe);
+        }
+        $this->db->group_by('id_karyawan');
+        $this->db->order_by('total_poin_bulan', 'DESC');
+        return $this->db->get('poin_performa')->result_array();
+    }
+
+    public function delete_poin_performa($id)
+    {
+        if (!$this->db->table_exists('poin_performa'))
+            return false;
+        $this->db->where('poin_id', $id);
+        return $this->db->delete('poin_performa');
+    }
+
+    public function get_poin_performa_by_id($id)
+    {
+        if (!$this->db->table_exists('poin_performa'))
+            return null;
+        
+        $this->db->where('poin_id', $id);
+        $result = $this->db->get('poin_performa');
+        
+        if ($result && $result->num_rows() > 0) {
+            return $result->row_array();
+        }
+        return null;
+    }
+
+    public function save_rekap_bulanan($data)
+    {
+        if (!$this->db->table_exists('rekap_performa_bulanan'))
+            return false;
+
+        $existing = $this->db->get_where('rekap_performa_bulanan', [
+            'id_karyawan' => $data['id_karyawan'],
+            'bulan' => $data['bulan']
+        ])->row();
+
+        if ($existing) {
+            $this->db->where('rekap_id', $existing->rekap_id);
+            return $this->db->update('rekap_performa_bulanan', $data);
+        } else {
+            return $this->db->insert('rekap_performa_bulanan', $data);
+        }
+    }
+
+    public function get_rekap_bulanan($bulan, $tipe = null)
+    {
+        if (!$this->db->table_exists('rekap_performa_bulanan'))
+            return [];
+
+        $this->db->where('bulan', $bulan);
+        if ($tipe) {
+            $this->db->where('tipe_karyawan', $tipe);
+        }
+        $this->db->order_by('ranking', 'ASC');
+        return $this->db->get('rekap_performa_bulanan')->result_array();
+    }
+
+    public function generate_rekap_bulanan($bulan)
+    {
+        // Get all poin data for the month
+        $poin_data = $this->get_poin_performa_bulanan($bulan);
+        
+        // Separate by type and calculate rankings
+        $karyawan_data = [];
+        $magang_data = [];
+        
+        foreach ($poin_data as $p) {
+            if ($p['tipe_karyawan'] == 'Karyawan') {
+                $karyawan_data[] = $p;
+            } else {
+                $magang_data[] = $p;
+            }
+        }
+        
+        // Sort and assign rankings for Karyawan
+        usort($karyawan_data, function($a, $b) {
+            return $b['total_poin_bulan'] - $a['total_poin_bulan'];
+        });
+        
+        $rank = 1;
+        foreach ($karyawan_data as $k) {
+            $level = $this->calculate_level($k['rata_rata_poin'], 'Karyawan');
+            $this->save_rekap_bulanan([
+                'id_karyawan' => $k['id_karyawan'],
+                'nama_karyawan' => $k['nama_karyawan'],
+                'posisi' => $k['posisi'],
+                'tipe_karyawan' => 'Karyawan',
+                'bulan' => $bulan,
+                'total_poin_bulan' => $k['total_poin_bulan'],
+                'jumlah_minggu' => $k['jumlah_minggu'],
+                'rata_rata_poin' => $k['rata_rata_poin'],
+                'level_performa' => $level,
+                'ranking' => $rank++
+            ]);
+        }
+        
+        // Sort and assign rankings for Magang
+        usort($magang_data, function($a, $b) {
+            return $b['total_poin_bulan'] - $a['total_poin_bulan'];
+        });
+        
+        $rank = 1;
+        foreach ($magang_data as $m) {
+            $level = $this->calculate_level($m['rata_rata_poin'], 'Magang');
+            $this->save_rekap_bulanan([
+                'id_karyawan' => $m['id_karyawan'],
+                'nama_karyawan' => $m['nama_karyawan'],
+                'posisi' => $m['posisi'],
+                'tipe_karyawan' => 'Magang',
+                'bulan' => $bulan,
+                'total_poin_bulan' => $m['total_poin_bulan'],
+                'jumlah_minggu' => $m['jumlah_minggu'],
+                'rata_rata_poin' => $m['rata_rata_poin'],
+                'level_performa' => $level,
+                'ranking' => $rank++
+            ]);
+        }
+        
+        return true;
+    }
+
+    private function calculate_level($rata_rata, $tipe)
+    {
+        // Max poin per minggu: Karyawan = 100, Magang = 100
+        if ($tipe == 'Karyawan') {
+            if ($rata_rata >= 85) return 'Top Performer';
+            if ($rata_rata >= 70) return 'Advanced';
+            if ($rata_rata >= 50) return 'Intermediate';
+            return 'Beginner';
+        } else {
+            // Magang
+            if ($rata_rata >= 85) return 'Top Performer';
+            if ($rata_rata >= 70) return 'Advanced';
+            if ($rata_rata >= 50) return 'Intermediate';
+            return 'Beginner';
+        }
+    }
+
+    public function get_chart_data_performa($bulan, $id_karyawan = null)
+    {
+        if (!$this->db->table_exists('poin_performa'))
+            return [];
+
+        $this->db->select('periode_minggu, total_poin');
+        $this->db->where('bulan', $bulan);
+        if ($id_karyawan) {
+            $this->db->where('id_karyawan', $id_karyawan);
+        }
+        $this->db->order_by('periode_minggu', 'ASC');
+        return $this->db->get('poin_performa')->result_array();
     }
 
 }

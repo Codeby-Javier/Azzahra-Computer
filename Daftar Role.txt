@@ -1,0 +1,9 @@
+ADM001	admin2	admin	Administrator	Admin
+KRY001	kry001	12345	Ahmad Fauzi	Teknisi Senior
+KRY002	kry002	12345	Siti Nurhaliza	Customer Service
+KRY003	kry003	12345	Budi Santoso	Teknisi
+KRY004	kry004	12345	Dewi Lestari	Admin
+KRY005	kry005	12345	Eko Prasetyo	Teknisi
+KRY006	kry006	12345	Fitri Handayani	Kasir
+KRY007	kry007	12345	Gunawan Wijaya	HR
+KRY008	kry008	12345	Hani Safitri	Customer Service

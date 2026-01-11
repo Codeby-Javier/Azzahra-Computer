@@ -218,5 +218,7 @@
         });
     </script>
 
-        </body>
-    </html>
+        </main>
+    </div><!-- End app-layout -->
+</body>
+</html>

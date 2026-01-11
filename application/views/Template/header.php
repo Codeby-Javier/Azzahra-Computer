@@ -186,6 +186,11 @@
                                 <div class="nav-icon"><i data-feather="edit-3"></i></div>
                                 <span class="nav-text">Laporan Mingguan</span>
                             </a>
+                            <a href="<?= site_url('HR/poin_performa') ?>" class="nav-link <?php if ($title == 'Poin Performa')
+                                  echo 'active' ?>">
+                                <div class="nav-icon"><i data-feather="award"></i></div>
+                                <span class="nav-text">Poin Performa</span>
+                            </a>
                             <a href="<?= site_url('HR/rekap') ?>" class="nav-link <?php if ($title == 'Rekap HR')
                                   echo 'active' ?>">
                                 <div class="nav-icon"><i data-feather="file-text"></i></div>
